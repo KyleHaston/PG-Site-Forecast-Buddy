@@ -3,7 +3,6 @@
 # I want a script to download the weather forecast for different paragliding sites and email it to me at the appropriate times.
 
 # TODO: Instead of using the HTML data, download the XML (better for several reasons) and format into an HTML email.
-# TODO: pretend this is a bug and fix it with a subsequent commit.
 
 # For weather gathering
 import requests  # used to fetch the web page
