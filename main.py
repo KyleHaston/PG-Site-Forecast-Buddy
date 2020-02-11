@@ -17,123 +17,108 @@ from smtplib import SMTP_SSL as SMTP       # this invokes the secure SMTP protoc
 
 # For the output file.
 import datetime
+import time
+import random
 
 
 def get_the_forecast():
-    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'goodWindDir': ['N', 'NW'], 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
-             {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'goodWindDir': ['E', 'NE', 'SE'], 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
-             {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'goodWindDir': ['N', 'NW'], 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
-             {'Name': 'Crestwood', 'coords': 'lat=45.333&lon=-122.940', 'goodWindDir': ['W', 'SW'], 'windLower': 7, 'windUpper': 12}]  # TODO: Fix wind data
+    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 0, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
+             {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'windDirLower': 45, 'windDirUpper': 135, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
+             {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'windDirLower': 270, 'windDirUpper': 0, 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
+             {'Name': 'Crestwood', 'coords': 'lat=45.333&lon=-122.940', 'windDirLower': 225, 'windDirUpper': 270, 'windLower': 7, 'windUpper': 12}]  # TODO: Fix wind data
+
+    buddies = ['☆*:. o(≧▽≦)o .:*☆', '໒( ͡ᵔ ▾ ͡ᵔ )७', '(⊙ᗜ⊙)', 'ლ(ʘ̆〰ʘ̆)ლ', '✿*∗˵╰༼✪ᗜ✪༽╯˵∗*✿', 'ᕦ( ヘ (oo) ヘ )ᕤ',
+               '[ ⇀ ‿ ↼ ]', 'o͡͡͡╮໒( •̀ ‿ •́ )७╭o͡͡͡', '(}༼⊙-◞౪◟-⊙༽{)', 'o͡͡͡╮⁞ ^ ▃ ^ ⁞╭o͡͡͡, ', '٩(◕‿◕｡)۶', '୧(=ʘ͡ᗜʘ͡=)୨',
+               'o͡͡͡╮░ O ◡ O ░╭o͡͡͡,', '໒( ◔ ▽ ◔ )७', '୧༼ ヘ ᗜ ヘ ༽୨', '╚═╏ ⇀ ͜ر ↼ ╏═╝', 'o͡͡͡╮໒( * ☯ ◞౪◟ ☯ * )७╭o͡͡͡',
+               '୧〳 ” ʘ̆ ᗜ ʘ̆ ” 〵୨', '/╲/╭( •̀ ᗜ •́ )╮/╱﻿,', 'ᕙ░ ʘ̆ ᗜ ʘ̆ ░ᕗ', 'ԅ༼ ◔ ڡ ◔ ༽ง', '໒( ” •̀ ᗜ •́ ” )७',
+               '୧༼ʘ̆ںʘ̆༽୨', 'ヽ(”`▽´)ﾉ', 'ʘ ͜ʖ ʘ', '༼ ༽ ლ(́◉◞౪◟◉‵ლ)', 'ლ(́◉◞౪◟◉‵ლ)']
 
     report = []
-    for site in sites:
-        forecast = ''  # Initialize the forecast to empty.
-        forecast += '<html><head></head><body><p>Hello World!'
+    forecast = ''  # Initialize the forecast to empty.
+    random.seed(time.localtime().tm_sec)
+    forecast += '<html><head></head><body><p>Hello from your site forecast buddy! '
+    # forecast += buddies[random.randrange(len(buddies))]
+    for site in sites:  # TODO: Get buddies working.
+        forecast += '<p>Here\'s the report for ' + site['Name'] + ':'
 
         # Fetch XML data
-        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=72&interval=4&' + site['coords'])
+        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=71&interval=4&' + site['coords'])
 
         soup = BeautifulSoup(r.text, 'lxml')
 
-    #     for gf in soup.find_all('griddedForecast'):  # There can be only one.
-    #         print('asdf')
-    #
-    #     tables = soup.find_all('table')
-    #     for table in tables:
-    #         if 'id' in table.attrs:
-    #             # print(table.attrs)
-    #             if table.attrs['id'] == 'mainTable':
-    #                 # We've found the data for this site that we want to include in the report.
-    #                 # print(site['Name'])
-    #                 # print(table.parent.parent)  # This is the droid we're looking for.
-    #                 report.append(table.parent.parent)
-    #
-    # for idx, val in enumerate(report):
-    #     # print(site)
-    #     # Touch up the info. a bit.
-    #
-    #     # Left-align the blue thingy.
-    #     for tag in report[idx]:
-    #         if not isinstance(tag, NavigableString):
-    #             if 'style' in tag.attrs:
-    #                 if 'margin-left' in tag.attrs['style']:
-    #                     tag.attrs['style'] = tag.attrs['style'].replace('margin-left: auto', 'margin-left: 0px')
-    #                     tag.attrs['style'] = tag.attrs['style'].replace('width:600', 'width:auto')
-    #                     # print('asdf')
-    #
-    #     # Use site name chosen by user.
-    #     tables = report[idx].find_all('table')
-    #     for table in tables:
-    #         trs = table.find_all('tr')
-    #         for tr in trs:
-    #             if 'Forecast For' in str(tr):
-    #                 tempStr = str(tr.contents[0].contents[0])
-    #                 newStr = tempStr.split('For Lat/Lon')[0] + 'for ' + sites[idx]['Name']
-    #                 tr.contents[0].contents = [NavigableString(newStr)]
-    #                 # Note: We're also getting rid of the next line. ex: "3 Miles NNW Newport OR"
-    #
-    #     # Remove some info.
-    #     caps = report[idx].find_all('caption')
-    #     for cap in caps:
-    #         cap.decompose()
-    #
-    #     gc.collect()
-    #
-    #     ths = report[idx].find_all('th')
-    #     for th in ths:
-    #         # if 'Weather' in th:
-    #         #     th.decompose()
-    #         if 'Dewpoint' in th:
-    #             th.parent.decompose()
-    #             # elif 'Snow Ratio' in th:  # TODO: Figure out how to remove all the random snow info.
-    #             #     # th.decompose()
-    #             #     # th.parent.contents = []
-    #             #     temp = th
-    #             #     print(temp)
-    #             #     print('asdf')
-    #             #
-    #             #     temp = th.parent
-    #             #     print(temp)
-    #             #     print('asdf')
-    #             # elif '12-hr Snow Total' in str(th):
-    #             #     th.parent.decompose()
-    #         elif 'Snow Level (ft)' in th:
-    #             th.parent.decompose()
-    #         elif 'Relative Humidity' in th:
-    #             th.parent.decompose()
-    #         elif 'Daily-Temp' in th:
-    #             th.contents[0] = NavigableString('Daily-Temp (°F)')  # Add units
-    #         elif 'Temp' in th:
-    #             th.contents[0] = NavigableString('Temp (°F)')  # Add units
-    #         elif 'Wind' in th:
-    #             th.contents[0] = NavigableString('Wind (mph)')  # Add units
-    #             # Color code wind DIRECTION based on site info.
-    #             for cell in th.parent.contents:
-    #                 if 'td bgcolor' in str(cell):
-    #                     dir = str(cell).split('>')[1].split('<')[0]  # I know you won't like this black magic, but it yields the wind direction.
-    #                     if dir in sites[idx]['goodWindDir']:
-    #                         cell.attrs['bgcolor'] = '#99ff66'
-    #                     elif dir != '':
-    #                         cell.attrs['bgcolor'] = '#ff5050'
-    #
-    #             # # Color code wind SPEED based on site info.  # TODO: Get wind speed coloring figured out.
-    #             # for cell in th.parent.parent.contents:
-    #             #     if 'td bgcolor' in str(cell):
-    #             #         speed = str(cell).split('>')[1].split('<')[0]  # I know you won't like this black magic, but it yields the wind direction.
-    #             #         if speed != '' and speed != '\n':
-    #             #             speed = int(speed)
-    #             #             if speed > sites[idx]['windUpper']:  # If it's too fast...
-    #             #                 cell.attrs['bgcolor'] = '#ff5050'
-    #             #             elif speed < sites[idx]['windLower']:  # If it's too slow...
-    #             #                 cell.attrs['bgcolor'] = '#b3cce6'
-    #             #             else:  # If it's juuuuust right   :)
-    #             #                 cell.attrs['bgcolor'] = '#99ff66'
-    #
-    #     print(report[idx])
+        # Add a table.
+        forecast += '<table width="auto" border="1">'
 
-        forecast += '</p></body></html>'  # Close the HTML.
+        # Create column headers. One for each day.
+        forecast += '<tr><th></th>'  # One deliberate, empty column.
+        for gf in soup.find_all('griddedforecast'):  # There can be only one.
+            for fd in gf.find_all('forecastday'):
+                for vd in fd.find_all('validdate'):
+                    forecast += '<th colspan="6">' + vd.text + '</th>'
+        forecast += '</tr>'
 
-        return forecast
+        # Create a home for each time interval.
+        forecast += '<tr><th>Time (UTC): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for vd in fd.find_all('validdate'):
+                    for vt in fd.find_all('validtime'):
+                        forecast += '<td>' + vt.text + '</td>'
+        forecast += '</tr>'
+
+        # Create a home for each temperature.
+        forecast += '<tr><th>Temp (°F): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for vd in fd.find_all('validdate'):
+                    for vt in fd.find_all('temperature'):
+                        if vt.text == '-999':
+                            forecast += '<td>-</td>'
+                        else:
+                            forecast += '<td>' + vt.text + '</td>'
+        forecast += '</tr>'
+
+        # Create a home for each wind direction.
+        forecast += '<tr><th>Wind Direction (°): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for vd in fd.find_all('validdate'):
+                    for wd in fd.find_all('winddirection'):
+                        if wd.text == '-999':
+                            forecast += '<td>-</td>'
+                        else:
+                            forecast += '<td'
+                            if site['windDirLower'] < int(wd.text) < site['windDirUpper']:
+                                forecast += ' bgcolor ="#ccffcc"'  # good wind direction
+                            if (site['windDirLower'] - 15) < int(wd.text) < (site['windDirUpper'] + 15):
+                                forecast += ' bgcolor ="#cccccc"'  # close to optimal wind direction
+                            else:
+                                forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
+                            forecast += '>' + wd.text + '</td>'
+
+        # Create a home for each wind speed.
+        forecast += '<tr><th>Wind Speed (mph): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for vd in fd.find_all('validdate'):
+                    for ws in fd.find_all('windspeed'):
+                        if ws.text == '-1149':
+                            forecast += '<td>-</td>'
+                        else:
+                            forecast += '<td'
+                            if int(ws.text) < site['windLower']:
+                                forecast += ' bgcolor ="#cccccc"'  # too slow
+                            elif int(ws.text) > site['windUpper']:
+                                forecast += ' bgcolor ="#ffcccc"'  # too fast
+                            else:
+                                forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+                            forecast += '>' + ws.text + '</td>'
+        forecast += '</tr>'
+
+        # Close the table.
+        forecast += '</table><p>'
+    forecast += '</p></body></html>'  # Close the HTML.
+    return forecast
 
 
 def write_the_html_file(in_string):
@@ -179,4 +164,4 @@ def email_the_thing(in_string):
 if __name__ == "__main__":
     the_forecast = get_the_forecast()
     write_the_html_file(the_forecast)
-    email_the_thing(the_forecast)
+    # email_the_thing(the_forecast)
