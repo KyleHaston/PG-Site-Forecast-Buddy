@@ -1,6 +1,7 @@
 # Kyle Haston
 # Feb 2020
 # Script to download weather forecast for different paragliding sites and email it to me.
+# TODO: Get rid of missing data that is early in the forecast.
 
 # For weather gathering
 import requests  # used to fetch the web page
@@ -27,8 +28,8 @@ def get_the_forecast(in_dates, in_times):  # Convert UTC data and time to PST
 
 
 def get_the_forecast():
-    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
-             {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'windDirLower': 45, 'windDirUpper': 135, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
+    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 15},  # TODO: Fix wind data
+             {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'windDirLower': 45, 'windDirUpper': 135, 'windLower': 7, 'windUpper': 15},  # TODO: Fix wind data
              {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
              {'Name': 'Crestwood', 'coords': 'lat=45.333&lon=-122.940', 'windDirLower': 225, 'windDirUpper': 270, 'windLower': 7, 'windUpper': 12}]  # TODO: Fix wind data
 
@@ -38,7 +39,7 @@ def get_the_forecast():
     forecast += '<html> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
     for site in sites:
         # Fetch XML data
-        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=71&interval=4&' + site['coords'])  # TODO: Display a longer forecast.
+        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + site['coords'])
 
         soup = BeautifulSoup(r.text, 'lxml')
 
@@ -51,7 +52,7 @@ def get_the_forecast():
         # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
         for gf in soup.find_all('griddedforecast'):  # There can be only one.
             for ft in gf.find_all('forecastcreationtime'):
-                forecast += '<th colspan="18", rowspan="1"><span style="color:grey;font-size:75%">'
+                forecast += '<th colspan="25", rowspan="1"><span style="color:grey;font-size:75%">'
                 forecast += 'Forecast created: ' + ft.text + '<br/>'
                 forecast += 'Desired Conditions: '
                 forecast += str(site['windLower']) + ' to ' + str(site['windUpper']) + ' mph from '
@@ -91,7 +92,6 @@ def get_the_forecast():
 
         # Create column headers for each day that span the correct number of columns.
         for d in set(dates):  # For unique entries only...
-            # forecast += '<th colspan="' + str(dates.count(d)) + '">' + d + '</th>'
             cols = dates.count(d)
             forecast += '<th colspan="' + str(cols) + '">' + str(d) + '</th>'  # TODO: Displays date, but not month. Fix this.
         forecast += '</tr>'
