@@ -1,6 +1,7 @@
 # Kyle Haston
 # Feb 2020
 # Script to download weather forecast for different paragliding sites and email it to me.
+# TODO: Convert all times from UTC to PST
 
 # For weather gathering
 import requests  # used to fetch the web page
@@ -22,25 +23,16 @@ import random
 
 
 def get_the_forecast():
-    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 0, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
+    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
              {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'windDirLower': 45, 'windDirUpper': 135, 'windLower': 7, 'windUpper': 12},  # TODO: Fix wind data
-             {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'windDirLower': 270, 'windDirUpper': 0, 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
+             {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
              {'Name': 'Crestwood', 'coords': 'lat=45.333&lon=-122.940', 'windDirLower': 225, 'windDirUpper': 270, 'windLower': 7, 'windUpper': 12}]  # TODO: Fix wind data
-
-    buddies = ['☆*:. o(≧▽≦)o .:*☆', '໒( ͡ᵔ ▾ ͡ᵔ )७', '(⊙ᗜ⊙)', 'ლ(ʘ̆〰ʘ̆)ლ', '✿*∗˵╰༼✪ᗜ✪༽╯˵∗*✿', 'ᕦ( ヘ (oo) ヘ )ᕤ',
-               '[ ⇀ ‿ ↼ ]', 'o͡͡͡╮໒( •̀ ‿ •́ )७╭o͡͡͡', '(}༼⊙-◞౪◟-⊙༽{)', 'o͡͡͡╮⁞ ^ ▃ ^ ⁞╭o͡͡͡, ', '٩(◕‿◕｡)۶', '୧(=ʘ͡ᗜʘ͡=)୨',
-               'o͡͡͡╮░ O ◡ O ░╭o͡͡͡,', '໒( ◔ ▽ ◔ )७', '୧༼ ヘ ᗜ ヘ ༽୨', '╚═╏ ⇀ ͜ر ↼ ╏═╝', 'o͡͡͡╮໒( * ☯ ◞౪◟ ☯ * )७╭o͡͡͡',
-               '୧〳 ” ʘ̆ ᗜ ʘ̆ ” 〵୨', '/╲/╭( •̀ ᗜ •́ )╮/╱﻿,', 'ᕙ░ ʘ̆ ᗜ ʘ̆ ░ᕗ', 'ԅ༼ ◔ ڡ ◔ ༽ง', '໒( ” •̀ ᗜ •́ ” )७',
-               '୧༼ʘ̆ںʘ̆༽୨', 'ヽ(”`▽´)ﾉ', 'ʘ ͜ʖ ʘ', '༼ ༽ ლ(́◉◞౪◟◉‵ლ)', 'ლ(́◉◞౪◟◉‵ლ)']
 
     report = []
     forecast = ''  # Initialize the forecast to empty.
     random.seed(time.localtime().tm_sec)
-    forecast += '<html><head></head><body><p>Hello from your site forecast buddy! '
-    # forecast += buddies[random.randrange(len(buddies))]
-    for site in sites:  # TODO: Get buddies working.
-        forecast += '<p>Here\'s the report for ' + site['Name'] + ':'
-
+    forecast += '<html> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
+    for site in sites:
         # Fetch XML data
         r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=71&interval=4&' + site['coords'])
 
@@ -48,42 +40,66 @@ def get_the_forecast():
 
         # Add a table.
         forecast += '<table width="auto" border="1">'
+        forecast += '<tr><th rowspan="2">'
+        forecast += '<b style="color:blue;font-size:125%">' + site['Name'] + '</b><br/>'
+        forecast += '</th>'
+
+        # List forecast creation info. and site info.
+        for gf in soup.find_all('griddedforecast'):  # There can be only one.
+            for ft in gf.find_all('forecastcreationtime'):
+                forecast += '<th colspan="18", rowspan="1"><span style="color:grey;font-size:75%">'
+                forecast += 'Forecast created: ' + ft.text + '<br/>'
+                forecast += 'Desired Conditions: '
+                forecast += str(site['windLower']) + ' to ' + str(site['windUpper']) + ' mph from '
+                forecast += str(site['windDirLower']) + '°-' + str(site['windDirUpper']) + '°'
+                forecast += '</span></th></tr>'
 
         # Create column headers. One for each day.
-        forecast += '<tr><th></th>'  # One deliberate, empty column.
         for gf in soup.find_all('griddedforecast'):  # There can be only one.
             for fd in gf.find_all('forecastday'):
                 for vd in fd.find_all('validdate'):
                     forecast += '<th colspan="6">' + vd.text + '</th>'
         forecast += '</tr>'
 
-        # Create a home for each time interval.
+        # Time of Day --------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Time (UTC): </th>'
         for gf in soup.find_all('griddedforecast'):
             for fd in gf.find_all('forecastday'):
-                for vd in fd.find_all('validdate'):
-                    for vt in fd.find_all('validtime'):
+                for p in fd.find_all('period'):
+                    for vt in p.find_all('validtime'):
                         forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
-        # Create a home for each temperature.
+        # Temperature --------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Temp (°F): </th>'
         for gf in soup.find_all('griddedforecast'):
             for fd in gf.find_all('forecastday'):
-                for vd in fd.find_all('validdate'):
-                    for vt in fd.find_all('temperature'):
+                for p in fd.find_all('period'):
+                    for vt in p.find_all('temperature'):
                         if vt.text == '-999':
                             forecast += '<td>-</td>'
                         else:
                             forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
-        # Create a home for each wind direction.
+        # Sky Cover ----------------------------------------------------------------------------------------------------
+        forecast += '<tr><th>Sky Cover (%): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for p in fd.find_all('period'):
+                    for vt in p.find_all('skycover'):
+                        if vt.text == '-999':
+                            forecast += '<td>-</td>'
+                        else:
+                            forecast += '<td>' + vt.text + '</td>'
+        forecast += '</tr>'
+
+        # Wind Direction -----------------------------------------------------------------------------------------------
         forecast += '<tr><th>Wind Direction (°): </th>'
         for gf in soup.find_all('griddedforecast'):
             for fd in gf.find_all('forecastday'):
-                for vd in fd.find_all('validdate'):
-                    for wd in fd.find_all('winddirection'):
+                for p in fd.find_all('period'):
+                    for wd in p.find_all('winddirection'):
                         if wd.text == '-999':
                             forecast += '<td>-</td>'
                         else:
@@ -96,12 +112,12 @@ def get_the_forecast():
                                 forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
                             forecast += '>' + wd.text + '</td>'
 
-        # Create a home for each wind speed.
+        # Wind Speed ---------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Wind Speed (mph): </th>'
         for gf in soup.find_all('griddedforecast'):
             for fd in gf.find_all('forecastday'):
-                for vd in fd.find_all('validdate'):
-                    for ws in fd.find_all('windspeed'):
+                for p in fd.find_all('period'):
+                    for ws in p.find_all('windspeed'):
                         if ws.text == '-1149':
                             forecast += '<td>-</td>'
                         else:
@@ -113,6 +129,26 @@ def get_the_forecast():
                             else:
                                 forecast += ' bgcolor ="#ccffcc"'   # juuuust right
                             forecast += '>' + ws.text + '</td>'
+        forecast += '</tr>'
+
+        # Wind Gust ----------------------------------------------------------------------------------------------------
+        forecast += '<tr><th>Wind Gust (mph): </th>'
+        for gf in soup.find_all('griddedforecast'):
+            for fd in gf.find_all('forecastday'):
+                for p in fd.find_all('period'):
+                    for ws in p.find_all('windgust'):
+                        if ws.text == '-1149':
+                            forecast += '<td>-</td>'
+                        else:
+                            forecast += '<td'
+                            if int(ws.text) < site['windLower']:
+                                forecast += ' bgcolor ="#cccccc"'  # too slow
+                            elif int(ws.text) > site['windUpper']:
+                                forecast += ' bgcolor ="#ffcccc"'  # too fast
+                            else:
+                                forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+                            forecast += '>' + ws.text + '</td>'
+
         forecast += '</tr>'
 
         # Close the table.
