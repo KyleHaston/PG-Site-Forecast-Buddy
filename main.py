@@ -1,11 +1,10 @@
 # Kyle Haston
 # Feb 2020
 # Script to download weather forecast for different paragliding sites and email it to me.
-# TODO: Convert all times from UTC to PST
 
 # For weather gathering
 import requests  # used to fetch the web page
-from bs4 import BeautifulSoup, NavigableString
+from bs4 import BeautifulSoup
 import gc
 
 # For email
@@ -17,9 +16,14 @@ from smtplib import SMTP_SSL as SMTP       # this invokes the secure SMTP protoc
 # from smtplib import SMTP                  # use this for standard SMTP protocol   (port 25, no encryption)
 
 # For the output file.
-import datetime
+from datetime import *
+import calendar
 import time
 import random
+
+
+def get_the_forecast(in_dates, in_times):  # Convert UTC data and time to PST
+    print('asdf')
 
 
 def get_the_forecast():
@@ -34,7 +38,7 @@ def get_the_forecast():
     forecast += '<html> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
     for site in sites:
         # Fetch XML data
-        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=71&interval=4&' + site['coords'])
+        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=71&interval=4&' + site['coords'])  # TODO: Display a longer forecast.
 
         soup = BeautifulSoup(r.text, 'lxml')
 
@@ -44,25 +48,58 @@ def get_the_forecast():
         forecast += '<b style="color:blue;font-size:125%">' + site['Name'] + '</b><br/>'
         forecast += '</th>'
 
-        # List forecast creation info. and site info.
+        # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
         for gf in soup.find_all('griddedforecast'):  # There can be only one.
             for ft in gf.find_all('forecastcreationtime'):
                 forecast += '<th colspan="18", rowspan="1"><span style="color:grey;font-size:75%">'
                 forecast += 'Forecast created: ' + ft.text + '<br/>'
                 forecast += 'Desired Conditions: '
                 forecast += str(site['windLower']) + ' to ' + str(site['windUpper']) + ' mph from '
-                forecast += str(site['windDirLower']) + '°-' + str(site['windDirUpper']) + '°'
+                forecast += str(site['windDirLower']) + '° to ' + str(site['windDirUpper']) + '°'
                 forecast += '</span></th></tr>'
 
-        # Create column headers. One for each day.
-        for vd in soup.find_all('validdate'):
-            forecast += '<th colspan="6">' + vd.text + '</th>'
+        # Convert dates and times from UTC to PST ----------------------------------------------------------------------
+        date_times = []  # This will hold the datetime instances for each time interval in the XML data
+
+        # Get the year
+        year = ''  # initialize here for scope reasons
+        for fct in soup.find_all('forecastcreationtime'):
+            year = fct.text.split()[4]  # Is this poor form? It works at this moment in time...
+
+        # Get the month abbreviations in lowercase.
+        lower_month_abbr = list(calendar.month_abbr)
+        for idx, val in enumerate(lower_month_abbr):
+            lower_month_abbr[idx] = val.lower()
+
+        # Instantiate a datetime for each moment in the XML data.
+        for fd in soup.find_all('forecastday'):
+            for vd in fd.find_all('validdate'):
+                month = lower_month_abbr.index(vd.text.split()[0].lower())  # Get the month. I know this is ugly.
+                day = vd.text.split()[1]  # Get the day. I know this is ugly too.
+                for vt in fd.find_all('validtime'):
+                    date_times.append(datetime(int(year), month, int(day), hour=int(vt.text), tzinfo=timezone.utc))
+
+        # Subtract 7 hrs to convert from UTC to PST
+        for idx, val in enumerate(date_times):
+            date_times[idx] = date_times[idx] - timedelta(hours=7)
+
+        dates = []
+        times = []
+        for d in date_times:
+            dates.append(d.day)
+            times.append(d.hour)
+
+        # Create column headers for each day that span the correct number of columns.
+        for d in set(dates):  # For unique entries only...
+            # forecast += '<th colspan="' + str(dates.count(d)) + '">' + d + '</th>'
+            cols = dates.count(d)
+            forecast += '<th colspan="' + str(cols) + '">' + str(d) + '</th>'  # TODO: Displays date, but not month. Fix this.
         forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Time (UTC): </th>'
-        for vt in soup.find_all('validtime'):
-            forecast += '<td>' + vt.text + '</td>'
+        forecast += '<tr><th>Time (PST): </th>'
+        for t in times:
+            forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
         forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
@@ -138,7 +175,7 @@ def get_the_forecast():
 
 
 def write_the_html_file(in_string):
-    with open('forecast' + str(datetime.date.today()) + '.html', 'w') as file:
+    with open('forecast' + str(date.today()) + '.html', 'w') as file:
         file.write(in_string)
 
 
