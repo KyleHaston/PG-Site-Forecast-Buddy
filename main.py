@@ -55,99 +55,79 @@ def get_the_forecast():
                 forecast += '</span></th></tr>'
 
         # Create column headers. One for each day.
-        for gf in soup.find_all('griddedforecast'):  # There can be only one.
-            for fd in gf.find_all('forecastday'):
-                for vd in fd.find_all('validdate'):
-                    forecast += '<th colspan="6">' + vd.text + '</th>'
+        for vd in soup.find_all('validdate'):
+            forecast += '<th colspan="6">' + vd.text + '</th>'
         forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Time (UTC): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for vt in p.find_all('validtime'):
-                        forecast += '<td>' + vt.text + '</td>'
+        for vt in soup.find_all('validtime'):
+            forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Temp (°F): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for vt in p.find_all('temperature'):
-                        if vt.text == '-999':
-                            forecast += '<td>-</td>'
-                        else:
-                            forecast += '<td>' + vt.text + '</td>'
+        for vt in soup.find_all('temperature'):
+            if vt.text == '-999':
+                forecast += '<td>-</td>'
+            else:
+                forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
         # Sky Cover ----------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Sky Cover (%): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for vt in p.find_all('skycover'):
-                        if vt.text == '-999':
-                            forecast += '<td>-</td>'
-                        else:
-                            forecast += '<td>' + vt.text + '</td>'
+        for vt in soup.find_all('skycover'):
+            if vt.text == '-999':
+                forecast += '<td>-</td>'
+            else:
+                forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
         # Wind Direction -----------------------------------------------------------------------------------------------
         forecast += '<tr><th>Wind Direction (°): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for wd in p.find_all('winddirection'):
-                        if wd.text == '-999':
-                            forecast += '<td>-</td>'
-                        else:
-                            forecast += '<td'
-                            if site['windDirLower'] < int(wd.text) < site['windDirUpper']:
-                                forecast += ' bgcolor ="#ccffcc"'  # good wind direction
-                            if (site['windDirLower'] - 15) < int(wd.text) < (site['windDirUpper'] + 15):
-                                forecast += ' bgcolor ="#cccccc"'  # close to optimal wind direction
-                            else:
-                                forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
-                            forecast += '>' + wd.text + '</td>'
+        for wd in soup.find_all('winddirection'):
+            if wd.text == '-999':
+                forecast += '<td>-</td>'
+            else:
+                forecast += '<td'
+                if site['windDirLower'] < int(wd.text) < site['windDirUpper']:
+                    forecast += ' bgcolor ="#ccffcc"'  # good wind direction
+                if (site['windDirLower'] - 15) < int(wd.text) < (site['windDirUpper'] + 15):
+                    forecast += ' bgcolor ="#cccccc"'  # close to optimal wind direction
+                else:
+                    forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
+                forecast += '>' + wd.text + '</td>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Wind Speed (mph): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for ws in p.find_all('windspeed'):
-                        if ws.text == '-1149':
-                            forecast += '<td>-</td>'
-                        else:
-                            forecast += '<td'
-                            if int(ws.text) < site['windLower']:
-                                forecast += ' bgcolor ="#cccccc"'  # too slow
-                            elif int(ws.text) > site['windUpper']:
-                                forecast += ' bgcolor ="#ffcccc"'  # too fast
-                            else:
-                                forecast += ' bgcolor ="#ccffcc"'   # juuuust right
-                            forecast += '>' + ws.text + '</td>'
+        for ws in soup.find_all('windspeed'):
+            if ws.text == '-1149':
+                forecast += '<td>-</td>'
+            else:
+                forecast += '<td'
+                if int(ws.text) < site['windLower']:
+                    forecast += ' bgcolor ="#cccccc"'  # too slow
+                elif int(ws.text) > site['windUpper']:
+                    forecast += ' bgcolor ="#ffcccc"'  # too fast
+                else:
+                    forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+                forecast += '>' + ws.text + '</td>'
         forecast += '</tr>'
 
         # Wind Gust ----------------------------------------------------------------------------------------------------
         forecast += '<tr><th>Wind Gust (mph): </th>'
-        for gf in soup.find_all('griddedforecast'):
-            for fd in gf.find_all('forecastday'):
-                for p in fd.find_all('period'):
-                    for ws in p.find_all('windgust'):
-                        if ws.text == '-1149':
-                            forecast += '<td>-</td>'
-                        else:
-                            forecast += '<td'
-                            if int(ws.text) < site['windLower']:
-                                forecast += ' bgcolor ="#cccccc"'  # too slow
-                            elif int(ws.text) > site['windUpper']:
-                                forecast += ' bgcolor ="#ffcccc"'  # too fast
-                            else:
-                                forecast += ' bgcolor ="#ccffcc"'   # juuuust right
-                            forecast += '>' + ws.text + '</td>'
+        for ws in soup.find_all('windgust'):
+            if ws.text == '-1149':
+                forecast += '<td>-</td>'
+            else:
+                forecast += '<td'
+                if int(ws.text) < site['windLower']:
+                    forecast += ' bgcolor ="#cccccc"'  # too slow
+                elif int(ws.text) > site['windUpper']:
+                    forecast += ' bgcolor ="#ffcccc"'  # too fast
+                else:
+                    forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+                forecast += '>' + ws.text + '</td>'
 
         forecast += '</tr>'
 
