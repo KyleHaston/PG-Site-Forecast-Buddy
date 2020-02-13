@@ -12,6 +12,7 @@ import gc
 import sys
 import os
 import re
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from smtplib import SMTP_SSL as SMTP       # this invokes the secure SMTP protocol (port 465, uses SSL)
 # from smtplib import SMTP                  # use this for standard SMTP protocol   (port 25, no encryption)
@@ -22,17 +23,13 @@ import calendar
 import time
 import random
 
+from site_data import sites
 
 def get_the_forecast(in_dates, in_times):  # Convert UTC data and time to PST
     print('asdf')
 
 
 def get_the_forecast():
-    sites = [{'Name': 'Yaquina Head', 'coords': 'lat=44.67640&lon=-124.07810', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 15},  # TODO: Fix wind data
-             {'Name': 'Cliffside', 'coords': 'lat=45.724844&lon=-120.726470', 'windDirLower': 45, 'windDirUpper': 135, 'windLower': 7, 'windUpper': 15},  # TODO: Fix wind data
-             {'Name': 'Cape Kiwanda', 'coords': 'lat=44.690&lon=-123.459', 'windDirLower': 270, 'windDirUpper': 360, 'windLower': 7, 'windUpper': 18},  # TODO: Fix wind data
-             {'Name': 'Crestwood', 'coords': 'lat=45.333&lon=-122.940', 'windDirLower': 225, 'windDirUpper': 270, 'windLower': 7, 'windUpper': 12}]  # TODO: Fix wind data
-
     report = []
     forecast = ''  # Initialize the forecast to empty.
     random.seed(time.localtime().tm_sec)
@@ -84,26 +81,28 @@ def get_the_forecast():
         for idx, val in enumerate(date_times):
             date_times[idx] = date_times[idx] - timedelta(hours=7)
 
+        # Distill a list of dates for the next part.
         dates = []
         times = []
         for d in date_times:
-            dates.append(d.day)
+            dates.append(calendar.month_abbr[d.month] + ' ' + str(d.day))
             times.append(d.hour)
 
-        # Create column headers for each day that span the correct number of columns.
-        for d in set(dates):  # For unique entries only...
-            cols = dates.count(d)
-            forecast += '<th colspan="' + str(cols) + '">' + str(d) + '</th>'  # TODO: Displays date, but not month. Fix this.
+        # Create a column header for each date. It should span the correct number of columns.
+        ordered_date_set = sorted(set(dates), key=dates.index)
+        for idx, val in enumerate(ordered_date_set):  # For unique entries only...
+            cols = dates.count(ordered_date_set[idx])  # get column span from the # of occurrences of this date
+            forecast += '<th colspan="' + str(cols) + '">' + ordered_date_set[idx] + '</th>'
         forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Time (PST): </th>'
+        forecast += '<tr><th align="right">Time (PST): </th>'
         for t in times:
             forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
         forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Temp (°F): </th>'
+        forecast += '<tr><th align="right">Temp (°F): </th>'
         for vt in soup.find_all('temperature'):
             if vt.text == '-999':
                 forecast += '<td>-</td>'
@@ -112,7 +111,7 @@ def get_the_forecast():
         forecast += '</tr>'
 
         # Sky Cover ----------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Sky Cover (%): </th>'
+        forecast += '<tr><th align="right">Sky Cover (%): </th>'
         for vt in soup.find_all('skycover'):
             if vt.text == '-999':
                 forecast += '<td>-</td>'
@@ -120,8 +119,38 @@ def get_the_forecast():
                 forecast += '<td>' + vt.text + '</td>'
         forecast += '</tr>'
 
+        # Chance of Precipitation --------------------------------------------------------------------------------------
+        if site['pop']:  # If we usually show this data for this site...
+            forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
+            for vt in soup.find_all('pop'):
+                if vt.text == '-999':
+                    forecast += '<td>-</td>'
+                else:
+                    forecast += '<td'
+                    if int(vt.text) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        forecast += ' bgcolor ="#ffcccc"'  # wet bad.
+                    else:
+                        forecast += ' bgcolor ="#ccffcc"'  # dry good.
+                    forecast += '>' + vt.text + '%</td>'
+            forecast += '</tr>'
+
+        # Precipitation ------------------------------------------------------------------------------------------------
+        if site['qpf']:  # If we usually show this data for this site...
+            forecast += '<tr><th align="right">Precipitation ("): </th>'
+            for vt in soup.find_all('qpf'):
+                if vt.text == '-999.00':
+                    forecast += '<td>-</td>'
+                else:
+                    forecast += '<td'
+                    if float(vt.text) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        forecast += ' bgcolor ="#ffcccc"'  # wet bad.
+                    else:
+                        forecast += ' bgcolor ="#ccffcc"'  # dry good.
+                    forecast += '>' + vt.text + '</td>'
+            forecast += '</tr>'
+
         # Wind Direction -----------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Wind Direction (°): </th>'
+        forecast += '<tr><th align="right">Wind Direction (°): </th>'
         for wd in soup.find_all('winddirection'):
             if wd.text == '-999':
                 forecast += '<td>-</td>'
@@ -136,7 +165,7 @@ def get_the_forecast():
                 forecast += '>' + wd.text + '</td>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Wind Speed (mph): </th>'
+        forecast += '<tr><th align="right">Wind Speed (mph): </th>'
         for ws in soup.find_all('windspeed'):
             if ws.text == '-1149':
                 forecast += '<td>-</td>'
@@ -152,9 +181,9 @@ def get_the_forecast():
         forecast += '</tr>'
 
         # Wind Gust ----------------------------------------------------------------------------------------------------
-        forecast += '<tr><th>Wind Gust (mph): </th>'
+        forecast += '<tr><th align="right">Wind Gust (mph): </th>'
         for ws in soup.find_all('windgust'):
-            if ws.text == '-1149':
+            if ws.text == '-999':
                 forecast += '<td>-</td>'
             else:
                 forecast += '<td'
@@ -179,39 +208,35 @@ def write_the_html_file(in_string):
         file.write(in_string)
 
 
-def email_the_thing(in_string):
-    print('email not working yet!')
-    # SMTPserver = 'smtp.mail.com'
-    # sender = 'paraglidingSiteForecastBuddy@mail.com'
-    # destination = ['microfarads@gmail.com']
-    #
-    # USERNAME = "paraglidingSiteForecastBuddy"
-    # PASSWORD = ";kj2345./,dsgf098"
-    #
-    # # typical values for text_subtype are plain, html, xml
-    # text_subtype = 'plain'
-    #
-    # content = """\
-    # Test message
-    # """
-    #
-    # subject = "Sent from Python"
-    #
-    # try:
-    #     msg = MIMEText(content, text_subtype)
-    #     msg['Subject'] = subject
-    #     msg['From'] = sender  # some SMTP servers will do this automatically, not all
-    #
-    #     conn = SMTP(SMTPserver)
-    #     conn.set_debuglevel(False)
-    #     conn.login(USERNAME, PASSWORD)
-    #     try:
-    #         conn.sendmail(sender, destination, msg.as_string())
-    #     finally:
-    #         conn.quit()
-    #
-    # except:
-    #     sys.exit("mail failed; %s" % "CUSTOM_ERROR")  # give an error message
+def email_the_thing(in_html):
+    smtp_server = 'smtp.gmail.com'
+    sender = 'paraglidingSiteForecastBuddy@gmail.com'
+    destinations = ['microfarads@gmail.com']
+
+    username = "paraglidingSiteForecastBuddy"
+    password = "pgsite4castbuddy2468..../"
+
+    # typical values for text_subtype are plain, html, xml
+    text_subtype = 'plain'
+
+    for recipient in destinations:
+        try:
+            msg = MIMEText(in_html, 'html')
+            msg['Subject'] = 'Site Forecast for: ' + str(date.today())
+            msg['From'] = sender  # some SMTP servers will do this automatically, not all
+            msg['To'] = recipient
+
+            conn = SMTP(smtp_server)
+            conn.set_debuglevel(False)
+            conn.login(username, password)
+            try:
+                conn.sendmail(sender, recipient, msg.as_string())
+            finally:
+                conn.quit()
+            print('mail sent to: ' + recipient)
+
+        except:
+            sys.exit('ERROR: mail failed to: ' + recipient)  # give an error message
 
 
 if __name__ == "__main__":
