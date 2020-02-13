@@ -1,7 +1,8 @@
 # Kyle Haston
 # Feb 2020
 # Script to download weather forecast for different paragliding sites and email it to me.
-# TODO: Get rid of missing data that is early in the forecast.
+# TODO: Get rid of missing data that is early in the forecast. (Filter out <wx> -999 </wx>)
+# TODO Take out sky cover for Mustang
 
 # For weather gathering
 import requests  # used to fetch the web page
@@ -18,15 +19,68 @@ import calendar
 import time
 import random
 
-from site_data import sites  # Our own site data.
+import site_data  # Our own site data.
+import user_data  # Our own user data.
+import site_forecast  # Our custom class definitions
+
+
+def build_forecast():
+    full_forecast = []
+    for site in site_data.sites:
+        print('    Building forecast for site: ' + site['Name'] + '...')
+
+        # Fetch XML data
+        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + site['coords'])
+
+        soup = BeautifulSoup(r.text, 'lxml')
+
+        # Create a new site_forecast (custom class) for this site.
+        site4cast = site_forecast.SiteForecast(site['Name'])
+
+        # Put the XML info. into our custom format.
+        site4cast.forecast_creation_time = soup.find('forecastcreationtime').text
+        site4cast.forecast_creation_time = soup.find('location').text
+        site4cast.forecast_creation_time = soup.find('duration').text
+        site4cast.forecast_creation_time = soup.find('interval').text
+
+        for day in soup.find_all('forecastday'):  # for each day...
+            this_date = day.find('validdate').text  # get the validdate
+            this_day = site_forecast.ForecastDay(this_date)  # initialize a forecastday with this date
+            for p in day.find_all('period'):  # for each period during this day...
+                if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
+                    this_p = site_forecast.Period()  # initialize an empty period (custom class)
+                    # fill in the period data
+                    this_p.validTime = p.find('validtime').text
+                    this_p.temperature = p.find('temperature').text
+                    this_p.dewpoint = p.find('dewpoint').text
+                    this_p.rh = p.find('rh').text
+                    this_p.skycover = p.find('skycover').text
+                    this_p.windspeed = p.find('windspeed').text
+                    this_p.winddirection = p.find('winddirection').text
+                    this_p.windgust = p.find('windgust').text
+                    this_p.pop = p.find('pop').text
+                    this_p.qpf = p.find('qpf').text
+                    this_p.snowamt = p.find('snowamt').text
+                    this_p.snowlevel = p.find('snowlevel').text
+
+                    this_day.periods.append(this_p)  # Append this period to the day we created one level above.
+
+            site4cast.forecast_days.append(this_day)
+        full_forecast.append(site4cast)
+    return full_forecast
+
+
+def email_the_users(in_forecast_data):
+    print('')
+    for user in user_data.users:
+        print('    Emailing: ' + user['addr'])
 
 
 def get_the_forecast():
     report = []
     forecast = ''  # Initialize the forecast to empty.
-    random.seed(time.localtime().tm_sec)
     forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
-    for site in sites:
+    for site in site_data.sites:
         # Fetch XML data
         r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + site['coords'])
 
@@ -232,6 +286,5 @@ def email_the_thing(in_html):
 
 
 if __name__ == "__main__":
-    the_forecast = get_the_forecast()
-    write_the_html_file(the_forecast)
-    # email_the_thing(the_forecast)
+    forecast_data = build_forecast()
+    email_the_users(forecast_data)
