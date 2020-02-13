@@ -1,8 +1,8 @@
-def get_the_forecast():
+def build_html_forecast_old(in_sites):
     report = []
     forecast = ''  # Initialize the forecast to empty.
     forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
-    for site in site_data.sites:
+    for site in in_sites:
         # Fetch XML data
         r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + site['coords'])
 
