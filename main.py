@@ -50,27 +50,35 @@ def build_forecast():
 
         for day in soup.find_all('forecastday'):  # for each day...
             this_date = day.find('validdate').text  # get the validdate
-            this_day = site_forecast.ForecastDay(this_date)  # initialize a forecastday with this date
+
+            # Bug fix: Only add this day to the forecast if it has at least one period with valid data in it.
+            add_me = False
             for p in day.find_all('period'):  # for each period during this day...
                 if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
-                    this_p = site_forecast.Period()  # initialize an empty period (custom class)
-                    # fill in the period data
-                    this_p.validTime = p.find('validtime').text
-                    this_p.temperature = p.find('temperature').text
-                    this_p.dewpoint = p.find('dewpoint').text
-                    this_p.rh = p.find('rh').text
-                    this_p.skyCover = p.find('skycover').text
-                    this_p.windSpeed = p.find('windspeed').text
-                    this_p.windDirection = p.find('winddirection').text
-                    this_p.windGust = p.find('windgust').text
-                    this_p.pop = p.find('pop').text
-                    this_p.qpf = p.find('qpf').text
-                    this_p.snowAmt = p.find('snowamt').text
-                    this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+                    add_me = True
 
-                    this_day.periods.append(this_p)  # Append this period to the day we created one level above.
+            if add_me:
+                this_day = site_forecast.ForecastDay(this_date)  # initialize a forecastday with this date
+                for p in day.find_all('period'):  # for each period during this day...
+                    if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
+                        this_p = site_forecast.Period()  # initialize an empty period (custom class)
+                        # fill in the period data
+                        this_p.validTime = p.find('validtime').text
+                        this_p.temperature = p.find('temperature').text
+                        this_p.dewpoint = p.find('dewpoint').text
+                        this_p.rh = p.find('rh').text
+                        this_p.skyCover = p.find('skycover').text
+                        this_p.windSpeed = p.find('windspeed').text
+                        this_p.windDirection = p.find('winddirection').text
+                        this_p.windGust = p.find('windgust').text
+                        this_p.pop = p.find('pop').text
+                        this_p.qpf = p.find('qpf').text
+                        this_p.snowAmt = p.find('snowamt').text
+                        this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
 
-            site4cast.forecast_days.append(this_day)
+                        this_day.periods.append(this_p)  # Append this period to the day we created one level above.
+
+                site4cast.forecast_days.append(this_day)
         full_forecast.append(site4cast)
     return full_forecast
 
@@ -148,8 +156,10 @@ def save_the_full_forecast_on_the_server(in_full_forecast):  # Yep. That's what 
         #     forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
         # forecast += '</tr>'
 
-        # Filler row (skipping date info.) to pick the low-hanging fruit.
-        forecast += '<tr><th colspan="24"> Date Info. Coming Soon </th>'
+        # Dates --------------------------------------------------------------------------------------------------
+        forecast += '<tr>'
+        for d in this_site.forecast_days:
+            forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
         forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
