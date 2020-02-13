@@ -6,16 +6,11 @@
 # For weather gathering
 import requests  # used to fetch the web page
 from bs4 import BeautifulSoup
-import gc
 
 # For email
 import sys
-import os
-import re
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from smtplib import SMTP_SSL as SMTP       # this invokes the secure SMTP protocol (port 465, uses SSL)
-# from smtplib import SMTP                  # use this for standard SMTP protocol   (port 25, no encryption)
+from smtplib import SMTP_SSL as SMTP
 
 # For the output file.
 from datetime import *
@@ -23,17 +18,14 @@ import calendar
 import time
 import random
 
-from site_data import sites
-
-def get_the_forecast(in_dates, in_times):  # Convert UTC data and time to PST
-    print('asdf')
+from site_data import sites  # Our own site data.
 
 
 def get_the_forecast():
     report = []
     forecast = ''  # Initialize the forecast to empty.
     random.seed(time.localtime().tm_sec)
-    forecast += '<html> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
+    forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
     for site in sites:
         # Fetch XML data
         r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + site['coords'])
