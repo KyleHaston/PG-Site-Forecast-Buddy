@@ -76,6 +76,11 @@ def build_forecast():
                         this_p.snowAmt = p.find('snowamt').text
                         this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
 
+                        # try:  # This fixed a random bug that appeared while programming. TODO: Need better error handling b/c it's weather data.
+                        #     this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+                        # except:
+                        #     this_p.snowLevel = '0.00'
+
                         this_day.periods.append(this_p)  # Append this period to the day we created one level above.
 
                 site4cast.forecast_days.append(this_day)
@@ -110,7 +115,7 @@ def save_the_full_forecast_on_the_server(in_full_forecast):  # Yep. That's what 
         forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
         forecast += '</span></th></tr>'
 
-        # TODO: This beast.
+        # TODO: Convert to user's preferred time zone.
         # # Convert dates and times from UTC to PST ----------------------------------------------------------------------
         # date_times = []  # This will hold the datetime instances for each time interval in the XML data
         #
@@ -201,35 +206,56 @@ def save_the_full_forecast_on_the_server(in_full_forecast):  # Yep. That's what 
         forecast += '<tr><th align="right">Wind Speed (mph): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                forecast += '<td>' + p.windSpeed + '</td>'
+                if int(p.windSpeed) < int(this_site.windLower):
+                    forecast += '<td bgcolor ="#cccccc">' + p.windSpeed + '</td>'  # too slow
+                elif int(p.windSpeed) > int(this_site.windUpper):
+                    forecast += '<td bgcolor ="#ffcccc">' + p.windSpeed + '</td>'  # too fast
+                else:
+                    forecast += '<td bgcolor ="#ccffcc">' + p.windSpeed + '</td>'  # juuuust right
         forecast += '</tr>'
 
         # Wind Direction -----------------------------------------------------------------------------------------------
         forecast += '<tr><th align="right">Wind Direction (°): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                forecast += '<td>' + p.windDirection + '</td>'
+                if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
+                    forecast += '<td bgcolor ="#ccffcc">' + p.windDirection + '</td>'  # good wind direction
+                elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
+                    forecast += '<td bgcolor ="#cccccc">' + p.windDirection + '</td>'  # close to optimal wind direction
+                else:
+                    forecast += '<td bgcolor ="#ffcccc">' + p.windDirection + '</td>'  # far from optimal wind direction
         forecast += '</tr>'
 
         # Wind Gust ----------------------------------------------------------------------------------------------------
         forecast += '<tr><th align="right">Wind Gust (mph): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                forecast += '<td>' + p.windGust + '</td>'
+                if int(p.windGust) < int(this_site.windLower):
+                    forecast += '<td bgcolor ="#cccccc">' + p.windGust + '</td>'  # too slow
+                elif int(p.windGust) > int(this_site.windUpper):
+                    forecast += '<td bgcolor ="#ffcccc">' + p.windGust + '</td>'  # too fast
+                else:
+                    forecast += '<td bgcolor ="#ccffcc">' + p.windGust + '</td>'  # juuuust right
         forecast += '</tr>'
 
         # Chance of Precipitation --------------------------------------------------------------------------------------
         forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                forecast += '<td>' + p.pop + '</td>'
+                if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                    forecast += '<td bgcolor ="#ffcccc">' + p.pop + '</td>'  # wet bad.
+                else:
+                    forecast += '<td bgcolor ="#ccffcc">' + p.pop + '</td>'  # dry good.
         forecast += '</tr>'
 
         # Precipitation ------------------------------------------------------------------------------------------------
         forecast += '<tr><th align="right">Precipitation ("): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                forecast += '<td>' + p.qpf + '</td>'
+                if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                    forecast += '<td bgcolor ="#ffcccc">' + p.qpf + '</td>'  # wet bad.
+                else:
+                    forecast += '<td bgcolor ="#ccffcc">' + p.qpf + '</td>'  # dry good.
         forecast += '</tr>'
 
         # Snow Amount --------------------------------------------------------------------------------------------------
@@ -245,86 +271,6 @@ def save_the_full_forecast_on_the_server(in_full_forecast):  # Yep. That's what 
             for p in d.periods:
                 forecast += '<td>' + p.snowLevel + '</td>'
         forecast += '</tr>'
-
-    # TODO: Get the color-coded boundaries (below) implemented again.
-
-    #     # Chance of Precipitation --------------------------------------------------------------------------------------
-    #     if site['pop']:  # If we usually show this data for this site...
-    #         forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
-    #         for vt in soup.find_all('pop'):
-    #             if vt.text == '-999':
-    #                 forecast += '<td>-</td>'
-    #             else:
-    #                 forecast += '<td'
-    #                 if int(vt.text) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-    #                     forecast += ' bgcolor ="#ffcccc"'  # wet bad.
-    #                 else:
-    #                     forecast += ' bgcolor ="#ccffcc"'  # dry good.
-    #                 forecast += '>' + vt.text + '%</td>'
-    #         forecast += '</tr>'
-    #
-    #     # Precipitation ------------------------------------------------------------------------------------------------
-    #     if site['qpf']:  # If we usually show this data for this site...
-    #         forecast += '<tr><th align="right">Precipitation ("): </th>'
-    #         for vt in soup.find_all('qpf'):
-    #             if vt.text == '-999.00':
-    #                 forecast += '<td>-</td>'
-    #             else:
-    #                 forecast += '<td'
-    #                 if float(vt.text) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-    #                     forecast += ' bgcolor ="#ffcccc"'  # wet bad.
-    #                 else:
-    #                     forecast += ' bgcolor ="#ccffcc"'  # dry good.
-    #                 forecast += '>' + vt.text + '</td>'
-    #         forecast += '</tr>'
-    #
-    #     # Wind Direction -----------------------------------------------------------------------------------------------
-    #     forecast += '<tr><th align="right">Wind Direction (°): </th>'
-    #     for wd in soup.find_all('winddirection'):
-    #         if wd.text == '-999':
-    #             forecast += '<td>-</td>'
-    #         else:
-    #             forecast += '<td'
-    #             if site['windDirLower'] < int(wd.text) < site['windDirUpper']:
-    #                 forecast += ' bgcolor ="#ccffcc"'  # good wind direction
-    #             if (site['windDirLower'] - 15) < int(wd.text) < (site['windDirUpper'] + 15):
-    #                 forecast += ' bgcolor ="#cccccc"'  # close to optimal wind direction
-    #             else:
-    #                 forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
-    #             forecast += '>' + wd.text + '</td>'
-    #
-    #     # Wind Speed ---------------------------------------------------------------------------------------------------
-    #     forecast += '<tr><th align="right">Wind Speed (mph): </th>'
-    #     for ws in soup.find_all('windspeed'):
-    #         if ws.text == '-1149':
-    #             forecast += '<td>-</td>'
-    #         else:
-    #             forecast += '<td'
-    #             if int(ws.text) < site['windLower']:
-    #                 forecast += ' bgcolor ="#cccccc"'  # too slow
-    #             elif int(ws.text) > site['windUpper']:
-    #                 forecast += ' bgcolor ="#ffcccc"'  # too fast
-    #             else:
-    #                 forecast += ' bgcolor ="#ccffcc"'   # juuuust right
-    #             forecast += '>' + ws.text + '</td>'
-    #     forecast += '</tr>'
-    #
-    #     # Wind Gust ----------------------------------------------------------------------------------------------------
-    #     forecast += '<tr><th align="right">Wind Gust (mph): </th>'
-    #     for ws in soup.find_all('windgust'):
-    #         if ws.text == '-999':
-    #             forecast += '<td>-</td>'
-    #         else:
-    #             forecast += '<td'
-    #             if int(ws.text) < site['windLower']:
-    #                 forecast += ' bgcolor ="#cccccc"'  # too slow
-    #             elif int(ws.text) > site['windUpper']:
-    #                 forecast += ' bgcolor ="#ffcccc"'  # too fast
-    #             else:
-    #                 forecast += ' bgcolor ="#ccffcc"'   # juuuust right
-    #             forecast += '>' + ws.text + '</td>'
-    #
-    #     forecast += '</tr>'
 
         # Close the table.
         forecast += '</table><p>'
