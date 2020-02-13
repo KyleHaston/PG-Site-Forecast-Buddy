@@ -1,3 +1,8 @@
+import requests
+from bs4 import BeautifulSoup
+import calendar
+from datetime import *
+
 def build_html_forecast_old(in_sites):
     report = []
     forecast = ''  # Initialize the forecast to empty.

@@ -87,3 +87,12 @@ class SiteForecast:
         self.windUpper = ''
         self.windDirLower = ''
         self.windDirUpper = ''
+
+        # Initialize these to true, but individual sites can override. Ex: don't show snow level for southern AZ sites.
+        self.show_dewpoint = True
+        self.show_rh = True
+        self.show_skyCover = True
+        self.show_pop = True
+        self.show_qpf = True
+        self.show_snowAmt = True
+        self.show_snow = True

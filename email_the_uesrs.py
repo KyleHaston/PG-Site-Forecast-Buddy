@@ -9,6 +9,8 @@ def email_the_users(in_forecast):
     Then pass the HTML message to the email function.
     """
     print('')
+    print('    E-mailing the users...')
     for user in user_data.users:
-        html_string = build_html_from_forecast(in_forecast, user)
-        send_html_email_to_user(html_string, user['addr'])
+        if user['addr'] != 'server':
+            html_string = build_html_from_forecast(in_forecast, user)
+            send_html_email_to_user(html_string, user['addr'])

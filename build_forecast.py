@@ -30,6 +30,14 @@ def build_forecast():
         site4cast.windDirLower = str(site['windDirLower'])
         site4cast.windDirUpper = str(site['windDirUpper'])
 
+        site4cast.show_dewpoint = site['show_dewpoint']
+        site4cast.show_rh = site['show_rh']
+        site4cast.show_skyCover = site['show_skyCover']
+        site4cast.show_pop = site['show_pop']
+        site4cast.show_qpf = site['show_qpf']
+        site4cast.show_snowAmt = site['show_snowAmt']
+        site4cast.show_snowLevel = site['show_snowLevel']
+
         for day in soup.find_all('forecastday'):  # for each day...
             this_date = day.find('validdate').text  # get the validdate
 

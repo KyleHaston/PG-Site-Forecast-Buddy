@@ -7,8 +7,6 @@ from datetime import *
 
 
 def send_html_email_to_user(in_html, in_destination):
-    print('')
-    print('    E-mailing the users...')
     smtp_server = 'smtp.gmail.com'
     sender = 'paraglidingSiteForecastBuddy@gmail.com'
 
