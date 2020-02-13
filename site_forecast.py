@@ -81,3 +81,9 @@ class SiteForecast:
         self.duration = ''
         self.interval = ''
         self.forecast_days = []  # List of custom class defined above.
+
+        # This stuff we copy from our site knowledge data for ease of creating the HTML later.
+        self.windLower = ''
+        self.windUpper = ''
+        self.windDirLower = ''
+        self.windDirUpper = ''

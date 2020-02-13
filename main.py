@@ -34,14 +34,19 @@ def build_forecast():
 
         soup = BeautifulSoup(r.text, 'lxml')
 
-        # Create a new site_forecast (custom class) for this site.
+        # Create a new instance of site_forecast (custom class) for this site.
         site4cast = site_forecast.SiteForecast(site['Name'])
 
         # Put the XML info. into our custom format.
         site4cast.forecast_creation_time = soup.find('forecastcreationtime').text
-        site4cast.forecast_creation_time = soup.find('location').text
-        site4cast.forecast_creation_time = soup.find('duration').text
-        site4cast.forecast_creation_time = soup.find('interval').text
+        site4cast.location = soup.find('location').text
+        site4cast.duration = soup.find('duration').text
+        site4cast.interval = soup.find('interval').text
+
+        site4cast.windLower = str(site['windLower'])
+        site4cast.windUpper = str(site['windUpper'])
+        site4cast.windDirLower = str(site['windDirLower'])
+        site4cast.windDirUpper = str(site['windDirUpper'])
 
         for day in soup.find_all('forecastday'):  # for each day...
             this_date = day.find('validdate').text  # get the validdate
@@ -54,20 +59,268 @@ def build_forecast():
                     this_p.temperature = p.find('temperature').text
                     this_p.dewpoint = p.find('dewpoint').text
                     this_p.rh = p.find('rh').text
-                    this_p.skycover = p.find('skycover').text
-                    this_p.windspeed = p.find('windspeed').text
-                    this_p.winddirection = p.find('winddirection').text
-                    this_p.windgust = p.find('windgust').text
+                    this_p.skyCover = p.find('skycover').text
+                    this_p.windSpeed = p.find('windspeed').text
+                    this_p.windDirection = p.find('winddirection').text
+                    this_p.windGust = p.find('windgust').text
                     this_p.pop = p.find('pop').text
                     this_p.qpf = p.find('qpf').text
-                    this_p.snowamt = p.find('snowamt').text
-                    this_p.snowlevel = p.find('snowlevel').text
+                    this_p.snowAmt = p.find('snowamt').text
+                    this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
 
                     this_day.periods.append(this_p)  # Append this period to the day we created one level above.
 
             site4cast.forecast_days.append(this_day)
         full_forecast.append(site4cast)
     return full_forecast
+
+
+def write_the_html_file(in_string):
+    with open('forecast' + str(date.today()) + '.html', 'w') as file:
+        file.write(in_string)
+
+
+def save_the_full_forecast_on_the_server(in_full_forecast):  # Yep. That's what I'm calling it.
+    print('')
+    print('    Saving the full forecast to the server...')
+
+    forecast = ''  # Initialize the forecast to empty.
+    forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
+    for this_site in in_full_forecast:
+
+        # Add a table.
+        forecast += '<table width="auto" border="1">'
+        forecast += '<tr><th rowspan="2">'
+        forecast += '<b style="color:blue;font-size:125%">' + this_site.name + '</b><br/>'
+        forecast += '</th>'
+
+        # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
+        forecast += '<th colspan="25", rowspan="1"><span style="color:grey;font-size:75%">'
+        forecast += 'Forecast created: ' + this_site.forecast_creation_time + '<br/>'
+        forecast += 'Desired Conditions: '
+        forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
+        forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
+        forecast += '</span></th></tr>'
+
+        # TODO: This beast.
+        # # Convert dates and times from UTC to PST ----------------------------------------------------------------------
+        # date_times = []  # This will hold the datetime instances for each time interval in the XML data
+        #
+        # # Get the year
+        # year = ''  # initialize here for scope reasons
+        # for fct in soup.find_all('forecastcreationtime'):
+        #     year = fct.text.split()[4]  # Is this poor form? It works at this moment in time...
+        #
+        # # Get the month abbreviations in lowercase.
+        # lower_month_abbr = list(calendar.month_abbr)
+        # for idx, val in enumerate(lower_month_abbr):
+        #     lower_month_abbr[idx] = val.lower()
+        #
+        # # Instantiate a datetime for each moment in the XML data.
+        # for fd in soup.find_all('forecastday'):
+        #     for vd in fd.find_all('validdate'):
+        #         month = lower_month_abbr.index(vd.text.split()[0].lower())  # Get the month. I know this is ugly.
+        #         day = vd.text.split()[1]  # Get the day. I know this is ugly too.
+        #         for vt in fd.find_all('validtime'):
+        #             date_times.append(datetime(int(year), month, int(day), hour=int(vt.text), tzinfo=timezone.utc))
+        #
+        # # Subtract 7 hrs to convert from UTC to PST
+        # for idx, val in enumerate(date_times):
+        #     date_times[idx] = date_times[idx] - timedelta(hours=7)
+        #
+        # # Distill a list of dates for the next part.
+        # dates = []
+        # times = []
+        # for d in date_times:
+        #     dates.append(calendar.month_abbr[d.month] + ' ' + str(d.day))
+        #     times.append(d.hour)
+        #
+        # # Create a column header for each date. It should span the correct number of columns.
+        # ordered_date_set = sorted(set(dates), key=dates.index)
+        # for idx, val in enumerate(ordered_date_set):  # For unique entries only...
+        #     cols = dates.count(ordered_date_set[idx])  # get column span from the # of occurrences of this date
+        #     forecast += '<th colspan="' + str(cols) + '">' + ordered_date_set[idx] + '</th>'
+        # forecast += '</tr>'
+        #
+        # # Time of Day --------------------------------------------------------------------------------------------------
+        # forecast += '<tr><th align="right">Time (PST): </th>'
+        # for t in times:
+        #     forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
+        # forecast += '</tr>'
+
+        # Filler row (skipping date info.) to pick the low-hanging fruit.
+        forecast += '<tr><th colspan="24"> Date Info. Coming Soon </th>'
+        forecast += '</tr>'
+
+        # Time of Day --------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Time (UTC): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.validTime + '</td>'
+        forecast += '</tr>'
+
+        # Temperature --------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Temp (°F): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.temperature + '</td>'
+        forecast += '</tr>'
+
+        # Dewpoint -----------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Dewpoint (°F): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.dewpoint + '</td>'
+        forecast += '</tr>'
+
+        # Relative Humidity --------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Relative Humidity (%): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.rh + '</td>'
+        forecast += '</tr>'
+
+        # Sky Cover ----------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Sky Cover (%): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.skyCover + '</td>'
+        forecast += '</tr>'
+
+        # Wind Speed ---------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Wind Speed (mph): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.windSpeed + '</td>'
+        forecast += '</tr>'
+
+        # Wind Direction -----------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Wind Direction (°): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.windDirection + '</td>'
+        forecast += '</tr>'
+
+        # Wind Gust ----------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Wind Gust (mph): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.windGust + '</td>'
+        forecast += '</tr>'
+
+        # Chance of Precipitation --------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.pop + '</td>'
+        forecast += '</tr>'
+
+        # Precipitation ------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Precipitation ("): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.qpf + '</td>'
+        forecast += '</tr>'
+
+        # Snow Amount --------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Snow Amount ("): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.snowAmt + '</td>'
+        forecast += '</tr>'
+
+        # Snow Level ---------------------------------------------------------------------------------------------------
+        forecast += '<tr><th align="right">Snow Level (ft): </th>'
+        for d in this_site.forecast_days:
+            for p in d.periods:
+                forecast += '<td>' + p.snowLevel + '</td>'
+        forecast += '</tr>'
+
+    # TODO: Get the color-coded boundaries (below) implemented again.
+
+    #     # Chance of Precipitation --------------------------------------------------------------------------------------
+    #     if site['pop']:  # If we usually show this data for this site...
+    #         forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
+    #         for vt in soup.find_all('pop'):
+    #             if vt.text == '-999':
+    #                 forecast += '<td>-</td>'
+    #             else:
+    #                 forecast += '<td'
+    #                 if int(vt.text) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+    #                     forecast += ' bgcolor ="#ffcccc"'  # wet bad.
+    #                 else:
+    #                     forecast += ' bgcolor ="#ccffcc"'  # dry good.
+    #                 forecast += '>' + vt.text + '%</td>'
+    #         forecast += '</tr>'
+    #
+    #     # Precipitation ------------------------------------------------------------------------------------------------
+    #     if site['qpf']:  # If we usually show this data for this site...
+    #         forecast += '<tr><th align="right">Precipitation ("): </th>'
+    #         for vt in soup.find_all('qpf'):
+    #             if vt.text == '-999.00':
+    #                 forecast += '<td>-</td>'
+    #             else:
+    #                 forecast += '<td'
+    #                 if float(vt.text) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+    #                     forecast += ' bgcolor ="#ffcccc"'  # wet bad.
+    #                 else:
+    #                     forecast += ' bgcolor ="#ccffcc"'  # dry good.
+    #                 forecast += '>' + vt.text + '</td>'
+    #         forecast += '</tr>'
+    #
+    #     # Wind Direction -----------------------------------------------------------------------------------------------
+    #     forecast += '<tr><th align="right">Wind Direction (°): </th>'
+    #     for wd in soup.find_all('winddirection'):
+    #         if wd.text == '-999':
+    #             forecast += '<td>-</td>'
+    #         else:
+    #             forecast += '<td'
+    #             if site['windDirLower'] < int(wd.text) < site['windDirUpper']:
+    #                 forecast += ' bgcolor ="#ccffcc"'  # good wind direction
+    #             if (site['windDirLower'] - 15) < int(wd.text) < (site['windDirUpper'] + 15):
+    #                 forecast += ' bgcolor ="#cccccc"'  # close to optimal wind direction
+    #             else:
+    #                 forecast += ' bgcolor ="#ffcccc"'  # far from optimal wind direction
+    #             forecast += '>' + wd.text + '</td>'
+    #
+    #     # Wind Speed ---------------------------------------------------------------------------------------------------
+    #     forecast += '<tr><th align="right">Wind Speed (mph): </th>'
+    #     for ws in soup.find_all('windspeed'):
+    #         if ws.text == '-1149':
+    #             forecast += '<td>-</td>'
+    #         else:
+    #             forecast += '<td'
+    #             if int(ws.text) < site['windLower']:
+    #                 forecast += ' bgcolor ="#cccccc"'  # too slow
+    #             elif int(ws.text) > site['windUpper']:
+    #                 forecast += ' bgcolor ="#ffcccc"'  # too fast
+    #             else:
+    #                 forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+    #             forecast += '>' + ws.text + '</td>'
+    #     forecast += '</tr>'
+    #
+    #     # Wind Gust ----------------------------------------------------------------------------------------------------
+    #     forecast += '<tr><th align="right">Wind Gust (mph): </th>'
+    #     for ws in soup.find_all('windgust'):
+    #         if ws.text == '-999':
+    #             forecast += '<td>-</td>'
+    #         else:
+    #             forecast += '<td'
+    #             if int(ws.text) < site['windLower']:
+    #                 forecast += ' bgcolor ="#cccccc"'  # too slow
+    #             elif int(ws.text) > site['windUpper']:
+    #                 forecast += ' bgcolor ="#ffcccc"'  # too fast
+    #             else:
+    #                 forecast += ' bgcolor ="#ccffcc"'   # juuuust right
+    #             forecast += '>' + ws.text + '</td>'
+    #
+    #     forecast += '</tr>'
+
+        # Close the table.
+        forecast += '</table><p>'
+    forecast += '</p></body></html>'  # Close the HTML.
+
+    write_the_html_file(forecast)
 
 
 def email_the_users(in_forecast_data):
@@ -249,11 +502,6 @@ def get_the_forecast():
     return forecast
 
 
-def write_the_html_file(in_string):
-    with open('forecast' + str(date.today()) + '.html', 'w') as file:
-        file.write(in_string)
-
-
 def email_the_thing(in_html):
     smtp_server = 'smtp.gmail.com'
     sender = 'paraglidingSiteForecastBuddy@gmail.com'
@@ -287,4 +535,5 @@ def email_the_thing(in_html):
 
 if __name__ == "__main__":
     forecast_data = build_forecast()
+    save_the_full_forecast_on_the_server(forecast_data)
     email_the_users(forecast_data)
