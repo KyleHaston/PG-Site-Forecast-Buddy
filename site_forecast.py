@@ -2,7 +2,7 @@
 # Feb 2020
 # To supoprt users and user preferences, we need these custom structures.
 # They will allow us to download all the data once, and create custom reports for each user.
-# TODO: Don't assume units; instead pull them from the XML data. Or atleast check them and email admin if they disagree.
+# TODO: Don't assume units; pull them from the XML data. Or at least check them and email admin if they disagree.
 
 
 class Period:

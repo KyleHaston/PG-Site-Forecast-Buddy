@@ -4,17 +4,14 @@ from email.mime.text import MIMEText
 from smtplib import SMTP_SSL as SMTP
 
 from datetime import *
-
+import credentials
 
 def send_html_email_to_user(in_html, in_destination):
     smtp_server = 'smtp.gmail.com'
     sender = 'paraglidingSiteForecastBuddy@gmail.com'
 
-    username = "paraglidingSiteForecastBuddy"
-    password = "pgsite4castbuddy2468..../"
-
-    # typical values for text_subtype are plain, html, xml
-    text_subtype = 'plain'
+    username = credentials.this_login
+    password = credentials.this_password
 
     try:
         msg = MIMEText(in_html, 'html')

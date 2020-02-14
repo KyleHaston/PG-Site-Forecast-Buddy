@@ -11,6 +11,6 @@ def email_the_users(in_forecast):
     print('')
     print('    E-mailing the users...')
     for user in user_data.users:
+        html_string = build_html_from_forecast(in_forecast, user)
         if user['addr'] != 'server':
-            html_string = build_html_from_forecast(in_forecast, user)
             send_html_email_to_user(html_string, user['addr'])

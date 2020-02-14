@@ -122,6 +122,28 @@ def build_html_from_forecast(in_forecast, in_user):
                     html_forecast += '<td>' + p.skyCover + '</td>'
             html_forecast += '</tr>'
 
+        # Chance of Precipitation --------------------------------------------------------------------------------------
+        if this_site.show_pop or in_user['addr'] == 'server':  # If we typically list this info for this site...
+            html_forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
+            for d in this_site.forecast_days:
+                for p in d.periods:
+                    if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        html_forecast += '<td bgcolor ="#ffcccc">' + p.pop + '</td>'  # wet bad.
+                    else:
+                        html_forecast += '<td bgcolor ="#ccffcc">' + p.pop + '</td>'  # dry good.
+            html_forecast += '</tr>'
+
+        # Precipitation ------------------------------------------------------------------------------------------------
+        if this_site.show_qpf or in_user['addr'] == 'server':  # If we typically list this info for this site...
+            html_forecast += '<tr><th align="right">Precipitation ("): </th>'
+            for d in this_site.forecast_days:
+                for p in d.periods:
+                    if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        html_forecast += '<td bgcolor ="#ffcccc">' + p.qpf + '</td>'  # wet bad.
+                    else:
+                        html_forecast += '<td bgcolor ="#ccffcc">' + p.qpf + '</td>'  # dry good.
+            html_forecast += '</tr>'
+
         # Wind Speed ---------------------------------------------------------------------------------------------------
         html_forecast += '<tr><th align="right">Wind Speed (mph): </th>'
         for d in this_site.forecast_days:
@@ -157,28 +179,6 @@ def build_html_from_forecast(in_forecast, in_user):
                 else:
                     html_forecast += '<td bgcolor ="#ccffcc">' + p.windGust + '</td>'  # juuuust right
         html_forecast += '</tr>'
-
-        # Chance of Precipitation --------------------------------------------------------------------------------------
-        if this_site.show_pop or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
-            for d in this_site.forecast_days:
-                for p in d.periods:
-                    if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor ="#ffcccc">' + p.pop + '</td>'  # wet bad.
-                    else:
-                        html_forecast += '<td bgcolor ="#ccffcc">' + p.pop + '</td>'  # dry good.
-            html_forecast += '</tr>'
-
-        # Precipitation ------------------------------------------------------------------------------------------------
-        if this_site.show_qpf or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Precipitation ("): </th>'
-            for d in this_site.forecast_days:
-                for p in d.periods:
-                    if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor ="#ffcccc">' + p.qpf + '</td>'  # wet bad.
-                    else:
-                        html_forecast += '<td bgcolor ="#ccffcc">' + p.qpf + '</td>'  # dry good.
-            html_forecast += '</tr>'
 
         # Snow Amount --------------------------------------------------------------------------------------------------
         if this_site.show_snowAmt or in_user['addr'] == 'server':  # If we typically list this info for this site...
