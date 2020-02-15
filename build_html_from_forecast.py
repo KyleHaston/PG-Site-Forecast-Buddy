@@ -135,7 +135,7 @@ def build_html_from_forecast(in_forecast, in_user):
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.pop + '</td>'  # wet bad.
+                        html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.pop + '</td>'  # wet bad.
                     else:
                         html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.pop + '</td>'  # dry good.
             html_forecast += '</tr>'
@@ -146,7 +146,7 @@ def build_html_from_forecast(in_forecast, in_user):
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.qpf + '</td>'  # wet bad.
+                        html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.qpf + '</td>'  # wet bad.
                     else:
                         html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.qpf + '</td>'  # dry good.
             html_forecast += '</tr>'
