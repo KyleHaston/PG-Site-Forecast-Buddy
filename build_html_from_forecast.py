@@ -246,7 +246,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     if in_user['addr'] == 'server':  # Also save a full copy of the forecast to the server.
         print('        Saving the full forecast to an HTML file on the server...')
-        with open('forecast' + str(date.today()) + '.html', 'w') as file:
+        with open('forecast ' + time.asctime().replace(':', '-') + '.html', 'w') as file:
             file.write(html_forecast)
 
     return html_forecast
