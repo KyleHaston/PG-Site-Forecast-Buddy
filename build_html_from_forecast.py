@@ -11,7 +11,8 @@ def build_html_from_forecast(in_forecast, in_user):
     """
 
     html_forecast = ''  # Initialize the forecast to empty.
-    html_forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy! <p> </head> <body>'
+    html_forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy!<p> </head> <body>'
+
     for this_site in in_forecast:
         if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if the user is not interested in this site...
             continue  # skip this site.
@@ -160,12 +161,49 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '<tr><th align="right">Wind Direction (°): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
+
+                # # Wind direction numerically, in degrees.
+                # if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
+                #     html_forecast += '<td bgcolor ="#ccffcc">' + p.windDirection + '</td>'  # good wind direction
+                # elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
+                #     html_forecast += '<td bgcolor ="#cccccc">' + p.windDirection + '</td>'  # close to optimal wind direction
+                # else:
+                #     html_forecast += '<td bgcolor ="#ffcccc">' + p.windDirection + '</td>'  # far from optimal wind direction
+
+                # Change wind direction in degrees to the appropriate arrow.
+                # ← = &#x2190
+                # ↑ = &#x2191
+                # → = &#x2192
+                # ↓ = &#x2193
+                # ↖ = &#x2196
+                # ↗ = &#x2197
+                # ↙ = &#x2199
+                # ↘ = &#x2198
+
+                if 22.5 < int(p.windDirection) < 67.5:  # Wind from NE
+                    wdir = '&#x2199'
+                elif 67.5 < int(p.windDirection) < 112.5:  # Wind from E
+                    wdir = '&#x2190'
+                elif 112.5 < int(p.windDirection) < 157.5:  # Wind from SE
+                    wdir = '&#x2196'
+                elif 157.5 < int(p.windDirection) < 202.5:  # Wind from S
+                    wdir = '&#x2191'
+                elif 202.5 < int(p.windDirection) < 247.5:  # Wind from SW
+                    wdir = '&#x2197'
+                elif 247.5 < int(p.windDirection) < 292.5:  # Wind from W
+                    wdir = '&#x2192'
+                elif 292.5 < int(p.windDirection) < 337.5:  # Wind from NW
+                    wdir = '&#x2198'
+                else:  # Wind from N
+                    wdir = '&#x2193'
+
                 if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
-                    html_forecast += '<td bgcolor ="#ccffcc">' + p.windDirection + '</td>'  # good wind direction
+                    html_forecast += '<td bgcolor ="#ccffcc">' + wdir + '</td>'  # good wind direction
                 elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
-                    html_forecast += '<td bgcolor ="#cccccc">' + p.windDirection + '</td>'  # close to optimal wind direction
+                    html_forecast += '<td bgcolor ="#cccccc">' + wdir + '</td>'  # close to optimal wind direction
                 else:
-                    html_forecast += '<td bgcolor ="#ffcccc">' + p.windDirection + '</td>'  # far from optimal wind direction
+                    html_forecast += '<td bgcolor ="#ffcccc">' + wdir + '</td>'  # far from optimal wind direction
+
         html_forecast += '</tr>'
 
         # Wind Gust ----------------------------------------------------------------------------------------------------

@@ -64,12 +64,13 @@ def build_forecast():
                         this_p.pop = p.find('pop').text
                         this_p.qpf = p.find('qpf').text
                         this_p.snowAmt = p.find('snowamt').text
-                        this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
-
-                        # try:  # This fixed a random bug that appeared while programming. TODO: Need better error handling b/c it's weather data.
-                        #     this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
-                        # except:
-                        #     this_p.snowLevel = '0.00'
+                        try:
+                            this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+                        except:
+                            try:  # This fixed a random bug that appeared while programming. TODO: Need better error handling b/c it's weather data.
+                                this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+                            except:
+                                this_p.snowLevel = '0.00'
 
                         this_day.periods.append(this_p)  # Append this period to the day we created one level above.
 
