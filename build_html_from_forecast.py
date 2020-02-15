@@ -3,6 +3,8 @@ import calendar
 import time
 import random
 
+import palettes
+
 
 def build_html_from_forecast(in_forecast, in_user):
     """
@@ -10,8 +12,12 @@ def build_html_from_forecast(in_forecast, in_user):
     user's sites.
     """
 
+    my_palette = palettes.Palette('')  # Instantiate the color scheme from the palette module.
+
     html_forecast = ''  # Initialize the forecast to empty.
-    html_forecast += '<html> <font face="Garamond"> <head> <p>Hello from your site forecast buddy!<p> </head> <body>'
+    html_forecast += '<html> <body bgcolor="' + my_palette.bdclr + '">'
+    html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
+    html_forecast +=  '<head> <p>Hello from your site forecast buddy!<p> </head> <body>'
 
     for this_site in in_forecast:
         if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if the user is not interested in this site...
@@ -20,13 +26,13 @@ def build_html_from_forecast(in_forecast, in_user):
         # else... add this site's info to the HTML string
 
         # Add a table.
-        html_forecast += '<table width="auto" border="1">'
+        html_forecast += '<table width="auto" border="1" bgcolor ="' + my_palette.bkgnd + '" style="color:' + my_palette.text + '" >'
         html_forecast += '<tr><th rowspan="2">'
-        html_forecast += '<b style="color:blue;font-size:125%">' + this_site.name + '</b><br/>'
+        html_forecast += '<b style="color:' + my_palette.title + ';font-size:125%">' + this_site.name + '</b><br/>'
         html_forecast += '</th>'
 
         # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
-        html_forecast += '<th colspan="25", rowspan="1"><span style="color:grey;font-size:75%">'
+        html_forecast += '<th colspan="25", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
         html_forecast += 'Forecast created: ' + this_site.forecast_creation_time + '<br/>'
         html_forecast += 'Desired Conditions: '
         html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
@@ -129,9 +135,9 @@ def build_html_from_forecast(in_forecast, in_user):
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor ="#ffcccc">' + p.pop + '</td>'  # wet bad.
+                        html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.pop + '</td>'  # wet bad.
                     else:
-                        html_forecast += '<td bgcolor ="#ccffcc">' + p.pop + '</td>'  # dry good.
+                        html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.pop + '</td>'  # dry good.
             html_forecast += '</tr>'
 
         # Precipitation ------------------------------------------------------------------------------------------------
@@ -140,9 +146,9 @@ def build_html_from_forecast(in_forecast, in_user):
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-                        html_forecast += '<td bgcolor ="#ffcccc">' + p.qpf + '</td>'  # wet bad.
+                        html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.qpf + '</td>'  # wet bad.
                     else:
-                        html_forecast += '<td bgcolor ="#ccffcc">' + p.qpf + '</td>'  # dry good.
+                        html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.qpf + '</td>'  # dry good.
             html_forecast += '</tr>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
@@ -150,11 +156,11 @@ def build_html_from_forecast(in_forecast, in_user):
         for d in this_site.forecast_days:
             for p in d.periods:
                 if int(p.windSpeed) < int(this_site.windLower):
-                    html_forecast += '<td bgcolor ="#cccccc">' + p.windSpeed + '</td>'  # too slow
+                    html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windSpeed + '</td>'  # too slow
                 elif int(p.windSpeed) > int(this_site.windUpper):
-                    html_forecast += '<td bgcolor ="#ffcccc">' + p.windSpeed + '</td>'  # too fast
+                    html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windSpeed + '</td>'  # too fast
                 else:
-                    html_forecast += '<td bgcolor ="#ccffcc">' + p.windSpeed + '</td>'  # juuuust right
+                    html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windSpeed + '</td>'  # juuuust right
         html_forecast += '</tr>'
 
         # Wind Direction -----------------------------------------------------------------------------------------------
@@ -164,11 +170,11 @@ def build_html_from_forecast(in_forecast, in_user):
 
                 # # Wind direction numerically, in degrees.
                 # if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
-                #     html_forecast += '<td bgcolor ="#ccffcc">' + p.windDirection + '</td>'  # good wind direction
+                #     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windDirection + '</td>'  # good wind direction
                 # elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
-                #     html_forecast += '<td bgcolor ="#cccccc">' + p.windDirection + '</td>'  # close to optimal wind direction
+                #     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windDirection + '</td>'  # close to optimal wind direction
                 # else:
-                #     html_forecast += '<td bgcolor ="#ffcccc">' + p.windDirection + '</td>'  # far from optimal wind direction
+                #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
 
                 # Change wind direction in degrees to the appropriate arrow.
                 # ← = &#x2190
@@ -198,11 +204,11 @@ def build_html_from_forecast(in_forecast, in_user):
                     wdir = '&#x2193'
 
                 if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
-                    html_forecast += '<td bgcolor ="#ccffcc">' + wdir + '</td>'  # good wind direction
+                    html_forecast += '<td bgcolor =' + my_palette.good + '>' + wdir + '</td>'  # good wind direction
                 elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
-                    html_forecast += '<td bgcolor ="#cccccc">' + wdir + '</td>'  # close to optimal wind direction
+                    html_forecast += '<td bgcolor =' + my_palette.lame + '>' + wdir + '</td>'  # close to optimal wind direction
                 else:
-                    html_forecast += '<td bgcolor ="#ffcccc">' + wdir + '</td>'  # far from optimal wind direction
+                    html_forecast += '<td bgcolor =' + my_palette.warn + '>' + wdir + '</td>'  # far from optimal wind direction
 
         html_forecast += '</tr>'
 
@@ -211,11 +217,11 @@ def build_html_from_forecast(in_forecast, in_user):
         for d in this_site.forecast_days:
             for p in d.periods:
                 if int(p.windGust) < int(this_site.windLower):
-                    html_forecast += '<td bgcolor ="#cccccc">' + p.windGust + '</td>'  # too slow
+                    html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windGust + '</td>'  # too slow
                 elif int(p.windGust) > int(this_site.windUpper):
-                    html_forecast += '<td bgcolor ="#ffcccc">' + p.windGust + '</td>'  # too fast
+                    html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windGust + '</td>'  # too fast
                 else:
-                    html_forecast += '<td bgcolor ="#ccffcc">' + p.windGust + '</td>'  # juuuust right
+                    html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windGust + '</td>'  # juuuust right
         html_forecast += '</tr>'
 
         # Snow Amount --------------------------------------------------------------------------------------------------
