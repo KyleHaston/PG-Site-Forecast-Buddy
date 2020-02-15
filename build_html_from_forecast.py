@@ -203,9 +203,9 @@ def build_html_from_forecast(in_forecast, in_user):
                 else:  # Wind from N
                     wdir = '&#x2193'
 
-                if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
+                if int(this_site.windDirLower) <= int(p.windDirection) <= int(this_site.windDirUpper):
                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + wdir + '</td>'  # good wind direction
-                elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
+                elif (int(this_site.windDirLower) - 30) < int(p.windDirection) < (int(this_site.windDirUpper) + 30):
                     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + wdir + '</td>'  # close to optimal wind direction
                 else:
                     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + wdir + '</td>'  # far from optimal wind direction
