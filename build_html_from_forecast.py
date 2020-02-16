@@ -19,15 +19,6 @@ def build_html_from_forecast(in_forecast, in_user):
     # html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
     html_forecast += '<font style="color:' + my_palette.text + '">'
     html_forecast += '<head> <meta charset="character_set"> <p>Hello from your site forecast buddy!'
-    # html_forecast += '<p> &larr; &uarr; &rarr; &darr; &UpperLeftArrow; &nwarrow; &nwarr; &nearr; &swarr; &searr;'
-    # # ← = &#x2190 &larr;
-    # # ↑ = &#x2191 &uarr;
-    # # → = &#x2192 &rarr;
-    # # ↓ = &#x2193 &darr;
-    # # ↖ = &#x2196 &nwarr;
-    # # ↗ = &#x2197 &nearr;
-    # # ↙ = &#x2199 &swarr;
-    # # ↘ = &#x2198 &searr;
     html_forecast += '<p> </head> <body>'
 
     for this_site in in_forecast:
@@ -188,29 +179,32 @@ def build_html_from_forecast(in_forecast, in_user):
                 #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
 
                 # Change wind direction in degrees to the appropriate arrow.
-                # ← = &#x2190 &larr;
-                # ↑ = &#x2191 &uarr;
-                # → = &#x2192 &rarr;
-                # ↓ = &#x2193 &darr;
-                # ↖ = &#x2196 &nwarr;
-                # ↗ = &#x2197 &nearr;
-                # ↙ = &#x2199 &swarr;
-                # ↘ = &#x2198 &searr;
+                # ← = &#x2190; &larr;
+                # ↑ = &#x2191; &uarr;
+                # → = &#x2192; &rarr;
+                # ↓ = &#x2193; &darr;
+                # ↖ = &#x2196; &nwarr;
+                # ↗ = &#x2197; &nearr;
+                # ↙ = &#x2199; &swarr;
+                # ↘ = &#x2198; &searr;
+
+                # Also, here's an example of embedding an image:
+                # html_forecast += '<img alt="Embedded Image" width="8" height="8" src="http://icons.primail.ch/arrows/tl43.gif" />'
 
                 if 22.5 < int(p.windDirection) < 67.5:  # Wind from NE
-                    wdir = '&swarr;'
+                    wdir = '&#x2199;'
                 elif 67.5 < int(p.windDirection) < 112.5:  # Wind from E
                     wdir = '&larr;'
                 elif 112.5 < int(p.windDirection) < 157.5:  # Wind from SE
-                    wdir = '&nwarr;'
+                    wdir = '&#x2196;'
                 elif 157.5 < int(p.windDirection) < 202.5:  # Wind from S
                     wdir = '&uarr;'
                 elif 202.5 < int(p.windDirection) < 247.5:  # Wind from SW
-                    wdir = '&nearr;'
+                    wdir = '&#x2197;'
                 elif 247.5 < int(p.windDirection) < 292.5:  # Wind from W
                     wdir = '&rarr;'
                 elif 292.5 < int(p.windDirection) < 337.5:  # Wind from NW
-                    wdir = '&searr;'
+                    wdir = '&#x2198;'
                 else:  # Wind from N
                     wdir = '&darr;'
 
