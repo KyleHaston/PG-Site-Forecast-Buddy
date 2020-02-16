@@ -15,9 +15,20 @@ def build_html_from_forecast(in_forecast, in_user):
     my_palette = palettes.Palette('')  # Instantiate the color scheme from the palette module.
 
     html_forecast = ''  # Initialize the forecast to empty.
-    html_forecast += '<html> <body bgcolor="' + my_palette.bdclr + '">'
-    html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
-    html_forecast +=  '<head> <p>Hello from your site forecast buddy!<p> </head> <body>'
+    html_forecast += '<!DOCTYPE html> <html> <body bgcolor="' + my_palette.bdclr + '">'
+    # html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
+    html_forecast += '<font style="color:' + my_palette.text + '">'
+    html_forecast += '<head> <meta charset="character_set"> <p>Hello from your site forecast buddy!'
+    # html_forecast += '<p> &larr; &uarr; &rarr; &darr; &UpperLeftArrow; &nwarrow; &nwarr; &nearr; &swarr; &searr;'
+    # # ← = &#x2190 &larr;
+    # # ↑ = &#x2191 &uarr;
+    # # → = &#x2192 &rarr;
+    # # ↓ = &#x2193 &darr;
+    # # ↖ = &#x2196 &nwarr;
+    # # ↗ = &#x2197 &nearr;
+    # # ↙ = &#x2199 &swarr;
+    # # ↘ = &#x2198 &searr;
+    html_forecast += '<p> </head> <body>'
 
     for this_site in in_forecast:
         if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if the user is not interested in this site...
@@ -177,31 +188,31 @@ def build_html_from_forecast(in_forecast, in_user):
                 #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
 
                 # Change wind direction in degrees to the appropriate arrow.
-                # ← = &#x2190
-                # ↑ = &#x2191
-                # → = &#x2192
-                # ↓ = &#x2193
-                # ↖ = &#x2196
-                # ↗ = &#x2197
-                # ↙ = &#x2199
-                # ↘ = &#x2198
+                # ← = &#x2190 &larr;
+                # ↑ = &#x2191 &uarr;
+                # → = &#x2192 &rarr;
+                # ↓ = &#x2193 &darr;
+                # ↖ = &#x2196 &nwarr;
+                # ↗ = &#x2197 &nearr;
+                # ↙ = &#x2199 &swarr;
+                # ↘ = &#x2198 &searr;
 
                 if 22.5 < int(p.windDirection) < 67.5:  # Wind from NE
-                    wdir = '&#x2199'
+                    wdir = '&swarr;'
                 elif 67.5 < int(p.windDirection) < 112.5:  # Wind from E
-                    wdir = '&#x2190'
+                    wdir = '&larr;'
                 elif 112.5 < int(p.windDirection) < 157.5:  # Wind from SE
-                    wdir = '&#x2196'
+                    wdir = '&nwarr;'
                 elif 157.5 < int(p.windDirection) < 202.5:  # Wind from S
-                    wdir = '&#x2191'
+                    wdir = '&uarr;'
                 elif 202.5 < int(p.windDirection) < 247.5:  # Wind from SW
-                    wdir = '&#x2197'
+                    wdir = '&nearr;'
                 elif 247.5 < int(p.windDirection) < 292.5:  # Wind from W
-                    wdir = '&#x2192'
+                    wdir = '&rarr;'
                 elif 292.5 < int(p.windDirection) < 337.5:  # Wind from NW
-                    wdir = '&#x2198'
+                    wdir = '&searr;'
                 else:  # Wind from N
-                    wdir = '&#x2193'
+                    wdir = '&darr;'
 
                 if int(this_site.windDirLower) <= int(p.windDirection) <= int(this_site.windDirUpper):
                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + wdir + '</td>'  # good wind direction

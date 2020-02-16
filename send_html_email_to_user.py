@@ -1,10 +1,13 @@
 # This takes in some HTML and a destination and sends an email
 import sys
-from email.mime.text import MIMEText
-from smtplib import SMTP_SSL as SMTP
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
 from datetime import *
 import credentials
+
+import send_mail
 
 def send_html_email_to_user(in_html, in_destination):
     smtp_server = 'smtp.gmail.com'
@@ -12,21 +15,8 @@ def send_html_email_to_user(in_html, in_destination):
 
     username = credentials.this_login
     password = credentials.this_password
-
     try:
-        msg = MIMEText(in_html, 'html')
-        msg['Subject'] = 'Site Forecast for: ' + str(date.today())
-        msg['From'] = sender  # some SMTP servers will do this automatically, not all
-        msg['To'] = in_destination
-
-        conn = SMTP(smtp_server)
-        conn.set_debuglevel(False)
-        conn.login(username, password)
-        try:
-            conn.sendmail(sender, in_destination, msg.as_string())
-        finally:
-            conn.quit()
-        print('        E-mail sent to: ' + in_destination)
+        send_mail.send_mail(sender, in_destination, 'asdf', 'asdf', files=['output.html'], server=smtp_server, port=587, username=credentials.this_login, password=credentials.this_password)
 
     except:
         print('        ERROR: mail failed to: ' + in_destination)  # give an error message
