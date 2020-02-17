@@ -27,6 +27,11 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # else... add this site's info to the HTML string
 
+        # Determine the number of columns from the number of periods with valid data.
+        cols = 0  # initialize
+        for d in this_site.forecast_days:
+            cols += len(d.periods)
+
         # Add a table.
         html_forecast += '<table width="auto" border="1" bgcolor ="' + my_palette.bkgnd + '" style="color:' + my_palette.text + '" >'
         html_forecast += '<tr><th rowspan="2">'
@@ -34,14 +39,14 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</th>'
 
         # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
-        html_forecast += '<th colspan="25", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
+        html_forecast += '<th colspan="' + str(cols+1) + '", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
         html_forecast += 'Forecast created: ' + this_site.forecast_creation_time + '<br/>'
         html_forecast += 'Desired Conditions: '
         html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
         html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
         html_forecast += '</span></th></tr>'
 
-        # TODO: Convert to user's preferred time zone.
+        # TODO: Convert from UTC to time zone for this site.
         # # Convert dates and times from UTC to PST ----------------------------------------------------------------------
         # date_times = []  # This will hold the datetime instances for each time interval in the XML data
         #
@@ -247,6 +252,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Close the table.
         html_forecast += '</table><p>'
+        html_forecast += '<br>'  # Add a blank row between site forecasts.
     html_forecast += '</p></body></html>'  # Close the HTML.
 
     if in_user['addr'] == 'server':  # Also save a full copy of the forecast to the server.
