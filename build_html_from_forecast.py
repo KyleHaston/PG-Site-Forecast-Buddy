@@ -1,7 +1,8 @@
 from datetime import *  # For the output file.
 import calendar
 import time
-import random
+import pytz
+from tzwhere import tzwhere
 
 import palettes
 
@@ -47,7 +48,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</span></th></tr>'
 
         # TODO: Convert from UTC to time zone for this site.
-        # # Convert dates and times from UTC to PST ----------------------------------------------------------------------
+        # Convert dates and times from UTC to PST ----------------------------------------------------------------------
         # date_times = []  # This will hold the datetime instances for each time interval in the XML data
         #
         # # Get the year
@@ -92,14 +93,32 @@ def build_html_from_forecast(in_forecast, in_user):
         #     forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
         # forecast += '</tr>'
 
-        # Dates --------------------------------------------------------------------------------------------------
+        # UTC Timezone -------------------------------------------------------------------------------------------------
+        # # Dates --------------------------------------------------------------------------------------------------------
+        # html_forecast += '<tr>'
+        # for d in this_site.forecast_days:
+        #     html_forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
+        # html_forecast += '</tr>'
+        #
+        # # Time of Day --------------------------------------------------------------------------------------------------
+        # html_forecast += '<tr><th align="right">Time (UTC): </th>'
+        # for d in this_site.forecast_days:
+        #     for p in d.periods:
+        #         html_forecast += '<td>' + p.validTime + '</td>'
+        # html_forecast += '</tr>'
+
+        # Local Timezone -----------------------------------------------------------------------------------------------
+        # Dates --------------------------------------------------------------------------------------------------------
         html_forecast += '<tr>'
         for d in this_site.forecast_days:
-            html_forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
+            for p in d.periods:
+                # html_forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
+                html_forecast += '<th>' + list(calendar.month_abbr)[p.local_dt.month] + ' '
+                html_forecast += str(p.local_dt.day) + '</th>'
         html_forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Time (UTC): </th>'
+        html_forecast += '<tr><th align="right">Time (' + this_site.timezone_str + '): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
                 html_forecast += '<td>' + p.validTime + '</td>'

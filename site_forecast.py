@@ -96,3 +96,8 @@ class SiteForecast:
         self.show_qpf = True
         self.show_snowAmt = True
         self.show_snow = True
+
+        self.datetime = ''  # datetime object in UTC timezone
+        self.local_dt = ''  # datetime object in site's local timezone
+
+        self.timezone_str = ''  # This will hold the timezone string, which takes a 'long' time to fetch, so do it once.
