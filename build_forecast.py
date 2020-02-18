@@ -85,7 +85,7 @@ def build_forecast():
                                 this_p.snowLevel = '0.00'
 
                         # To ease time conversion (based on timezone) later, create a datetime from this period's info.
-                        yr = datetime.datetime.now().year
+                        yr = datetime.datetime.now().year  # TODO: might fart out around new year
                         m = list(calendar.month_abbr).index(this_date.split()[0])
                         d = int(this_date.split()[1])
                         hr = int(this_p.validTime)

@@ -109,19 +109,33 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Local Timezone -----------------------------------------------------------------------------------------------
         # Dates --------------------------------------------------------------------------------------------------------
-        html_forecast += '<tr>'
+
+        # First, let's figure out how many columns to reserve for each date
+        cols = {}
         for d in this_site.forecast_days:
+            cols[d.valid_date] = 0  # initialize number of columns for this day to 0
             for p in d.periods:
-                # html_forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
-                html_forecast += '<th>' + list(calendar.month_abbr)[p.local_dt.month] + ' '
-                html_forecast += str(p.local_dt.day) + '</th>'
+                dow = p.local_dt.strftime('%a') + ' '
+                month = list(calendar.month_abbr)[p.local_dt.month] + ' '
+                temp_date = dow + month + str(p.local_dt.day)
+                if temp_date in cols:
+                    cols[temp_date] = cols[temp_date] + 1
+                else:
+                    cols[temp_date] = 1
+
+        # Print the dates to the HTML
+        html_forecast += '<tr>'
+        for k, v in cols.items():
+            if v > 0:
+                html_forecast += '<th colspan="' + str(v) + '">' + k + '</th>'
         html_forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Time (' + this_site.timezone_str + '): </th>'
+        # html_forecast += '<tr><th align="right">Time (' + this_site.timezone_str + '): </th>'
+        html_forecast += '<tr><th align="right">Time (local): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                html_forecast += '<td>' + p.validTime + '</td>'
+                html_forecast += '<td>' + str(p.local_dt.hour) + '</td>'
         html_forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
