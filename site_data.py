@@ -33,4 +33,11 @@ sites = [{'Name': 'Yaquina Head',
                                 'windDirLower': 225, 'windDirUpper': 270,
                                 'windLower': 4, 'windUpper': 14,
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
-                                'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False}]
+                                'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
+         {'Name': 'Creedence',
+                              'lat': '31.775972', 'lon': '-110.841174', 'timezone_str': 'America/Phoenix',
+                              'windDirLower': 240, 'windDirUpper': 340,
+                              'windLower': 5, 'windUpper': 15,
+                              'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
+                              'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
+         ]

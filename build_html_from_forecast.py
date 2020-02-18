@@ -47,69 +47,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
         html_forecast += '</span></th></tr>'
 
-        # TODO: Convert from UTC to time zone for this site.
-        # Convert dates and times from UTC to PST ----------------------------------------------------------------------
-        # date_times = []  # This will hold the datetime instances for each time interval in the XML data
-        #
-        # # Get the year
-        # year = ''  # initialize here for scope reasons
-        # for fct in soup.find_all('forecastcreationtime'):
-        #     year = fct.text.split()[4]  # Is this poor form? It works at this moment in time...
-        #
-        # # Get the month abbreviations in lowercase.
-        # lower_month_abbr = list(calendar.month_abbr)
-        # for idx, val in enumerate(lower_month_abbr):
-        #     lower_month_abbr[idx] = val.lower()
-        #
-        # # Instantiate a datetime for each moment in the XML data.
-        # for fd in soup.find_all('forecastday'):
-        #     for vd in fd.find_all('validdate'):
-        #         month = lower_month_abbr.index(vd.text.split()[0].lower())  # Get the month. I know this is ugly.
-        #         day = vd.text.split()[1]  # Get the day. I know this is ugly too.
-        #         for vt in fd.find_all('validtime'):
-        #             date_times.append(datetime(int(year), month, int(day), hour=int(vt.text), tzinfo=timezone.utc))
-        #
-        # # Subtract 7 hrs to convert from UTC to PST
-        # for idx, val in enumerate(date_times):
-        #     date_times[idx] = date_times[idx] - timedelta(hours=7)
-        #
-        # # Distill a list of dates for the next part.
-        # dates = []
-        # times = []
-        # for d in date_times:
-        #     dates.append(calendar.month_abbr[d.month] + ' ' + str(d.day))
-        #     times.append(d.hour)
-        #
-        # # Create a column header for each date. It should span the correct number of columns.
-        # ordered_date_set = sorted(set(dates), key=dates.index)
-        # for idx, val in enumerate(ordered_date_set):  # For unique entries only...
-        #     cols = dates.count(ordered_date_set[idx])  # get column span from the # of occurrences of this date
-        #     forecast += '<th colspan="' + str(cols) + '">' + ordered_date_set[idx] + '</th>'
-        # forecast += '</tr>'
-        #
-        # # Time of Day --------------------------------------------------------------------------------------------------
-        # forecast += '<tr><th align="right">Time (PST): </th>'
-        # for t in times:
-        #     forecast += '<td>' + str(t).zfill(2) + '</td>'  # zfill lends the leading zero where appropriate
-        # forecast += '</tr>'
-
-        # UTC Timezone -------------------------------------------------------------------------------------------------
-        # # Dates --------------------------------------------------------------------------------------------------------
-        # html_forecast += '<tr>'
-        # for d in this_site.forecast_days:
-        #     html_forecast += '<th colspan="' + str(len(d.periods)) + '">' + d.valid_date + '</th>'
-        # html_forecast += '</tr>'
-        #
-        # # Time of Day --------------------------------------------------------------------------------------------------
-        # html_forecast += '<tr><th align="right">Time (UTC): </th>'
-        # for d in this_site.forecast_days:
-        #     for p in d.periods:
-        #         html_forecast += '<td>' + p.validTime + '</td>'
-        # html_forecast += '</tr>'
-
-        # Local Timezone -----------------------------------------------------------------------------------------------
         # Dates --------------------------------------------------------------------------------------------------------
-
         # First, let's figure out how many columns to reserve for each date
         cols = {}
         for d in this_site.forecast_days:
@@ -131,7 +69,6 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        # html_forecast += '<tr><th align="right">Time (' + this_site.timezone_str + '): </th>'
         html_forecast += '<tr><th align="right">Time (local): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
@@ -142,7 +79,10 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '<tr><th align="right">Temp (°F): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
-                html_forecast += '<td>' + p.temperature + '</td>'
+                if int(p.temperature) < 33:
+                    html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.temperature + '</td>'  # near freezing.
+                else:
+                    html_forecast += '<td>' + p.temperature + '</td>'  # warm enough
         html_forecast += '</tr>'
 
         # Dewpoint -----------------------------------------------------------------------------------------------------
@@ -290,7 +230,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     if in_user['addr'] == 'server':  # Also save a full copy of the forecast to the server.
         print('        Saving the full forecast to an HTML file on the server...')
-        with open('forecast ' + time.asctime().replace(':', '-') + '.html', 'w') as file:
+        with open('forecasts/forecast ' + time.asctime().replace(':', '-') + '.html', 'w') as file:
             file.write(html_forecast)
 
     return html_forecast
