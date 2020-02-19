@@ -87,7 +87,13 @@ sites = [{'Name': 'Yaquina Head',
                               'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
          {'Name': 'Oceanside',
                               'lat': '45.4654', 'lon': '-123.9710', 'timezone_str': 'America/Los_Angeles',
-                              'windDirLower': 202, 'windDirUpper': 270,  # SSW-W
+                              'windDirLower': 202, 'windDirUpper': 270,  # SSW to W
+                              'windLower': 5, 'windUpper': 15,
+                              'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                              'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+         {'Name': 'Rock Creek',
+                              'lat': '44.179333', 'lon': '-124.113083', 'timezone_str': 'America/Los_Angeles',
+                              'windDirLower': 202.5, 'windDirUpper': 292.5,  # SSW-WNW
                               'windLower': 5, 'windUpper': 15,
                               'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                               'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
