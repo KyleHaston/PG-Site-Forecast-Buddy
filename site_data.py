@@ -73,6 +73,13 @@ sites = [{'Name': 'Yaquina Head',
                                 'windLower': 7, 'windUpper': 15,
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+         {'Name': 'Bingen',
+                                'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 0, 'windDirUpper': 360,
+                                'windLower': 5, 'windUpper': 15,
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+
          {'Name': 'Cape Kiwanda',
                                 'lat': '44.690', 'lon': '-123.459', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 270, 'windDirUpper': 360,
