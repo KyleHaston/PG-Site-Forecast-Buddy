@@ -5,6 +5,7 @@ import datetime
 
 import site_data  # Our own site data.
 import site_data_OR_kiting  # Our own site data.
+import site_data_Willamette_Valley
 import site_forecast  # Our custom class definitions
 import calendar
 
@@ -15,11 +16,14 @@ import pytz
 def build_forecast():
     full_forecast = []
 
-    # dump all sites into a big list
+    # Stitch all sites into a big list ---------------------------------------------------------------------------------
     sites = site_data.sites
     for s in site_data_OR_kiting.OR_kiting_sites:
         sites.append(s)
+    for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
+        sites.append(s)
 
+    # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
         print('    Building forecast for site: ' + site['Name'] + '...')
 
