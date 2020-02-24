@@ -7,6 +7,33 @@ from tzwhere import tzwhere
 import palettes
 
 
+def in_bounds(in_dir, in_lower, in_upper, in_margin):
+    """
+    For this to work, we travel the copass in the clowise direction.
+    The lower bound is indicated first, and the upper is indicated second.
+    For example, for NW to NE wind, 315° is lower bound and 45° is upper bound.
+    :param in_dir:
+    :param in_lower:
+    :param in_upper:
+    :param in_margin:
+    :return:
+    """
+    try:
+        # cast to float to handle all sorts of weirdness
+        in_dir = float(in_dir)
+        in_lower = max(float(in_lower) - float(in_margin), 0)
+        in_upper = min(float(in_upper) + float(in_margin), 360)
+        if in_lower < in_dir < in_upper or \
+           in_upper <= in_lower < in_dir <= 360 or \
+           0 <= in_dir < in_upper <= in_lower:
+            return True
+        else:
+            return False
+    except:
+        print('        ERROR: Problem checking wind direction! Calling it bad by default.')
+        return False
+
+
 def build_html_from_forecast(in_forecast, in_user):
     """
     This should take in a forecast instance and a user and return an HTML string containing the forecast for that
@@ -186,9 +213,9 @@ def build_html_from_forecast(in_forecast, in_user):
                 else:  # Wind from N
                     wdir = '&darr;'
 
-                if int(this_site.windDirLower) <= int(p.windDirection) <= int(this_site.windDirUpper):
+                if in_bounds(p.windDirection, this_site.windDirLower, this_site.windDirUpper, 0):
                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + wdir + '</td>'  # good wind direction
-                elif (int(this_site.windDirLower) - 30) < int(p.windDirection) < (int(this_site.windDirUpper) + 30):
+                elif in_bounds(p.windDirection, this_site.windDirLower, this_site.windDirUpper, 30):
                     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + wdir + '</td>'  # close to optimal wind direction
                 else:
                     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + wdir + '</td>'  # far from optimal wind direction

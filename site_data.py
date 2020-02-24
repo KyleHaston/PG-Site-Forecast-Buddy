@@ -96,7 +96,7 @@ sites = [
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
     {'Name': 'Bingen',
                                 'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
-                                'windDirLower': 0, 'windDirUpper': 360,
+                                'windDirLower': 0, 'windDirUpper': 360,  # TODO: Is this correct? Split into Bingen W and E? or similar?
                                 'windLower': 5, 'windUpper': 15,
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
@@ -109,7 +109,7 @@ sites = [
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
     {'Name': 'Area B',
                                 'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
-                                'windDirLower': 290, 'windDirUpper': 205,
+                                'windDirLower': 205, 'windDirUpper': 290,
                                 'windLower': 12, 'windUpper': 14,
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
