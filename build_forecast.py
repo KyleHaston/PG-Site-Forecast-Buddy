@@ -4,15 +4,23 @@ from bs4 import BeautifulSoup
 import datetime
 
 import site_data  # Our own site data.
+import site_data_OR_kiting  # Our own site data.
 import site_forecast  # Our custom class definitions
 import calendar
 
 from tzwhere import tzwhere
 import pytz
 
+
 def build_forecast():
     full_forecast = []
-    for site in site_data.sites:
+
+    # dump all sites into a big list
+    sites = site_data.sites
+    for s in site_data_OR_kiting.OR_kiting_sites:
+        sites.append(s)
+
+    for site in sites:
         print('    Building forecast for site: ' + site['Name'] + '...')
 
         # Fetch XML data
