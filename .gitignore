@@ -1,0 +1,5 @@
+# exclude everything
+forecasts/*
+
+# exception to the rule
+!forecasts/.gitkeep 
