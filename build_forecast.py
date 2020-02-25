@@ -6,6 +6,7 @@ import datetime
 import site_data  # Our own site data.
 import site_data_OR_kiting  # Our own site data.
 import site_data_Willamette_Valley
+import site
 import site_forecast  # Our custom class definitions
 import calendar
 
@@ -22,6 +23,7 @@ def build_forecast():
         sites.append(s)
     for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
         sites.append(s)
+
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
@@ -56,6 +58,7 @@ def build_forecast():
 
         site4cast.latitude = float(site['lat'])
         site4cast.longitude = float(site['lon'])
+        site4cast.link = site['link']
 
         site4cast.timezone_str = site['timezone_str']
         if site4cast.timezone_str == '':  # If we don't have the timezone string in the site data...

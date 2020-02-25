@@ -76,6 +76,7 @@ class SiteForecast:
         self.forecast_creation_time = ''
         self.latitude = ''
         self.longitude = ''
+        self.link = ''
         self.elevation = ''
         self.location = ''
         self.duration = ''
