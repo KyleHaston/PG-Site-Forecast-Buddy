@@ -1,5 +1,9 @@
 # exclude everything
 forecasts/*
+credentials.py
+user_data.py
+__pycache__
+.idea
 
 # exception to the rule
 !forecasts/.gitkeep 

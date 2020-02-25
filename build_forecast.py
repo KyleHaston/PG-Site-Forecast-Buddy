@@ -6,7 +6,7 @@ import datetime
 import site_data  # Our own site data.
 import site_data_OR_kiting  # Our own site data.
 import site_data_Willamette_Valley
-import site
+import site_data_OR_test_sites
 import site_forecast  # Our custom class definitions
 import calendar
 
@@ -22,6 +22,8 @@ def build_forecast():
     for s in site_data_OR_kiting.OR_kiting_sites:
         sites.append(s)
     for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
+        sites.append(s)
+    for s in site_data_OR_test_sites.OR_test_sites:
         sites.append(s)
 
 
