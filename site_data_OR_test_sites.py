@@ -19,7 +19,7 @@
 # N	    360.000°
 
 # OR Kiting Sites
-OR_kiting_sites = [
+OR_test_sites = [
     # {'Name': '',
     #  'Desc': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Los_Angeles',
