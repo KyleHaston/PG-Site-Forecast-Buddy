@@ -65,7 +65,7 @@ OR_kiting_sites = [
      'lat': '45.830265', 'lon': '-122.691838', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # 'Works Best When: Any direction.'
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/emWeBwugGufmVyko6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -101,7 +101,7 @@ OR_kiting_sites = [
      'lat': '45.649331', 'lon': '-122.764136', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 45,  # Works Best When: N-NW.
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/yA9474UJKQRs8gcZ7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -117,10 +117,10 @@ OR_kiting_sites = [
              'Works Best When: SW-W Don’t go if the wind is S, NW, N, or any kind of E.\n' +
              'Hazards: Dickinson Park is also a dog-walk area, ... watch your footing!\n' +
              'Address: 10500 SW 55th Ave., Portland OR 97219\n',
-     'lat': '45.333', 'lon': '-122.940', 'timezone_str': 'America/Los_Angeles',
+     'lat': '45.449045', 'lon': '-122.734109', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 225, 'windDirUpper': 270,
      'windLower': 7, 'windUpper': 12,
-     'link': '',
+     'link': 'https://goo.gl/maps/hsTDxmqjBMubPDFh7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -134,7 +134,7 @@ OR_kiting_sites = [
      'lat': '45.503631', 'lon': '-122.605049', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 315, 'windDirUpper': 45,  # NE-NW # TODO: This won't work for wind direciton. Change dir check so it does.
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/CxqgkqgRFky9N1zv9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -148,7 +148,7 @@ OR_kiting_sites = [
      'lat': '45.598443', 'lon': '-122.686866', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # "Wind should work form any direction."
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/Xf5Gup3HQzSkfXGr7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -162,7 +162,7 @@ OR_kiting_sites = [
      'lat': '45.462447', 'lon': '-122.710863', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 45,  # N # TODO: This won't work for wind direciton. Change dir check so it does.
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/HWR8LUg2gGuQ4yES7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -174,7 +174,7 @@ OR_kiting_sites = [
      'lat': '45.506005', 'lon': '-122.638162', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 225, 'windDirUpper': 315,  # SW to NW
      'windLower': 5, 'windUpper': 8,  # 5 to 8 mph
-     'link': '',
+     'link': 'https://goo.gl/maps/LrDMCrdxniSt6S2L6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 ]

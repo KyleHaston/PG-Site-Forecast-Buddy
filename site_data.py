@@ -86,71 +86,71 @@ sites = [
                                 'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 270, 'windDirUpper': 360,
                                 'windLower': 7, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/ymRCog5w39KDjwnK7',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
     {'Name': 'Cliffside',
                                 'lat': '45.724844', 'lon': '-120.726470', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 45, 'windDirUpper': 135,
                                 'windLower': 7, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/zgzczeHDBNyuRFhP7',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
     {'Name': 'Bingen',
                                 'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 0, 'windDirUpper': 360,  # TODO: Is this correct? Split into Bingen W and E? or similar?
                                 'windLower': 5, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/zS1Fmr4DzzW54M8fA',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
     {'Name': 'Cape Kiwanda',
-                                'lat': '44.690', 'lon': '-123.459', 'timezone_str': 'America/Los_Angeles',
+                                'lat': '45.220660', 'lon': '-123.973579', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 270, 'windDirUpper': 360,
                                 'windLower': 7, 'windUpper': 18,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/sVw9j7cgveAjgzu78',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
     {'Name': 'Area B',
                                 'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 205, 'windDirUpper': 290,
                                 'windLower': 12, 'windUpper': 14,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/Bpuv5dnaroBKFQCq9',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Oceanside',
                                 'lat': '45.4654', 'lon': '-123.9710', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 202, 'windDirUpper': 270,  # SSW to W
                                 'windLower': 5, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/UtU2svqZ9vVuQSqG8',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Rock Creek',
                                 'lat': '44.179333', 'lon': '-124.113083', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 202, 'windDirUpper': 293,  # SSW-WNW
                                 'windLower': 5, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/Eo4vvoNXwBh8GPK78',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Bald Butte',
-                                'lat': '45.536365', 'lon': '-121.532931', 'timezone_str': 'America/Los_Angeles',
+                                'lat': '45.536542', 'lon': '-121.532970', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 247, 'windDirUpper': 293,  #WSW to WNW
                                 'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-                                'link': 'https://goo.gl/maps/BfgqzPjYR4jWhCXG8',
+                                'link': 'https://goo.gl/maps/ppcUwkmvWw6so2id7',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Bald Butte North',  # LZ @: 45.5503, -121.5570
-                                'lat': '45.5512', 'lon': '-121.5570', 'timezone_str': 'America/Los_Angeles',
+                                'lat': '45.551200', 'lon': '-121.534900', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 270, 'windDirUpper': 315,  # "The launch faces west, northwest. There is a second lower west face for higher wind launching. "
                                 'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-                                'link': '',
+                                'link': 'https://goo.gl/maps/C24ZWBsCJ8cMwvJK7',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Eagle Caves',  # LZ in the school fields. See info. online.
                                 'lat': '45.622849', 'lon': '-121.234674', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 45, 'windDirUpper': 90,   # TODO: Ridge faces ENE. Using roughly this. Get real wind dirs.
                                 'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-                                'link': '',
+                                'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -159,14 +159,14 @@ sites = [
                                 'lat': '31.70407', 'lon': '-110.49246', 'timezone_str': 'America/Phoenix',
                                 'windDirLower': 225, 'windDirUpper': 270,
                                 'windLower': 4, 'windUpper': 14,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/xwHoYrdgNuYxy5hJ8',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
                                 'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Creedence',
                                 'lat': '31.775972', 'lon': '-110.841174', 'timezone_str': 'America/Phoenix',
                                 'windDirLower': 240, 'windDirUpper': 340,
                                 'windLower': 5, 'windUpper': 15,
-                                'link': '',
+                                'link': 'https://goo.gl/maps/7gHv7R8Y26WUCweW8',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
                                 'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
          ]

@@ -52,7 +52,7 @@ OR_Willamette_Valley_sites = [
      'lat': '45.355200', 'lon': '-122.997500', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 180, 'windDirUpper': 270,  # I'm picking from S to W. TODO: Get real wind dirs.
      'windLower': 5, 'windUpper': 10,  # from site guide description
-     'link': '',
+     'link': 'https://goo.gl/maps/GCHCqLMxnu566Wnx5',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
@@ -68,7 +68,7 @@ OR_Willamette_Valley_sites = [
      'lat': '44.510043', 'lon': '-122.968919', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 180, 'windDirUpper': 270,  # I'm picking from S to W. TODO: Get real wind dirs.
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': '',
+     'link': 'https://goo.gl/maps/UEDuNgVuq3E77v86A',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
