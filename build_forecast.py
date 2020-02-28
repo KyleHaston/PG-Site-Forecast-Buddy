@@ -4,9 +4,11 @@ from bs4 import BeautifulSoup
 import datetime
 
 import site_data  # Our own site data.
-import site_data_OR_kiting  # Our own site data.
+import site_data_OR_kiting
 import site_data_Willamette_Valley
 import site_data_OR_test_sites
+import site_data_AZ
+
 import site_forecast  # Our custom class definitions
 import calendar
 
@@ -25,7 +27,8 @@ def build_forecast():
         sites.append(s)
     for s in site_data_OR_test_sites.OR_test_sites:
         sites.append(s)
-
+    for s in site_data_AZ.sites_AZ:
+        sites.append(s)
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
