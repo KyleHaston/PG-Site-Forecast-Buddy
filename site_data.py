@@ -153,20 +153,4 @@ sites = [
                                 'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-
-    # AZ Sites: TODO: Add all of them.
-    {'Name': 'Mustang Peak',
-                                'lat': '31.70407', 'lon': '-110.49246', 'timezone_str': 'America/Phoenix',
-                                'windDirLower': 225, 'windDirUpper': 270,
-                                'windLower': 4, 'windUpper': 14,
-                                'link': 'https://goo.gl/maps/xwHoYrdgNuYxy5hJ8',
-                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
-                                'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
-    {'Name': 'Creedence',
-                                'lat': '31.775972', 'lon': '-110.841174', 'timezone_str': 'America/Phoenix',
-                                'windDirLower': 240, 'windDirUpper': 340,
-                                'windLower': 5, 'windUpper': 15,
-                                'link': 'https://goo.gl/maps/7gHv7R8Y26WUCweW8',
-                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
-                                'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
          ]
