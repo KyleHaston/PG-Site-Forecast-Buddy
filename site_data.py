@@ -153,4 +153,11 @@ sites = [
                                 'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264
+                                'lat': '45.716782', 'lon': '-121.701887', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 247, 'windDirUpper': 292,
+                                'windLower': 3, 'windUpper': 12,
+                                'link': 'https://goo.gl/maps/Wa2n4ygKNYXQsxuy9',
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
          ]
