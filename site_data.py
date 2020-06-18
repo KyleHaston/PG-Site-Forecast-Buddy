@@ -82,13 +82,20 @@
 # N	    360.000°
 
 sites = [
-    {'Name': 'Yaquina Head',
+    {'Name': 'Yaquina Head (North)',
                                 'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
-                                'windDirLower': 270, 'windDirUpper': 360,
-                                'windLower': 7, 'windUpper': 15,
+                                'windDirLower': 315, 'windDirUpper': 360,
+                                'windLower': 10, 'windUpper': 18,
                                 'link': 'https://goo.gl/maps/ymRCog5w39KDjwnK7',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    {'Name': 'Yaquina Head (South)',
+                                'lat': '44.674939', 'lon': '-124.066994', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 180, 'windDirUpper': 225,
+                                'windLower': 10, 'windUpper': 15,
+                                'link': 'https://www.google.com/maps/dir/44.6738817,-124.0621217/44.6749517,-124.0669741/@44.6671123,-124.0672885,987a,35y,3.37h,39.37t/data=!3m1!1e3!4m2!4m1!3e2',
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
     {'Name': 'Cliffside',
                                 'lat': '45.724844', 'lon': '-120.726470', 'timezone_str': 'America/Los_Angeles',
                                 'windDirLower': 45, 'windDirUpper': 135,
