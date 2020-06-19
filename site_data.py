@@ -167,4 +167,31 @@ sites = [
                                 'link': 'https://goo.gl/maps/Wa2n4ygKNYXQsxuy9',
                                 'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
                                 'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-         ]
+
+    # Pine Mountain Sites (Desert Air Riders - Paragliding Central Oregon)
+    # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
+    # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
+    {'Name': 'Pine Mnt: Training Hill',  # "Rock L" Parking LZ @ 43.83716, -120.93033
+                                'lat': '43.833422', 'lon': '-120.926337', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 310, 'windDirUpper': 360,
+                                'windLower': 2, 'windUpper': 18,
+                                'link': 'https://goo.gl/maps/1esfGRRhDW395dS1A',
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+    {'Name': 'Pine Mnt: West PG Launch',  # "Rock L" Parking LZ @ 43.83716, -120.93033 (yes, same LZ as training hill)
+                                'lat': '43.821283', 'lon': '-120.93145', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 270, 'windDirUpper': 350,
+                                'windLower': 5, 'windUpper': 15,
+                                'link': 'https://goo.gl/maps/ukb7WYabzFop7ZGH8',
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
+    # https://docs.google.com/document/d/1OE0ICBCPaOSHbljiof710qh_ET75tyd358h27jz4xpI/edit
+    {'Name': 'Pine Ridge',  # LZ @ TBD
+                                'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
+                                'windDirLower': 310, 'windDirUpper': 360,
+                                'windLower': 5, 'windUpper': 15,
+                                'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
+                                'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+                                'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     ]
