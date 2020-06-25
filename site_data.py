@@ -87,7 +87,7 @@ sites = [
     {'Name': 'Area B',
      'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 205, 'windDirUpper': 290,
-     'windLower': 12, 'windUpper': 14,
+     'windLower': 0, 'windUpper': 15,
      'link': 'https://goo.gl/maps/Bpuv5dnaroBKFQCq9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -103,7 +103,7 @@ sites = [
     {'Name': 'Cape Kiwanda',
      'lat': '45.220660', 'lon': '-123.973579', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 270, 'windDirUpper': 360,
-     'windLower': 7, 'windUpper': 18,
+     'windLower': 7, 'windUpper': 14,
      'link': 'https://goo.gl/maps/sVw9j7cgveAjgzu78',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
