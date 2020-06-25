@@ -84,7 +84,7 @@
 sites = [
 
     # OR Coast ---------------------------------------------------------------------------------------------------------
-    {'Name': 'Area B',
+    {'Name': 'Area B', 'Region': 'Oregon Coastal Range',
      'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 205, 'windDirUpper': 290,
      'windLower': 8, 'windUpper': 15,
@@ -92,7 +92,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Oceanside',
+    {'Name': 'Oceanside', 'Region': 'Oregon Coastal Range',
      'lat': '45.4654', 'lon': '-123.9710', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 202, 'windDirUpper': 270,  # SSW to W
      'windLower': 5, 'windUpper': 15,
@@ -100,7 +100,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Cape Kiwanda',
+    {'Name': 'Cape Kiwanda', 'Region': 'Oregon Coastal Range',
      'lat': '45.220660', 'lon': '-123.973579', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 270, 'windDirUpper': 360,
      'windLower': 0, 'windUpper': 16,
@@ -108,7 +108,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
-    {'Name': 'Yaquina Head (North)',
+    {'Name': 'Yaquina Head (North)', 'Region': 'Oregon Coastal Range',
      'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 315, 'windDirUpper': 360,
      'windLower': 10, 'windUpper': 16,
@@ -116,7 +116,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Yaquina Head (South)',
+    {'Name': 'Yaquina Head (South)', 'Region': 'Oregon Coastal Range',
      'lat': '44.674939', 'lon': '-124.066994', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 180, 'windDirUpper': 225,
      'windLower': 10, 'windUpper': 15,
@@ -124,7 +124,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Rock Creek',
+    {'Name': 'Rock Creek', 'Region': 'Oregon Coastal Range',
      'lat': '44.179333', 'lon': '-124.113083', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 202, 'windDirUpper': 293,  # SSW-WNW
      'windLower': 5, 'windUpper': 15,
@@ -133,7 +133,7 @@ sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     # The Gorge --------------------------------------------------------------------------------------------------------
-    # {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264
+    # {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264, 'Region': 'Columbia River Gorge',
     #                             'lat': '45.716782', 'lon': '-121.701887', 'timezone_str': 'America/Los_Angeles',
     #                             'windDirLower': 247, 'windDirUpper': 292,
     #                             'windLower': 3, 'windUpper': 12,
@@ -141,7 +141,7 @@ sites = [
     #                             'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
     #                             'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Bingen',
+    {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
      'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # TODO: Is this correct? Split into Bingen W and E? or similar?
      'windLower': 5, 'windUpper': 15,
@@ -149,7 +149,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
-    {'Name': 'Eagle Caves',  # LZ in the school fields. See info. online.
+    {'Name': 'Eagle Caves',  'Region': 'Columbia River Gorge',  # LZ in the school fields. See info. online.
      'lat': '45.622849', 'lon': '-121.234674', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 45, 'windDirUpper': 90,  # TODO: Ridge faces ENE. Using roughly this. Get real wind dirs.
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -157,7 +157,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Cliffside',
+    {'Name': 'Cliffside', 'Region': 'Columbia River Gorge',
      'lat': '45.724844', 'lon': '-120.726470', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 45, 'windDirUpper': 135,
      'windLower': 7, 'windUpper': 15,
@@ -165,8 +165,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
-   # Mnt Hood ----------------------------------------------------------------------------------------------------------
-    {'Name': 'Bald Butte',
+    {'Name': 'Bald Butte', 'Region': 'Columbia River Gorge',
      'lat': '45.536542', 'lon': '-121.532970', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 247, 'windDirUpper': 293,  # WSW to WNW
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -174,7 +173,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Bald Butte North',  # LZ @: 45.5503, -121.5570
+    {'Name': 'Bald Butte North', 'Region': 'Columbia River Gorge',  # LZ @: 45.5503, -121.5570
      'lat': '45.551200', 'lon': '-121.534900', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 270, 'windDirUpper': 315,
      # "The launch faces west, northwest. There is a second lower west face for higher wind launching. "
@@ -183,10 +182,13 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    # Mnt Hood ---------------------------------------------------------------------------------------------------------
+    # TODO: Add Mnt Hood.
+
     # Central OR -------------------------------------------------------------------------------------------------------
     # Pine Mountain Sites (Desert Air Riders - Paragliding Central Oregon)
     # https://docs.google.com/document/d/1OE0ICBCPaOSHbljiof710qh_ET75tyd358h27jz4xpI/edit
-    {'Name': 'Pine Ridge',  # LZ @ TBD
+    {'Name': 'Pine Ridge', 'Region': 'Central Oregon',  # LZ @ TBD
      'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 310, 'windDirUpper': 360,
      'windLower': 5, 'windUpper': 15,
@@ -196,7 +198,7 @@ sites = [
 
     # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
     # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
-    {'Name': 'Pine Mnt: Training Hill',  # "Rock L" Parking LZ @ 43.83716, -120.93033
+    {'Name': 'Pine Mnt: Training Hill', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033
      'lat': '43.833422', 'lon': '-120.926337', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 310, 'windDirUpper': 360,
      'windLower': 2, 'windUpper': 15,
@@ -204,7 +206,7 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 
-    {'Name': 'Pine Mnt: West PG Launch',  # "Rock L" Parking LZ @ 43.83716, -120.93033 (yes, same LZ as training hill)
+    {'Name': 'Pine Mnt: West PG Launch', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033 (yes, same LZ as training hill)
      'lat': '43.821283', 'lon': '-120.93145', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 270, 'windDirUpper': 350,
      'windLower': 5, 'windUpper': 15,

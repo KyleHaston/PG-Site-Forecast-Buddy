@@ -20,7 +20,7 @@
 
 sites_AZ = [
 
-    {'Name': 'Mustang Peak',
+    {'Name': 'Mustang Peak', 'Region': 'AZ',
      'Desc': '(Don\'t launch in winds over 16 knots (18 mph)!  Or OTB you go).',
      'lat': '31.702867', 'lon': '-110.491925', 'timezone_str': 'America/Phoenix',
      'windDirLower': 200, 'windDirUpper': 290,
@@ -29,7 +29,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
      'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Creedence',
+    {'Name': 'Creedence', 'Region': 'AZ',
      'Desc': '',
      'lat': '31.775972', 'lon': '-110.841174', 'timezone_str': 'America/Phoenix',
      'windDirLower': 240, 'windDirUpper': 340,
@@ -38,7 +38,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
      'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Sentinel Pk (A-Mnt) L1 SE Asphalt Ramp',
+    {'Name': 'Sentinel Pk (A-Mnt) L1 SE Asphalt Ramp', 'Region': 'AZ',
      'Desc': '',
      'lat': '32.208540', 'lon': '-110.994354', 'timezone_str': 'America/Phoenix',
      'windDirLower': 140, 'windDirUpper': 160,
@@ -47,7 +47,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Sentinel Pk (A-Mnt) L2, Top',
+    {'Name': 'Sentinel Pk (A-Mnt) L2, Top', 'Region': 'AZ',
      'Desc': '',
      'lat': '32.210272', 'lon': '-110.992304', 'timezone_str': 'America/Phoenix',
      'windDirLower': 70, 'windDirUpper': 100,
@@ -56,7 +56,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Box Canyon',
+    {'Name': 'Box Canyon', 'Region': 'AZ',
      'Desc': 'Box Canyon Top Launch 31.817232, -110.78691\n' +
              'Box Canyon Mid Launch 31.821716, -110.782473\n' +
              'Box Canyon Lower Launch 31.821012, -110.7964\n' +
@@ -68,7 +68,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Naranja Park Kiting Site',
+    {'Name': 'Naranja Park Kiting Site', 'Region': 'AZ',
      'Desc': '',
      'lat': '32.413797', 'lon': '-110.981150', 'timezone_str': 'America/Phoenix',
      'windDirLower': 0, 'windDirUpper': 360,
@@ -77,7 +77,7 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    # {'Name': '',
+    # {'Name': '', 'Region': '',
     #  'Desc': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Phoenix',
     #  'windDirLower': 0, 'windDirUpper': 360,  # TODO: Get real wind dirs

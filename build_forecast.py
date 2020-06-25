@@ -42,6 +42,9 @@ def build_forecast():
         # Create a new instance of site_forecast (custom class) for this site.
         site4cast = site_forecast.SiteForecast(site['Name'])
 
+        # Add the region name
+        site4cast.region = site['Region']
+
         # Put the XML info. into our custom format.
         site4cast.forecast_creation_time = soup.find('forecastcreationtime').text
         site4cast.location = soup.find('location').text

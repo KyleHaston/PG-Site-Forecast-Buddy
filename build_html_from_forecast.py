@@ -64,9 +64,10 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '<table width="auto" border="1" bgcolor ="' + my_palette.bkgnd + '" style="color:' + my_palette.text + '" >'
         html_forecast += '<tr><th rowspan="2">'
         html_forecast += '<b style="color:' + my_palette.title + ';font-size:125%">'
-        html_forecast += '<a href="' + this_site.link + '"> ' + this_site.name + '</a>'
-        html_forecast += '</b><br/>'
-        html_forecast += '</th>'
+        html_forecast += '<a href="' + this_site.link + '"><u> ' + this_site.name + '</u></a>'
+        html_forecast += '</b>'
+        html_forecast += '<span style="color:' + my_palette.desc + ';font-size:75%">\nRegion: ' + this_site.region
+        html_forecast += '<br/></th>'
 
         # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
         html_forecast += '<th colspan="' + str(cols+1) + '", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
