@@ -2,6 +2,7 @@
 import requests  # used to fetch the web page
 from bs4 import BeautifulSoup
 import datetime
+import time
 
 import site_data  # Our own site data.
 import site_data_OR_kiting
@@ -34,10 +35,19 @@ def build_forecast():
     for site in sites:
         print('    Building forecast for site: ' + site['Name'] + '...')
 
-        # Fetch XML data
-        r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
-
-        soup = BeautifulSoup(r.text, 'lxml')
+        # Sometimes the server returns and empty forcast, so let's check for that.
+        # If we get an empty one, let's wait some time and request the forecast again.
+        while True:
+            # Fetch XML data
+            #print('        Link to XML: https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
+            r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
+            soup = BeautifulSoup(r.text, 'lxml')
+            numDays = len(soup.find_all('forecastday'))
+            if numDays != 5:
+                print('        Got an empty forecast. Waiting a moment before trying again.')
+                time.sleep(60)
+            else:
+                break
 
         # Create a new instance of site_forecast (custom class) for this site.
         site4cast = site_forecast.SiteForecast(site['Name'])
@@ -120,5 +130,8 @@ def build_forecast():
                         this_day.periods.append(this_p)  # Append this period to the day we created one level above.
 
                 site4cast.forecast_days.append(this_day)
-        full_forecast.append(site4cast)
+        if len(site4cast.forecast_days) < 3:
+            print('Found a bad one.')
+        else:
+            full_forecast.append(site4cast)
     return full_forecast
