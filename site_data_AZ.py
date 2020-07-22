@@ -77,6 +77,34 @@ sites_AZ = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    # Near Flagstaff, AZ
+    {'Name': 'Merriam Crater', 'Region': 'Northern AZ',
+     'Desc': '',
+     'lat': '35.338916', 'lon': '-111.286283', 'timezone_str': 'America/Phoenix',
+     'windDirLower': 315, 'windDirUpper': 45,  # NE to NW per Kurt
+     'windLower': 0, 'windUpper': 12,  # per Kurt
+     'link': 'https://goo.gl/maps/Sgwga7erGowTjjhE6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Apache Maid', 'Region': 'Northern AZ',
+     'Desc': '',
+     'lat': '34.725802', 'lon': '-111.551234', 'timezone_str': 'America/Phoenix',
+     'windDirLower': 135, 'windDirUpper': 225,  # SE to SW per Kurt
+     'windLower': 5, 'windUpper': 10,  # per Kurt
+     'link': 'https://goo.gl/maps/uswUhjMe394Qjs699',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Mount Elden', 'Region': 'Northern AZ',
+     'Desc': '',
+     'lat': '35.240906', 'lon': '-111.607948', 'timezone_str': 'America/Phoenix',
+     'windDirLower': 180, 'windDirUpper': 225,  # S to SW per Kurt
+     'windLower': 0, 'windUpper': 5,  # per Kurt
+     'link': 'https://goo.gl/maps/JEkG6TEe7g9rcdT77',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
     # {'Name': '', 'Region': '',
     #  'Desc': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Phoenix',
