@@ -143,7 +143,7 @@ sites = [
 
     {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
      'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
-     'windDirLower': 0, 'windDirUpper': 360,  # TODO: Is this correct? Split into Bingen W and E? or similar?
+     'windDirLower': 225, 'windDirUpper': 315,  # SW to NW per Kyle
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/zS1Fmr4DzzW54M8fA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
