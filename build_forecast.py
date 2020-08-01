@@ -23,22 +23,22 @@ def build_forecast():
 
     # Stitch all sites into a big list ---------------------------------------------------------------------------------
     sites = site_data.sites
-    for s in site_data_OR_kiting.OR_kiting_sites:
-        sites.append(s)
-    for s in site_data_WA.WA_sites:
-        sites.append(s)
-    for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
-        sites.append(s)
-    for s in site_data_OR_test_sites.OR_test_sites:
-        sites.append(s)
-    for s in site_data_AZ.sites_AZ:
-        sites.append(s)
+    # for s in site_data_OR_kiting.OR_kiting_sites:
+    #     sites.append(s)
+    # for s in site_data_WA.WA_sites:
+    #     sites.append(s)
+    # for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
+    #     sites.append(s)
+    # for s in site_data_OR_test_sites.OR_test_sites:
+    #     sites.append(s)
+    # for s in site_data_AZ.sites_AZ:
+    #     sites.append(s)
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
         print('    Building forecast for site: ' + site['Name'] + '...')
 
-        # Sometimes the server returns and empty forcast, so let's check for that.
+        # Sometimes the server returns and empty forecast, so let's check for that.
         # If we get an empty one, let's wait some time and request the forecast again.
         while True:
             # Fetch XML data
@@ -55,8 +55,9 @@ def build_forecast():
         # Create a new instance of site_forecast (custom class) for this site.
         site4cast = site_forecast.SiteForecast(site['Name'])
 
-        # Add the region name
+        # Add the region name and info.
         site4cast.region = site['Region']
+        site4cast.info = site['Info']
 
         # Put the XML info. into our custom format.
         site4cast.forecast_creation_time = soup.find('forecastcreationtime').text

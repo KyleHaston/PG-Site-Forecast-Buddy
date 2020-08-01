@@ -21,7 +21,7 @@
 # OR Kiting Sites
 OR_kiting_sites = [
     {'Name': 'Madrona', 'Region': 'Portland, OR',
-     'Desc': 'A grassy bowl in North Portland overlooking the Lower Willamette industrial area. John B has flown ' +
+     'Info': 'A grassy bowl in North Portland overlooking the Lower Willamette industrial area. John B has flown ' +
              'this site in the past, but others who have tried to kite have found the winds cross or gusty, ' +
              'which makes sense because it’s on the edge of a narrow river valley downwind from 1000’ hills…\n' +
              'Works Best When: SW (?), strength (?)n' +
@@ -36,7 +36,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Harbor View Park', 'Region': 'Portland, OR',
-     'Desc': 'A large flat open field adjacent to the Lower Willamette River below the University of Portland. This ' +
+     'Info': 'A large flat open field adjacent to the Lower Willamette River below the University of Portland. This ' +
              'is a cleaned-up Superfund site owned by the University and they are planning to develop sports fields ' +
              'in the next couple years (2012).\n Works Best When: S – W (?), strength (?) ' +
              'Hazards: Access may be difficult; roads are most likely gated at the top of the bluff – respect gates, ' +
@@ -50,7 +50,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Stuart Caruk\'s Hay Field in Vancouver', 'Region': 'Vancouver, WA',
-     'Desc': 'Description: A hay field by the weigh scales in Vancouver Washington, about 15 miles north of the ' +
+     'Info': 'Description: A hay field by the weigh scales in Vancouver Washington, about 15 miles north of the ' +
              'Columbia River bridge on I-5. The winds are consistent and there is a porta-john just on the other side' +
              'of the fence at the weigh scales.' +
              'Works Best When: Any direction.\n' +
@@ -70,7 +70,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     # {'Name': 'G\'s Paramotor Spot (Permission problems here, do not use for now.)', 'Region': 'Columbia River',
-    #  'Desc': 'Description: An empty industrial lot near the confluence of the Willamette and Columbia rivers. ' +
+    #  'Info': 'Description: An empty industrial lot near the confluence of the Willamette and Columbia rivers. ' +
     #          'Used for paramotoring and excellent for kiting: “Especially good if you actually want to improve ' +
     #          'since it’s not a nice low cut flat grass park.  It’s a sandy soft lumpy area about super huge size ' +
     #          'and has killer manicured grass fold up areas only big enough for two or three wings, but located at ' +
@@ -90,7 +90,7 @@ OR_kiting_sites = [
     #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Kelley Point Park', 'Region': 'Portland, OR',
-     'Desc': 'Description: A Portland Parks and Rec park at the confluence of the Willamette and Columbia Rivers ' +
+     'Info': 'Description: A Portland Parks and Rec park at the confluence of the Willamette and Columbia Rivers ' +
              'that is mostly wooded but has some open grassy areas and gentle hills that could work well in the  ' +
              'right wind directions, and it has beach access along the rivers.\n ' +
              'Works Best When: N-NW (?)\n' +
@@ -106,7 +106,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Dickinson Park / Crestwood', 'Region': 'Portland, OR',
-     'Desc': 'Description: (Thanks Sarge.) Dickinson City Park is near the Tigard Fred Meyer off SW 55th. ' +
+     'Info': 'Description: (Thanks Sarge.) Dickinson City Park is near the Tigard Fred Meyer off SW 55th. ' +
              'A little playground on the E side has a really nice built-up plateau that gives a good spot to ' +
              'kite &/or launch your wing.  The place is approximately 8-10 acres of sloping open area that faces ' +
              'W-SW and it\'s possible to get short hops when the wind is right. With the playground you should be ' +
@@ -125,7 +125,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Franklin High School', 'Region': 'Portland, OR',
-     'Desc': 'Description: A high school in SE Portland at Division and 52nd with a large north-facing field.\n' +
+     'Info': 'Description: A high school in SE Portland at Division and 52nd with a large north-facing field.\n' +
              'Works Best When: NE-NW\n' +
              'Hazards: Glider-grabbin’ trees at the top of the hill.\n' +
              'Address: 5405 SE Woodward, Portland, OR 97206\n' +
@@ -139,7 +139,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'West Delta Park/Portland International Raceway', 'Region': 'Portland, OR',
-     'Desc': 'Description: A large open grassy field between a wetland and the Portland International Raceway.' +
+     'Info': 'Description: A large open grassy field between a wetland and the Portland International Raceway.' +
              'This is an off leash dog park so inspect before you kite.\n' +
              'Works Best When: Should work in any direction.\n' +
              'Hazards: Dogs\n' +
@@ -153,7 +153,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Spring Garden Park', 'Region': 'Portland, OR',
-     'Desc': 'Description: A north-facing city park in SW Portland with a slight drop between Dolph Ct. and ' +
+     'Info': 'Description: A north-facing city park in SW Portland with a slight drop between Dolph Ct. and ' +
              'Spring Garden St.\n' +
              'Works Best When: N\n' +
              'Hazards: Dog waste.\n' +
@@ -167,7 +167,7 @@ OR_kiting_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Hosford Middle School', 'Region': 'Portland, OR',
-     'Desc': 'Description: A west-facing school field near SE Sherman and 27th with a slight hill facing SW and NW, ' +
+     'Info': 'Description: A west-facing school field near SE Sherman and 27th with a slight hill facing SW and NW, ' +
              'plenty of room to walk about with a wing, no obstructions.\n' +
              'Works Best When: SW to NW 5 to 8 mph\n' +
              'Hazards: Dog waste. Crowded with kids during school hours.\n',

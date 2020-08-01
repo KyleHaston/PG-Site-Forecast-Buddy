@@ -43,10 +43,42 @@ def build_html_from_forecast(in_forecast, in_user):
     my_palette = palettes.Palette('')  # Instantiate the color scheme from the palette module.
 
     html_forecast = ''  # Initialize the forecast to empty.
-    html_forecast += '<!DOCTYPE html> <html> <body bgcolor="' + my_palette.bdclr + '">'
+    html_forecast += '<!DOCTYPE html> <html> <head>'
+
+    # Add style for the collapsible stuff (site info button, etc.?)
+    html_forecast += '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    html_forecast += '<style>'
+    html_forecast += '.collapsible {'
+    html_forecast += '  background-color: white;'
+    html_forecast += '  color: blue;'
+    html_forecast += '  cursor: pointer;'
+    html_forecast += '  padding: 2px;'
+    html_forecast += '  width: 100%;'
+    html_forecast += '  border: none;'
+    html_forecast += '  text-align: center;'
+    html_forecast += '  outline: none;'
+    html_forecast += '  font-size: 15px;'
+    html_forecast += '  text-decoration: underline;'
+    html_forecast += '}'
+
+    # html_forecast += '.active, .collapsible:hover {'
+    # html_forecast += '  background-color: #999;'
+    # html_forecast += '}'
+
+    html_forecast += '.content {'
+    html_forecast += '  padding: 0px;'
+    # html_forecast += '  max-height: 0;'
+    html_forecast += '  overflow: hidden;'
+    # html_forecast += '  transition: max-height 0.2s ease-out;'
+    html_forecast += '  background-color: #f1f1f1;'
+    html_forecast += '}'
+    html_forecast += '</style>'
+
+    #  Java
+    html_forecast += '<body bgcolor="' + my_palette.bdclr + '">'
     # html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
     html_forecast += '<font style="color:' + my_palette.text + '">'
-    html_forecast += '<head> <meta charset="character_set"> <p>Hello from your site forecast buddy!'
+    html_forecast += '<meta charset="character_set"> <p>Hello from your site forecast buddy!'
     html_forecast += '<p> </head> <body>'
 
     for this_site in in_forecast:
@@ -66,23 +98,22 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '<b style="color:' + my_palette.title + ';font-size:125%">'
         html_forecast += '<a href="' + this_site.link + '"><u> ' + this_site.name + '</u></a>'
         html_forecast += '</b>'
-        html_forecast += '<span style="color:' + my_palette.desc + ';font-size:75%">\nRegion: ' + this_site.region
+        html_forecast += '<span style="color:' + my_palette.desc + ';font-size:75%"><div>Region: ' + this_site.region + '</div>'
         html_forecast += '<br/></th>'
 
         # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
         html_forecast += '<th colspan="' + str(cols+1) + '", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
-        html_forecast += 'Forecast created: ' + this_site.forecast_creation_time + '<br/>'
-        html_forecast += 'Desired Conditions: '
-        html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
-        html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
+        html_forecast += 'Forecast created: ' + this_site.forecast_creation_time
         html_forecast += '</span></th></tr>'
 
         # Dates --------------------------------------------------------------------------------------------------------
         # First, let's figure out how many columns to reserve for each date
         cols = {}
+        table_cols = 1  # init to 1 for the left-hand row labels. then += 1 for each col of the report.
         for d in this_site.forecast_days:
             cols[d.valid_date] = 0  # initialize number of columns for this day to 0
             for p in d.periods:
+                table_cols += 1
                 dow = p.local_dt.strftime('%a') + ' '
                 month = list(calendar.month_abbr)[p.local_dt.month] + ' '
                 temp_date = dow + month + str(p.local_dt.day)
@@ -253,10 +284,46 @@ def build_html_from_forecast(in_forecast, in_user):
                     html_forecast += '<td>' + p.snowLevel + '</td>'
             html_forecast += '</tr>'
 
+        # Site Description/ Site Guide Information in Collapsible Box Format!
+        html_forecast += '<tr><th colspan="' + str(table_cols) + '">'
+        # html_forecast += '<button class="collapsible">Click here for site info.</button>'
+        html_forecast += '<button class="collapsible">Click here for site info.</button>'
+        html_forecast += '<div class="content" style="display:none">'
+        html_forecast += 'Desired Conditions: '
+        html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
+        html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
+        html_forecast += '<br/>' + this_site.info  # TODO: Get site guide/info. for sites.
+        html_forecast += '</div></th></tr>'  # end row
+
         # Close the table.
         html_forecast += '</table><p>'
         html_forecast += '<br>'  # Add a blank row between site forecasts.
-    html_forecast += '</p></body></html>'  # Close the HTML.
+        html_forecast += '</p>'
+
+    # After we've added all the site content, add the following to the end (once per report).
+    # Add JavaScript for collapsible buttons
+    html_forecast += '<script>'
+    html_forecast += 'var coll = document.getElementsByClassName("collapsible");'
+    html_forecast += 'var i;'
+
+    html_forecast += 'for (i = 0; i < coll.length; i++) {'
+    html_forecast += '  coll[i].addEventListener("click", function() {'
+    html_forecast += '      this.classList.toggle("active");'
+    html_forecast += '      var content = this.nextElementSibling;'
+    # html_forecast += '      if (content.style.maxHeight){'
+    # html_forecast += '          content.style.maxHeight = null;'
+    # html_forecast += '      } else {'
+    # html_forecast += '          content.style.maxHeight = content.scrollHeight + "px";'
+    # html_forecast += '      }'
+    html_forecast += '      if (content.style.display == "none"){'
+    html_forecast += '          content.style.display = "inline-block" ;'
+    html_forecast += '      } else {'
+    html_forecast += '         content.style.display = "none";'
+    html_forecast += '      }'
+    html_forecast += '  });'
+    html_forecast += '}'
+    html_forecast += '</script>'
+    html_forecast += '</body></html>'  # Close the HTML.
 
     if in_user['addr'] == 'server':  # Also save a full copy of the forecast to the server.
         print('        Saving the full forecast to an HTML file on the server...')

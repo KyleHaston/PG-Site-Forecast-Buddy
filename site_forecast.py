@@ -73,6 +73,7 @@ class SiteForecast:
     """
     def __init__(self, in_name=''):
         self.name = in_name
+        self.info = ''
         self.region = ''
         self.forecast_creation_time = ''
         self.latitude = ''

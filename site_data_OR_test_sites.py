@@ -21,7 +21,7 @@
 # OR Kiting Sites
 OR_test_sites = [
     # {'Name': '', 'Region': '',
-    #  'Desc': '',
+    #  'Info': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Los_Angeles',
     #  'windDirLower': 0, 'windDirUpper': 360,  # TODO: Get real wind dirs
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -30,7 +30,7 @@ OR_test_sites = [
     #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Hagg Lake Section D Kiting Site?', 'Region': 'Portland, OR',
-     'Desc': '',
+     'Info': '',
      'lat': '45.557533', 'lon': '-123.163262', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 170, 'windDirUpper': 190,  # Looks like S wind would be good. TODO: Get real wind dirs
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -39,7 +39,7 @@ OR_test_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Hagg Lake Section C Kiting Site?', 'Region': 'Portland, OR',
-     'Desc': '',
+     'Info': '',
      'lat': '45.491223', 'lon': '-123.214454', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 135, 'windDirUpper': 315,  # Looks like SE to NW wind would be good. TODO: Get real wind dirs
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -48,7 +48,7 @@ OR_test_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Scoggins Creek Hill Kiting Site?', 'Region': 'Portland, OR',
-     'Desc': '',
+     'Info': '',
      'lat': '45.455049', 'lon': '-123.177427', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 45, 'windDirUpper': 112,  # Looks like ESE to NE wind would be good. TODO: Get real wind dirs
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -57,7 +57,7 @@ OR_test_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Summit Ave Hilltop Kiting Site?', 'Region': 'Portland, OR',
-     'Desc': '',
+     'Info': '',
      'lat': '45.467514', 'lon': '-123.266701', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # TODO: Get real wind dirs
      'windLower': 4, 'windUpper': 15,  # TODO: Get real wind speeds

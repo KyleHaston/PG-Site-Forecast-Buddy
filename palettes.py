@@ -26,4 +26,4 @@ class Palette:
             self.lame = '#cccccc'
             self.text = '#000000'
             self.title = '#0000ff'
-            self.desc = '#999999'
+            self.desc = '#555555'

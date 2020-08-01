@@ -21,7 +21,7 @@
 sites_AZ = [
 
     {'Name': 'Mustang Peak', 'Region': 'AZ',
-     'Desc': '(Don\'t launch in winds over 16 knots (18 mph)!  Or OTB you go).',
+     'Info': '(Don\'t launch in winds over 16 knots (18 mph)!  Or OTB you go).',
      'lat': '31.702867', 'lon': '-110.491925', 'timezone_str': 'America/Phoenix',
      'windDirLower': 200, 'windDirUpper': 290,
      'windLower': 5, 'windUpper': 16,
@@ -30,7 +30,7 @@ sites_AZ = [
      'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Creedence', 'Region': 'AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '31.775972', 'lon': '-110.841174', 'timezone_str': 'America/Phoenix',
      'windDirLower': 240, 'windDirUpper': 340,
      'windLower': 5, 'windUpper': 15,
@@ -39,7 +39,7 @@ sites_AZ = [
      'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Sentinel Pk (A-Mnt) L1 SE Asphalt Ramp', 'Region': 'AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '32.208540', 'lon': '-110.994354', 'timezone_str': 'America/Phoenix',
      'windDirLower': 140, 'windDirUpper': 160,
      'windLower': 5, 'windUpper': 16,
@@ -48,7 +48,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Sentinel Pk (A-Mnt) L2, Top', 'Region': 'AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '32.210272', 'lon': '-110.992304', 'timezone_str': 'America/Phoenix',
      'windDirLower': 70, 'windDirUpper': 100,
      'windLower': 5, 'windUpper': 16,
@@ -57,7 +57,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Box Canyon', 'Region': 'AZ',
-     'Desc': 'Box Canyon Top Launch 31.817232, -110.78691\n' +
+     'Info': 'Box Canyon Top Launch 31.817232, -110.78691\n' +
              'Box Canyon Mid Launch 31.821716, -110.782473\n' +
              'Box Canyon Lower Launch 31.821012, -110.7964\n' +
              'WNW to NW Winds are the good for all three launches.  Direct West winds can be dangerous at lower launch',
@@ -69,7 +69,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Naranja Park Kiting Site', 'Region': 'AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '32.413797', 'lon': '-110.981150', 'timezone_str': 'America/Phoenix',
      'windDirLower': 0, 'windDirUpper': 360,
      'windLower': 5, 'windUpper': 20,
@@ -79,7 +79,7 @@ sites_AZ = [
 
     # Near Flagstaff, AZ
     {'Name': 'Merriam Crater', 'Region': 'Northern AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '35.338916', 'lon': '-111.286283', 'timezone_str': 'America/Phoenix',
      'windDirLower': 315, 'windDirUpper': 45,  # NE to NW per Kurt
      'windLower': 0, 'windUpper': 12,  # per Kurt
@@ -88,7 +88,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Apache Maid', 'Region': 'Northern AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '34.725802', 'lon': '-111.551234', 'timezone_str': 'America/Phoenix',
      'windDirLower': 135, 'windDirUpper': 225,  # SE to SW per Kurt
      'windLower': 5, 'windUpper': 10,  # per Kurt
@@ -97,7 +97,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Mount Elden', 'Region': 'Northern AZ',
-     'Desc': '',
+     'Info': '',
      'lat': '35.240906', 'lon': '-111.607948', 'timezone_str': 'America/Phoenix',
      'windDirLower': 180, 'windDirUpper': 225,  # S to SW per Kurt
      'windLower': 0, 'windUpper': 5,  # per Kurt
@@ -106,7 +106,7 @@ sites_AZ = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     # {'Name': '', 'Region': '',
-    #  'Desc': '',
+    #  'Info': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Phoenix',
     #  'windDirLower': 0, 'windDirUpper': 360,  # TODO: Get real wind dirs
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds

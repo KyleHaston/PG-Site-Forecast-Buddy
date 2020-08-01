@@ -26,7 +26,7 @@
 
 OR_Willamette_Valley_sites = [
     # {'Name': '', 'Region': '',
-    #  'Desc': '',
+    #  'Info': '',
     #  'lat': '', 'lon': '', 'timezone_str': 'America/Los_Angeles',
     #  'windDirLower': 0, 'windDirUpper': 360,
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
@@ -34,7 +34,7 @@ OR_Willamette_Valley_sites = [
     #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Chehalem', 'Region': 'Willamette Valley',
-     'Desc': 'Chehalem is a south-facing ridge. Salem winds south at 6-8 mph often mean soaring conditions here. ' +
+     'Info': 'Chehalem is a south-facing ridge. Salem winds south at 6-8 mph often mean soaring conditions here. ' +
              'Less than that and it\'s a sled ride, more than that and it\'s blown out. Often these winds will keep  ' +
              'you at launch level but to get above launch, you will need to find thermals. Paragliders must be +'
              'extremely careful when the wind is strong, as there are trees on both sides of launch and power lines  ' +
@@ -57,7 +57,7 @@ OR_Willamette_Valley_sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Peterson Butte', 'Region': 'Willamette Valley',
-     'Desc': 'SITE IS OPEN FROM 11/1 THROUGH 5/31. Other times closed for fire hazard. There is a keypad at the ' +
+     'Info': 'SITE IS OPEN FROM 11/1 THROUGH 5/31. Other times closed for fire hazard. There is a keypad at the ' +
              'gate now. You need the combo to access. Be off the property before sunset. Susan Wheeler is the ' +
              'current manager of the family’s land. Mark Wahl is the livestock manager, 541-905-6064.  Call ' +
              'him if see dead or distressed sheep.  There are hundreds of sheep on the property so drive slow.' +
