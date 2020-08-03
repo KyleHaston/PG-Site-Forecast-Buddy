@@ -83,124 +83,124 @@
 
 sites = [
 
-    # # OR Coast ---------------------------------------------------------------------------------------------------------
-    # {'Name': 'Area B', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 205, 'windDirUpper': 290,
-    #  'windLower': 8, 'windUpper': 15,
-    #  'link': 'https://goo.gl/maps/Bpuv5dnaroBKFQCq9',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Oceanside', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '45.4654', 'lon': '-123.9710', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 202, 'windDirUpper': 270,  # SSW to W
-    #  'windLower': 5, 'windUpper': 15,
-    #  'link': 'https://goo.gl/maps/UtU2svqZ9vVuQSqG8',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Cape Kiwanda', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '45.220660', 'lon': '-123.973579', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 270, 'windDirUpper': 360,
-    #  'windLower': 0, 'windUpper': 16,
-    #  'link': 'https://goo.gl/maps/sVw9j7cgveAjgzu78',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
-    #
-    # {'Name': 'Yaquina Head (North)', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 315, 'windDirUpper': 360,
-    #  'windLower': 10, 'windUpper': 16,
-    #  'link': 'https://goo.gl/maps/ymRCog5w39KDjwnK7',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Yaquina Head (South)', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '44.674939', 'lon': '-124.066994', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 180, 'windDirUpper': 225,
-    #  'windLower': 10, 'windUpper': 15,
-    #  'link': 'https://www.google.com/maps/dir/44.6738817,-124.0621217/44.6749517,-124.0669741/@44.6671123,-124.0672885,987a,35y,3.37h,39.37t/data=!3m1!1e3!4m2!4m1!3e2',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Rock Creek', 'Region': 'Oregon Coastal Range',
-    #  'Info': '',
-    #  'lat': '44.179333', 'lon': '-124.113083', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 202, 'windDirUpper': 293,  # SSW-WNW
-    #  'windLower': 5, 'windUpper': 15,
-    #  'link': 'https://goo.gl/maps/Eo4vvoNXwBh8GPK78',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # # The Gorge --------------------------------------------------------------------------------------------------------
-    # # {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264, 'Region': 'Columbia River Gorge',
-    # #                              'Info': '',
-    # #                             'lat': '45.716782', 'lon': '-121.701887', 'timezone_str': 'America/Los_Angeles',
-    # #                             'windDirLower': 247, 'windDirUpper': 292,
-    # #                             'windLower': 3, 'windUpper': 12,
-    # #                             'link': 'https://goo.gl/maps/Wa2n4ygKNYXQsxuy9',
-    # #                             'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    # #                             'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Eagle Caves',  'Region': 'Columbia River Gorge',  # LZ in the school fields. See info. online.
-    #  'Info': '',
-    #  'lat': '45.622849', 'lon': '-121.234674', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 45, 'windDirUpper': 90,  # TODO: Ridge faces ENE. Using roughly this. Get real wind dirs.
-    #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-    #  'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Bald Butte', 'Region': 'Columbia River Gorge',
-    #  'Info': '',
-    #  'lat': '45.536542', 'lon': '-121.532970', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 247, 'windDirUpper': 293,  # WSW to WNW
-    #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-    #  'link': 'https://goo.gl/maps/ppcUwkmvWw6so2id7',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # {'Name': 'Bald Butte North', 'Region': 'Columbia River Gorge',  # LZ @: 45.5503, -121.5570
-    #  'Info': '',
-    #  'lat': '45.551200', 'lon': '-121.534900', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 270, 'windDirUpper': 315,
-    #  # "The launch faces west, northwest. There is a second lower west face for higher wind launching. "
-    #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-    #  'link': 'https://goo.gl/maps/C24ZWBsCJ8cMwvJK7',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
-    #
-    # # Mnt Hood ---------------------------------------------------------------------------------------------------------
-    # # TODO: Add Mnt Hood.
-    #
-    # # Central OR -------------------------------------------------------------------------------------------------------
-    # # Pine Mountain Sites (Desert Air Riders - Paragliding Central Oregon)
-    # # https://docs.google.com/document/d/1OE0ICBCPaOSHbljiof710qh_ET75tyd358h27jz4xpI/edit
-    # {'Name': 'Pine Ridge', 'Region': 'Central Oregon',  # LZ @ TBD
-    #  'Info': '',
-    #  'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 310, 'windDirUpper': 360,
-    #  'windLower': 5, 'windUpper': 15,
-    #  'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
-    #
-    # # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
-    # # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
-    # {'Name': 'Pine Mnt: Training Hill', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033
-    #  'Info': '',
-    #  'lat': '43.833422', 'lon': '-120.926337', 'timezone_str': 'America/Los_Angeles',
-    #  'windDirLower': 310, 'windDirUpper': 360,
-    #  'windLower': 2, 'windUpper': 15,
-    #  'link': 'https://goo.gl/maps/1esfGRRhDW395dS1A',
-    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+    # OR Coast ---------------------------------------------------------------------------------------------------------
+    {'Name': 'Area B', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 205, 'windDirUpper': 290,
+     'windLower': 8, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/Bpuv5dnaroBKFQCq9',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Oceanside', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '45.4654', 'lon': '-123.9710', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 202, 'windDirUpper': 270,  # SSW to W
+     'windLower': 5, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/UtU2svqZ9vVuQSqG8',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Cape Kiwanda', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '45.220660', 'lon': '-123.973579', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 270, 'windDirUpper': 360,
+     'windLower': 0, 'windUpper': 16,
+     'link': 'https://goo.gl/maps/sVw9j7cgveAjgzu78',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+
+    {'Name': 'Yaquina Head (North)', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 315, 'windDirUpper': 360,
+     'windLower': 10, 'windUpper': 16,
+     'link': 'https://goo.gl/maps/ymRCog5w39KDjwnK7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Yaquina Head (South)', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '44.674939', 'lon': '-124.066994', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 180, 'windDirUpper': 225,
+     'windLower': 10, 'windUpper': 15,
+     'link': 'https://www.google.com/maps/dir/44.6738817,-124.0621217/44.6749517,-124.0669741/@44.6671123,-124.0672885,987a,35y,3.37h,39.37t/data=!3m1!1e3!4m2!4m1!3e2',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Rock Creek', 'Region': 'Oregon Coastal Range',
+     'Info': '',
+     'lat': '44.179333', 'lon': '-124.113083', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 202, 'windDirUpper': 293,  # SSW-WNW
+     'windLower': 5, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/Eo4vvoNXwBh8GPK78',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    # The Gorge --------------------------------------------------------------------------------------------------------
+    # {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264, 'Region': 'Columbia River Gorge',
+    #                              'Info': '',
+    #                             'lat': '45.716782', 'lon': '-121.701887', 'timezone_str': 'America/Los_Angeles',
+    #                             'windDirLower': 247, 'windDirUpper': 292,
+    #                             'windLower': 3, 'windUpper': 12,
+    #                             'link': 'https://goo.gl/maps/Wa2n4ygKNYXQsxuy9',
+    #                             'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+    #                             'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Eagle Caves',  'Region': 'Columbia River Gorge',  # LZ in the school fields. See info. online.
+     'Info': '',
+     'lat': '45.622849', 'lon': '-121.234674', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 45, 'windDirUpper': 90,  # TODO: Ridge faces ENE. Using roughly this. Get real wind dirs.
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Bald Butte', 'Region': 'Columbia River Gorge',
+     'Info': '',
+     'lat': '45.536542', 'lon': '-121.532970', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 247, 'windDirUpper': 293,  # WSW to WNW
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/ppcUwkmvWw6so2id7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Bald Butte North', 'Region': 'Columbia River Gorge',  # LZ @: 45.5503, -121.5570
+     'Info': '',
+     'lat': '45.551200', 'lon': '-121.534900', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 270, 'windDirUpper': 315,
+     # "The launch faces west, northwest. There is a second lower west face for higher wind launching. "
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/C24ZWBsCJ8cMwvJK7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    # Mnt Hood ---------------------------------------------------------------------------------------------------------
+    # TODO: Add Mnt Hood.
+
+    # Central OR -------------------------------------------------------------------------------------------------------
+    # Pine Mountain Sites (Desert Air Riders - Paragliding Central Oregon)
+    # https://docs.google.com/document/d/1OE0ICBCPaOSHbljiof710qh_ET75tyd358h27jz4xpI/edit
+    {'Name': 'Pine Ridge', 'Region': 'Central Oregon',  # LZ @ TBD
+     'Info': '',
+     'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 310, 'windDirUpper': 360,
+     'windLower': 5, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
+    # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
+    # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
+    {'Name': 'Pine Mnt: Training Hill', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033
+     'Info': '',
+     'lat': '43.833422', 'lon': '-120.926337', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 310, 'windDirUpper': 360,
+     'windLower': 2, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/1esfGRRhDW395dS1A',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 
     {'Name': 'Pine Mnt: West PG Launch', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033 (yes, same LZ as training hill)
      'Info': '',
