@@ -49,71 +49,13 @@ def build_html_from_forecast(in_forecast, in_user):
     # Add style for the collapsible stuff (site info button, etc.?)
     html_forecast += '<meta name="viewport" content="width=device-width, initial-scale=1">'
     html_forecast += '<style>'
-    # html_forecast += '.collapsible {'
-    # html_forecast += '  background-color: white;'
-    # html_forecast += '  color: blue;'
-    # html_forecast += '  cursor: pointer;'
-    # html_forecast += '  padding: 2px;'
-    # html_forecast += '  width: 100%;'
-    # html_forecast += '  border: none;'
-    # html_forecast += '  text-align: center;'
-    # html_forecast += '  outline: none;'
-    # html_forecast += '  font-size: 15px;'
-    # html_forecast += '  text-decoration: underline;'
-    # html_forecast += '}'
-    #
-    # html_forecast += '.active, .collapsible:hover {'
-    # html_forecast += '  background-color: #999;'
-    # html_forecast += '}'
-    #
-    # html_forecast += '.content {'
-    # html_forecast += '  padding: 0px;'
-    # # html_forecast += '  max-height: 0;'
-    # html_forecast += '  display: none;'
-    # html_forecast += '  overflow: hidden;'
-    # # html_forecast += '  transition: max-height 0.2s ease-out;'
-    # html_forecast += '  background-color: #f1f1f1;'
-    # html_forecast += '}'
 
     # Add the drop-down site info. stuff.
-    # html_forecast += dropdown.style_defs
+    for s in dropdown.style_defs:
+        html_forecast += s
 
-    html_forecast += '.dropbtn {'
-    html_forecast += '  background-color: white;'
-    html_forecast += '  color: blue;'
-    html_forecast += '  padding: 0px;'
-    html_forecast += '  font-size: 16px;'
-    html_forecast += '  min-width: 100%;'
-    html_forecast += '  border: none;'
-    html_forecast += '}'
-
-    html_forecast += '.dropdown {'
-    html_forecast += '  position: relative;'
-    html_forecast += '  display: inline-block;'
-    html_forecast += '}'
-
-    html_forecast += '.dropdown-content {'
-    html_forecast += '  display: none;'
-    html_forecast += '  position: absolute;'
-    html_forecast += '  background-color: #f1f1f1;'
-    html_forecast += '  min-width: 160px;'
-    # html_forecast += '  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);'
-    html_forecast += '  z-index: 1;'
-    html_forecast += '}'
-
-    html_forecast += '.dropdown-content a {'
-    html_forecast += '  color: black;'
-    html_forecast += '  padding: 12px 16px;'
-    html_forecast += '  text-decoration: none;'
-    html_forecast += '  display: block;'
-    html_forecast += '}'
-
-    html_forecast += '.dropdown-content a:hover {background-color: #ddd;}'
-    html_forecast += '.dropdown:hover .dropdown-content {display: block;}'
-    html_forecast += '.dropdown:hover .dropbtn {background-color: #3e8e41;}'
     html_forecast += '</style>'
 
-    #  Java
     html_forecast += '<body bgcolor="' + my_palette.bdclr + '">'
     # html_forecast += '<font style="face:Garamond;color:' + my_palette.text + '">'
     html_forecast += '<font style="color:' + my_palette.text + '">'
@@ -326,10 +268,8 @@ def build_html_from_forecast(in_forecast, in_user):
         # Site Description/ Site Guide Information in Collapsible Box Format!
         html_forecast += '<tr><th colspan="' + str(table_cols) + '">'
         html_forecast += '<div class="dropdown">'
-        html_forecast += '  <button class="dropbtn">Dropdown</button>'
+        html_forecast += '  <button class="dropbtn">Site Info.</button>'
         html_forecast += '  <div class="dropdown-content">'
-        # html_forecast += '<button class="collapsible">Site info.</button>'
-        # html_forecast += '<div class="content" style="display:inline">'
         html_forecast += 'Desired Conditions: '
         html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
         html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
@@ -342,42 +282,6 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</table><p>'
         html_forecast += '<br>'  # Add a blank row between site forecasts.
         html_forecast += '</p>'
-
-    # # After we've added all the site content, add the following to the end (once per report).
-    # # Add JavaScript for collapsible buttons
-    # html_forecast += '<script>'
-    # html_forecast += 'var coll = document.getElementsByClassName("collapsible");'
-    # html_forecast += 'var i;'
-    #
-    # html_forecast += 'for (i = 0; i < coll.length; i++) {'
-    # html_forecast += '  coll[i].addEventListener("touchstart", function() {'
-    # html_forecast += '      this.classList.toggle("active");'
-    # html_forecast += '      var content = this.nextElementSibling;'
-    # # html_forecast += '      if (content.style.maxHeight){'
-    # # html_forecast += '          content.style.maxHeight = null;'
-    # # html_forecast += '      } else {'
-    # # html_forecast += '          content.style.maxHeight = content.scrollHeight + "px";'
-    # # html_forecast += '      }'
-    # html_forecast += '      if (content.style.display == "none"){'
-    # html_forecast += '          content.style.display = "inline-block" ;'
-    # html_forecast += '      } else {'
-    # html_forecast += '         content.style.display = "none";'
-    # html_forecast += '      }'
-    # html_forecast += '  });'
-    # html_forecast += '}'
-    # html_forecast += '</script>'
-
-    # #----------------------test---------------------
-    # html_forecast += '<h2>Hoverable Dropdown</h2>'
-    # html_forecast += '<p>Move the mouse over the button to open the dropdown menu.</p>'
-    #
-    # html_forecast += '<div class="dropdown">'
-    # html_forecast += '  <button class="dropbtn">Dropdown</button>'
-    # html_forecast += '  <div class="dropdown-content">'
-    # html_forecast += '    <br>Blah blah</br>'
-    # html_forecast += '  </div>'
-    # html_forecast += '</div>'
-    # #----------------------test---------------------
 
     html_forecast += '</body></html>'  # Close the HTML.
 
