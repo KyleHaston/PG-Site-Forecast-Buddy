@@ -12,7 +12,7 @@ def email_the_users(in_forecast):
     print('    E-mailing the users...')
     for user in user_data.users:
         html_string = build_html_from_forecast(in_forecast, user)
-        if user['addr'] != 'server':
-            send_html_email_to_user(html_string, user['addr'])
-        else:  # special instructions for HTML file containing all site info.
-            send_html_email_to_user(html_string, 'microfarads@gmail.com')  # send me the master copy
+        # if user['addr'] != 'server':
+        #     send_html_email_to_user(html_string, user['addr'])
+        # else:  # special instructions for HTML file containing all site info.
+        #     send_html_email_to_user(html_string, 'microfarads@gmail.com')  # send me the master copy

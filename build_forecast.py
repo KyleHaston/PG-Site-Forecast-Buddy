@@ -23,16 +23,16 @@ def build_forecast():
 
     # Stitch all sites into a big list ---------------------------------------------------------------------------------
     sites = site_data.sites
-    for s in site_data_OR_kiting.OR_kiting_sites:
-        sites.append(s)
-    for s in site_data_WA.WA_sites:
-        sites.append(s)
-    for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
-        sites.append(s)
-    for s in site_data_OR_test_sites.OR_test_sites:
-        sites.append(s)
-    for s in site_data_AZ.sites_AZ:
-        sites.append(s)
+    # for s in site_data_OR_kiting.OR_kiting_sites:
+    #     sites.append(s)
+    # for s in site_data_WA.WA_sites:
+    #     sites.append(s)
+    # for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
+    #     sites.append(s)
+    # for s in site_data_OR_test_sites.OR_test_sites:
+    #     sites.append(s)
+    # for s in site_data_AZ.sites_AZ:
+    #     sites.append(s)
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
