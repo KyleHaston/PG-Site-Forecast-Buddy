@@ -39,7 +39,6 @@ def in_bounds(in_dir, in_lower, in_upper, in_margin):
 def build_summary(in_forecast, in_user):
     """
     So much data to parse that I want a concise version at the top.
-    :param in_html: The HTML so far. We're gonna add a table to it and then return it.
     :param in_forecast:
     :param in_user:
     :return:
@@ -73,9 +72,9 @@ def build_summary(in_forecast, in_user):
     date_times.sort()  # nice library bro
     date_times.insert(0, '')
 
-    summary = [date_times]
+    summary = [date_times.copy()]  # note: use .copy() due to mutable lists
     for name in site_names:
-        temp = [False] * len(date_times)
+        temp = [False] * (len(date_times) - 1)
         temp.insert(0, name)
         summary.append(temp)
 
@@ -93,8 +92,6 @@ def build_summary(in_forecast, in_user):
         # summary.append(this_summary_row)
 
     # TODO: Turn some of the False flags to True if the conditions favor flying.
-
-    print('sadf')
 
     # for this_site in in_forecast:
     #     if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if the user is not interested in this site...
@@ -307,36 +304,49 @@ def build_summary(in_forecast, in_user):
     return summary
 
 
-def print_html_summary(in_summary, in_html, in_palette):
+def print_html_summary(in_summary, in_palette):
     """
-    Print out the summary that we're created previously.
+    Take in the summary and spit out an HTML representation.
     :param in_summary:
-    :param in_html: The HTML so far. We're gonna add a table to it and then return it.
     :param in_palette:
     :return:
     """
 
     # Add a table.
-    in_html += '<table width="auto" border="1" bgcolor ="' + in_palette.bkgnd + '" style="color:' + in_palette.text + '" >'
+    html_summary = '<table width="auto" border="1" bgcolor ="' + in_palette.bkgnd + '" style="color:' + in_palette.text + '" >'
 
     for row in in_summary:
+        # print(row)
+        html_summary += '<tr>'  # Open the row.
+        if row[0] == '':  # Treat the first row differently
+            html_summary += '<td/>'  # Add an empty cell for the upper-left corner.
 
-        # Add a row for this site.
-        in_html += '<tr><th rowspan="1">'
+            # We want to give the date once (spanning multiple columns) for each unique date.
+            # So we need to get a little tricky... sorry.
+            html_date_row = ''  # initialize an empty container
+            dates = []
+            for dt in row[1:]:
+                # print(dt.strftime("%a %b %d"))
+                dates.append(dt.strftime("%a %b %d"))
+            for d in dates:
+                if d in html_date_row:
+                    continue  # If we reach this, we've already added this date to the html string
+                else:
+                    num = dates.count(d)
+                    html_date_row += '<td colspan="' + str(num) + '">' + d + '</td>'
+                    # ex: datetime.datetime.now().strftime("%a %b %d")
+            html_summary += html_date_row
+        else:
+            # For each time period, add the info.
+            for col in row:
+                html_summary += '<td>' + str(col) + '</td>'
 
-        # For each time period, add the info.
-        for col in row:
-            in_html += '<td>' + col + '</td>'
+        html_summary += '</tr>'  # Close the row.
 
-        # Close the row.
-        in_html += '</tr>'
+    # Close the table and add a blank line.
+    html_summary += '</table><p/><br/>'
 
-    # Close the table.
-    in_html += '</table><p>'
-    in_html += '<br>'  # Add a blank row between site forecasts.
-    in_html += '</p>'
-
-    return in_html
+    return html_summary
 
 
 def build_html_from_forecast(in_forecast, in_user):
@@ -368,8 +378,9 @@ def build_html_from_forecast(in_forecast, in_user):
 
     # As of August 2020, I've decided I need a summary table at the top of the report that simplifies the readout.
     summary = build_summary(in_forecast, in_user)  # create the summary
-    html_forecast += print_html_summary(summary, html_forecast, my_palette)  # append the summary to the HTML we have so far.
+    html_forecast += print_html_summary(summary, my_palette)  # append the summary to the HTML we have so far.
 
+    # Next, carry on with detailed, individual forecasts.
     for this_site in in_forecast:
         if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if the user is not interested in this site...
             continue  # skip this site.
