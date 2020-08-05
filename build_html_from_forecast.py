@@ -312,14 +312,15 @@ def print_html_summary(in_summary, in_palette):
     :return:
     """
 
-    # Add a table.
+    # Create an HTML table.
     html_summary = '<table width="auto" border="1" bgcolor ="' + in_palette.bkgnd + '" style="color:' + in_palette.text + '; text-align:center" >'
 
     for row in in_summary:
         # print(row)
         html_summary += '<tr>'  # Open the row.
         if row[0] == '':  # Treat the first row differently
-            html_summary += '<td/>'  # Add an empty cell for the upper-left corner.
+            html_summary += '<td rowspan=2></td>'  # Add an empty cell for the upper-left corner.
+            # html_summary += '<td></td>'  # Add an empty cell for the upper-left corner.
 
             # We want to give the date once (spanning multiple columns) for each unique date.
             # So we need to get a little tricky... sorry.
@@ -336,6 +337,16 @@ def print_html_summary(in_summary, in_palette):
                     html_date_row += '<td colspan="' + str(num) + '">' + d + '</td>'
                     # ex: datetime.datetime.now().strftime("%a %b %d")
             html_summary += html_date_row
+            html_summary += '</tr>'  # Close the row.
+
+            # Next add the hour for each fly/no-fly indicator.
+            # TODO: This assumes all site forecasts have data on the same hour-marks. This is probably a bug.
+            html_summary += '<tr>'
+            for dt in row[1:]:
+                # print(dt.strftime("%a %b %d"))
+                html_summary += '<td>' + str(dt.hour) + '</td>'
+            html_summary += '</tr>'  # Close the row.
+
         else:
             # For each time period, add the info.
             html_summary += '<td>' + row[0] + '</td>'  # Add the site name first.
@@ -344,8 +355,7 @@ def print_html_summary(in_summary, in_palette):
                     html_summary += '<td bgcolor="' + in_palette.good + '">&#128077;</td>'
                 else:
                     html_summary += '<td bgcolor="' + in_palette.warn + '">&#128078;</td>'
-
-        html_summary += '</tr>'  # Close the row.
+            html_summary += '</tr>'  # Close the row.
 
     # Close the table and add a blank line.
     html_summary += '</table><p/><br/>'
