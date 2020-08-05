@@ -313,7 +313,7 @@ def print_html_summary(in_summary, in_palette):
     """
 
     # Add a table.
-    html_summary = '<table width="auto" border="1" bgcolor ="' + in_palette.bkgnd + '" style="color:' + in_palette.text + '" >'
+    html_summary = '<table width="auto" border="1" bgcolor ="' + in_palette.bkgnd + '" style="color:' + in_palette.text + '; text-align:center" >'
 
     for row in in_summary:
         # print(row)
@@ -338,8 +338,12 @@ def print_html_summary(in_summary, in_palette):
             html_summary += html_date_row
         else:
             # For each time period, add the info.
-            for col in row:
-                html_summary += '<td>' + str(col) + '</td>'
+            html_summary += '<td>' + row[0] + '</td>'  # Add the site name first.
+            for col in row[1:]:  # Add the fly/no-fly indicator based on True/False flags.
+                if col:  # True means it's go time bebe.
+                    html_summary += '<td bgcolor="' + in_palette.good + '">&#128077;</td>'
+                else:
+                    html_summary += '<td bgcolor="' + in_palette.warn + '">&#128078;</td>'
 
         html_summary += '</tr>'  # Close the row.
 
