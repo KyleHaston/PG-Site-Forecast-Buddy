@@ -1,5 +1,4 @@
 from datetime import *  # For the output file.
-import calendar
 import time
 from typing import List, Any
 
@@ -53,7 +52,7 @@ def build_summary(in_forecast, in_user):
     slim_forecast: List[SiteForecast] = []  # container to hold only the sites that the user is interested in.
     for site_forecast in in_forecast:
         if in_user['addr'] == 'server' or site_forecast.name in in_user['sites']:  # user is interested in this site...
-            slim_forecast.append(site_forecast)  # delete this site from the forecast
+            slim_forecast.append(site_forecast)  # append this site to the "slim" forecast
 
     number_of_sites = 0  # init to zero
     number_of_periods = 0  # init to zero
@@ -73,8 +72,8 @@ def build_summary(in_forecast, in_user):
             if day.valid_date not in dates:
                 dates.append(day.valid_date)
             for period in day.periods:
-                if period.datetime not in date_times:
-                    date_times.append(period.datetime)
+                if period.local_dt not in date_times:
+                    date_times.append(period.local_dt)
         # number_of_periods = max(number_of_periods, temp_num_periods)
         # summary.append(this_summary_row)
     dates.sort()  # nice library bro
@@ -95,12 +94,12 @@ def build_summary(in_forecast, in_user):
         for day in site_forecast.forecast_days:
             # temp_num_periods += len(day.periods)
             for period in day.periods:
-                if period.datetime in date_times:
-                    date_times.append(period.datetime)
+                if period.local_dt in date_times:
+                    date_times.append(period.local_dt)
         # number_of_periods = max(number_of_periods, temp_num_periods)
         # summary.append(this_summary_row)
 
-    # TODO: Turn some of the False flags to True if the conditions favor flying.
+    # Turn some of the False flags to True if the conditions favor flying.
     for site_forecast in slim_forecast:
         row = site_names.index(site_forecast.name) + 1  # Add one to skip the first row which holds other info.
         # number_of_sites += 1
@@ -108,16 +107,26 @@ def build_summary(in_forecast, in_user):
         for day in site_forecast.forecast_days:
             # temp_num_periods += len(day.periods)
             for p in day.periods:
-                col = date_times.index(p.datetime)
+                col = date_times.index(p.local_dt)
                 # print('row: ' + str(row) + ', col: ' + str(col))
 
                 # Good conds: >33F, <30% chance of precipitation, <0.02" rain, wind speed/gusts/direction ok.
                 if int(p.temperature) > 33 and int(p.pop) < 30 and float(p.qpf) < 0.02 \
-                        and in_bounds(p.windSpeed, site_forecast.windLower, site_forecast.windUpper, 0) \
-                        and in_bounds(p.windGust, site_forecast.windLower, site_forecast.windUpper, 0) \
+                        and int(site_forecast.windLower) <= int(p.windSpeed) <= int(site_forecast.windUpper) \
+                        and int(site_forecast.windLower) <= int(p.windGust) <= int(site_forecast.windUpper) \
                         and in_bounds(p.windDirection, site_forecast.windDirLower, site_forecast.windDirUpper, 0):
                     summary[row][col] = True
-                    # print('found a good time to fly')
+                #     print('good time to fly: row: ' + str(row) + ', col: ' + str(col) + ' ' + str(p.local_dt))
+                # else:
+                #     print(' - poor time to fly: row: ' + str(row) + ', col: ' + str(col) + ' ' + str(p.local_dt))
+                #     if int(p.temperature) > 33 and int(p.pop) < 30 and float(p.qpf) < 0.02:
+                #         print(' -     first 3 ok')
+                #     if in_bounds(p.windSpeed, site_forecast.windLower, site_forecast.windUpper, 0):
+                #         print(' -     wind speed ok')
+                #     if in_bounds(p.windGust, site_forecast.windLower, site_forecast.windUpper, 0):
+                #         print(' -     gust speed ok')
+                #     if in_bounds(p.windDirection, site_forecast.windDirLower, site_forecast.windDirUpper, 0):
+                #         print(' -     wind dir ok')
     return summary
 
 
@@ -246,9 +255,7 @@ def build_html_from_forecast(in_forecast, in_user):
             cols[d.valid_date] = 0  # initialize number of columns for this day to 0
             for p in d.periods:
                 table_cols += 1
-                dow = p.local_dt.strftime('%a') + ' '
-                month = list(calendar.month_abbr)[p.local_dt.month] + ' '
-                temp_date = dow + month + str(p.local_dt.day)
+                temp_date = p.local_dt.strftime('%a %b %d')
                 if temp_date in cols:
                     cols[temp_date] = cols[temp_date] + 1
                 else:
