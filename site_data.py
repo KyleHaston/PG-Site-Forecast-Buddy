@@ -182,14 +182,14 @@ sites = [
     # Central OR -------------------------------------------------------------------------------------------------------
     # Pine Mountain Sites (Desert Air Riders - Paragliding Central Oregon)
     # https://docs.google.com/document/d/1OE0ICBCPaOSHbljiof710qh_ET75tyd358h27jz4xpI/edit
-    {'Name': 'Pine Ridge', 'Region': 'Central Oregon',  # LZ @ TBD
-     'Info': '',
-     'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
-     'windDirLower': 310, 'windDirUpper': 360,
-     'windLower': 5, 'windUpper': 15,
-     'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
-     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+    # {'Name': 'Pine Ridge', 'Region': 'Central Oregon',  # LZ @ TBD
+    #  'Info': '',
+    #  'lat': '44.423912', 'lon': '-121.066997', 'timezone_str': 'America/Los_Angeles',
+    #  'windDirLower': 310, 'windDirUpper': 360,
+    #  'windLower': 5, 'windUpper': 15,
+    #  'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
+    #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 
     # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
     # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
