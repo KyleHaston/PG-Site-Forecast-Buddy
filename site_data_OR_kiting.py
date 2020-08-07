@@ -177,4 +177,13 @@ OR_kiting_sites = [
      'link': 'https://goo.gl/maps/LrDMCrdxniSt6S2L6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Gradin Community Park', 'Region': 'Portland, OR',
+     'Info': "Description: Kelly Kallar's kiting site.",
+     'lat': '45.487598', 'lon': '-122.408011', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 0, 'windDirUpper': 360,  # TODO: Kelly didn't give good wind direction. Might work from any dir.
+     'windLower': 3, 'windUpper': 16,  # TODO: No info on this.
+     'link': 'https://goo.gl/maps/qTuVmtesnesadrr3A',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 ]

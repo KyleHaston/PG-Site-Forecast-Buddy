@@ -72,4 +72,13 @@ OR_Willamette_Valley_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    {'Name': 'Coburg Ridge', 'Region': 'Willamette Valley',
+     'Info': 'TODO: Get site info. This is just a place holder because there is club chatter about this site.',
+     'lat': '44.124551', 'lon': '-122.996000', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 225, 'windDirUpper': 315,  # I'm picking from SW NW. TODO: Get real wind dirs.
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/wSb3LUeNcKndAKrx6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
 ]
