@@ -82,7 +82,6 @@
 # N	    360.000°
 
 sites = [
-
     # OR Coast ---------------------------------------------------------------------------------------------------------
     {'Name': 'Sollie Smith', 'Region': 'Oregon Coastal Range (Tillamook Valley)',
      'Info': 'Sollie Launch GPS: 45.4907, -123.7683 Elev: 1600\n Kilchis Launch GPS: 45.5007, -123.7837 Elev: 1950’\n '
