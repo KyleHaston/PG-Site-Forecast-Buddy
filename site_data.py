@@ -84,6 +84,18 @@
 sites = [
 
     # OR Coast ---------------------------------------------------------------------------------------------------------
+    {'Name': 'Sollie Smith', 'Region': 'Oregon Coastal Range (Tillamook Valley)',
+     'Info': 'Sollie Launch GPS: 45.4907, -123.7683 Elev: 1600\n Kilchis Launch GPS: 45.5007, -123.7837 Elev: 1950’\n '
+             'LZGPS: 45.4746, -123.7710 (Common to both launches)\n Launch direction: SSW Wind: SSE–WSW, 5–15 MPH\n '
+             'Rating: Sollie H2/P2/M1, Kilchis H3/P3/M2',
+     # https://docs.google.com/document/d/1xL2qQy-tTPYCbjZRwGXn6QDNAhDxvxfROHfgS3tBUn4/edit
+     'lat': '45.4907', 'lon': '-123.7683', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 157, 'windDirUpper': 248,
+     'windLower': 5, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/p6PcJTwimKdG4hZL6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
     {'Name': 'Area B', 'Region': 'Oregon Coastal Range',
      'Info': '',
      'lat': '46.178162', 'lon': '-123.980713', 'timezone_str': 'America/Los_Angeles',
@@ -157,6 +169,17 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    #  "I used to fly Bald Butte much more frequently than I have in the last year or two but I'd be down to go give it
+    #  a whirl some time if the forecast looks promising. In my opinion it's probably the most fickle and unpredictable
+    #  site in the area and that's why it doesn't get flown that often. It rarely makes any sense and there really
+    #  doesn't seem to be any rhyme or reasoning to forecasting it... It can and frequently does suddenly blow out
+    #  even when it's forecasted to be light and the live reports show it to be super light down on the river.
+    #  I've also launched into light winds only to have the valley winds crank up unexpectedly and had to land
+    #  flying backwards.... Once the thermals start working in the mountains around Mt Hood it draws up that valley
+    #  like a mofo.... Not trying to scare anyone off, it's a great place to fly when it's good but you really need to
+    #  have your s#%t together, make good decisions and go with the expectation that there's a good chance you won't
+    #  fly even if it looks perfect on paper. I've definitely hiked up there and not flown more times than I have flown.
+    #  That's my 2 cents on the place anyway....." - 'Keith Lowe' via Freeway fliers
     {'Name': 'Bald Butte', 'Region': 'Columbia River Gorge',
      'Info': '',
      'lat': '45.536542', 'lon': '-121.532970', 'timezone_str': 'America/Los_Angeles',
@@ -210,4 +233,14 @@ sites = [
      'link': 'https://goo.gl/maps/ukb7WYabzFop7ZGH8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
-     ]
+
+    {'Name': 'Coburg Ridge', 'Region': 'Central Oregon',
+     #
+     'Info': 'Mount Tom Rd, Harrisburg, OR 97446    Fly during glass-off.',
+     'lat': '44.193493', 'lon': '-123.000658', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 270, 'windDirUpper': 360,  # Assuming W to N TODO: Get real info.
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real info.
+     'link': 'https://goo.gl/maps/K16MdoFYWiK3ZzKr5',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+]
