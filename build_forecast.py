@@ -35,7 +35,8 @@ def build_forecast(in_debug):
         for s in site_data_AZ.sites_AZ:
             sites.append(s)
     else:
-        sites = [site_data.sites[4]]  # use a short list of sites for debugging
+        sites = site_data.sites[2:4]  # use a short list of sites for debugging
+        # sites = [site_data.sites[4]]  # use a short list of sites for debugging
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
@@ -46,7 +47,7 @@ def build_forecast(in_debug):
         while True:
             # Fetch XML data
             #print('        Link to XML: https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
-            r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
+            r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
             soup = BeautifulSoup(r.text, 'lxml')
             numDays = len(soup.find_all('forecastday'))
             if numDays != 5:

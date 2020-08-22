@@ -127,7 +127,11 @@ def build_summary(in_forecast, in_user):
                 #         print(' -     gust speed ok')
                 #     if in_bounds(p.windDirection, site_forecast.windDirLower, site_forecast.windDirUpper, 0):
                 #         print(' -     wind dir ok')
-    return summary
+
+        # Next, sort the summary based on what's working (best at the top).
+        sorted_summary = [summary[0]]  # First row needs to stay put.
+        sorted_summary.extend(sorted(summary[1:], key=lambda x: x.count(True), reverse=True))  # This's a powerful line.
+    return sorted_summary
 
 
 def print_html_summary(in_summary, in_palette):
@@ -175,7 +179,7 @@ def print_html_summary(in_summary, in_palette):
 
         else:
             # For each time period, add the info.
-            html_summary += '<td>' + row[0] + '</td>'  # Add the site name first.
+            html_summary += '<td white-space: nowrap>' + row[0] + '</td>'  # Add the site name first.
             for col in row[1:]:  # Add the fly/no-fly indicator based on True/False flags.
                 if col:  # True means it's go time bebe.
                     html_summary += '<td bgcolor="' + in_palette.good + '">&#128077;</td>'
@@ -269,14 +273,14 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Time of Day --------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Time (local): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Time (local): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
                 html_forecast += '<td>' + str(p.local_dt.hour) + '</td>'
         html_forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Temp (°F): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Temp (°F): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
                 if int(p.temperature) < 33:
@@ -287,7 +291,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Dewpoint -----------------------------------------------------------------------------------------------------
         if this_site.show_dewpoint or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Dewpoint (°F): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Dewpoint (°F): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     html_forecast += '<td>' + p.dewpoint + '</td>'
@@ -295,7 +299,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Relative Humidity --------------------------------------------------------------------------------------------
         if this_site.show_rh or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Relative Humidity (%): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Relative Humidity (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     html_forecast += '<td>' + p.rh + '</td>'
@@ -303,7 +307,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Sky Cover ----------------------------------------------------------------------------------------------------
         if this_site.show_skyCover or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Sky Cover (%): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Sky Cover (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     html_forecast += '<td>' + p.skyCover + '</td>'
@@ -311,7 +315,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Chance of Precipitation --------------------------------------------------------------------------------------
         if this_site.show_pop or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Chance of Precip. (%): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
@@ -322,7 +326,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Precipitation ------------------------------------------------------------------------------------------------
         if this_site.show_qpf or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Precipitation ("): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Precipitation ("): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
@@ -332,7 +336,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Wind Speed (mph): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Wind Speed (mph): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
                 if int(p.windSpeed) < int(this_site.windLower):
@@ -344,7 +348,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Wind Direction -----------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Wind Direction (°): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Wind Direction (°): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
 
@@ -396,7 +400,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Wind Gust ----------------------------------------------------------------------------------------------------
-        html_forecast += '<tr><th align="right">Wind Gust (mph): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Wind Gust (mph): </th>'
         for d in this_site.forecast_days:
             for p in d.periods:
                 if int(p.windGust) < int(this_site.windLower):
@@ -409,7 +413,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Snow Amount --------------------------------------------------------------------------------------------------
         if this_site.show_snowAmt or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Snow Amount ("): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Snow Amount ("): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     html_forecast += '<td>' + p.snowAmt + '</td>'
@@ -417,7 +421,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
         # Snow Level ---------------------------------------------------------------------------------------------------
         if this_site.show_snowLevel or in_user['addr'] == 'server':  # If we typically list this info for this site...
-            html_forecast += '<tr><th align="right">Snow Level (ft): </th>'
+            html_forecast += '<tr><th align="right" nowrap>Snow Level (ft): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
                     html_forecast += '<td>' + p.snowLevel + '</td>'
