@@ -18,21 +18,24 @@ from tzwhere import tzwhere
 import pytz
 
 
-def build_forecast():
+def build_forecast(in_debug):
     full_forecast = []
 
     # Stitch all sites into a big list ---------------------------------------------------------------------------------
-    sites = site_data.sites
-    for s in site_data_OR_kiting.OR_kiting_sites:
-        sites.append(s)
-    for s in site_data_WA.WA_sites:
-        sites.append(s)
-    for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
-        sites.append(s)
-    for s in site_data_OR_test_sites.OR_test_sites:
-        sites.append(s)
-    for s in site_data_AZ.sites_AZ:
-        sites.append(s)
+    if not in_debug:
+        sites = site_data.sites
+        for s in site_data_OR_kiting.OR_kiting_sites:
+            sites.append(s)
+        for s in site_data_WA.WA_sites:
+            sites.append(s)
+        for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
+            sites.append(s)
+        for s in site_data_OR_test_sites.OR_test_sites:
+            sites.append(s)
+        for s in site_data_AZ.sites_AZ:
+            sites.append(s)
+    else:
+        sites = [site_data.sites[4]]  # use a short list of sites for debugging
 
     # Get forecast for each site ---------------------------------------------------------------------------------------
     for site in sites:
