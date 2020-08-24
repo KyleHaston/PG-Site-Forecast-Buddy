@@ -30,7 +30,7 @@ OR_kiting_sites = [
              'Address: 3100 N Willamette Blvd, Portland, OR 97217',
      'lat': '45.564995', 'lon': '-122.698436', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 225, 'windDirUpper': 270,  # "SW?" on site guide. Using SW to W based on overhead view of park
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/hiwsdrXuD79p6k6BA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -44,7 +44,7 @@ OR_kiting_sites = [
              'Getting there: Take the #35 bus or park above, and walk down.',
      'lat': '45.576937', 'lon': '-122.737738', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 180, 'windDirUpper': 270,  # S to W
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/YEfN9a5GWHDMczhr7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -64,7 +64,7 @@ OR_kiting_sites = [
              'across the ditch with your gear.',
      'lat': '45.830265', 'lon': '-122.691838', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # 'Works Best When: Any direction.'
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/emWeBwugGufmVyko6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -84,7 +84,7 @@ OR_kiting_sites = [
     #          'Marine Drive or Lombard Street.',
     #  'lat': '45.6331888889', 'lon': '-122.767152778', 'timezone_str': 'America/Los_Angeles',
     #  'windDirLower': 0, 'windDirUpper': 360,  # Works Best When: Any direction.
-    #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+    #  'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
     #  'link': '',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
     #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -100,7 +100,7 @@ OR_kiting_sites = [
              'the park.',
      'lat': '45.649331', 'lon': '-122.764136', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 45,  # Works Best When: N-NW.
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/yA9474UJKQRs8gcZ7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -133,7 +133,7 @@ OR_kiting_sites = [
              'SE Clinton St.',
      'lat': '45.503631', 'lon': '-122.605049', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 315, 'windDirUpper': 45,  # NE-NW # TODO: This won't work for wind direciton. Change dir check so it does.
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 7, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/CxqgkqgRFky9N1zv9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -147,7 +147,7 @@ OR_kiting_sites = [
              'Getting there: Follow directions to Portland International Raceway, which is off I-5 at Exit 306-B.',
      'lat': '45.598443', 'lon': '-122.686866', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # "Wind should work form any direction."
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/Xf5Gup3HQzSkfXGr7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
@@ -182,7 +182,7 @@ OR_kiting_sites = [
      'Info': "Description: Kelly Kallar's kiting site.",
      'lat': '45.487598', 'lon': '-122.408011', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 0, 'windDirUpper': 360,  # TODO: Kelly didn't give good wind direction. Might work from any dir.
-     'windLower': 3, 'windUpper': 16,  # TODO: No info on this.
+     'windLower': 6, 'windUpper': 16,  # TODO: No info on this.
      'link': 'https://goo.gl/maps/qTuVmtesnesadrr3A',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
