@@ -65,5 +65,12 @@ OR_test_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-
+    {'Name': 'Foreman Point?', 'Region': 'Portland, OR',
+     'Info': 'Launch @ 3500\' LZ @ 2700\' Seems like wind straight from South would provide sustained ridge lift.',  # LZ: 45.073119, -121.404106
+     'lat': '45.467514', 'lon': '-123.266701', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 135, 'windDirUpper': 247,  # Guessing SE to WSW, N might also be possible. Need to check it out in person.
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/B6NYS4xB8uz1ZNki8',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
 ]
