@@ -104,4 +104,13 @@ OR_test_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
 
+    {'Name': 'St Helens Hill', 'Region': 'St Helens, OR',
+     'Info': 'Launch @ 530\' LZ is soccer field @ 90\' 45.898552, -122.815175',
+     'lat': '45.894219', 'lon': '-122.824575', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 45, 'windDirUpper': 90,  # Guessing NE to E. Need to check it out in person.
+     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/K6jBn7cLMKUBYv188',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+
 ]
