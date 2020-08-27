@@ -16,4 +16,4 @@ def email_the_users(in_forecast, in_debug):
             if user['addr'] != 'server':
                 send_html_email_to_user(html_string, user['addr'])
             else:  # special instructions for HTML file containing all site info.
-                send_html_email_to_user(html_string, 'microfarads@gmail.com')  # send me the master copy
+                send_html_email_to_user(html_string, 'mrkylehaston@gmail.com')  # send me the master copy
