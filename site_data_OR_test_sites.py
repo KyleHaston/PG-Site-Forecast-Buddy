@@ -65,15 +65,6 @@ OR_test_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
-    {'Name': 'Foreman Point?', 'Region': 'Portland, OR',
-     'Info': 'Launch @ 3500\' LZ @ 2700\' Seems like wind straight from South would provide sustained ridge lift.',  # LZ: 45.073119, -121.404106
-     'lat': '45.467514', 'lon': '-123.266701', 'timezone_str': 'America/Los_Angeles',
-     'windDirLower': 135, 'windDirUpper': 247,  # Guessing SE to WSW, N might also be possible. Need to check it out in person.
-     'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
-     'link': 'https://goo.gl/maps/B6NYS4xB8uz1ZNki8',
-     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
-
     {'Name': 'Tygh?', 'Region': 'Tygh Ridge, OR',
      'Info': 'Launch @ 3330\' LZ @ 2860\'',
      # LZ: 45.305733, -121.110091
@@ -112,5 +103,25 @@ OR_test_sites = [
      'link': 'https://goo.gl/maps/K6jBn7cLMKUBYv188',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+
+    {'Name': 'Laughlin Hills', 'Region': 'North Central OR',
+     'Info': 'Test Site! Launch from Foreman Point and land on Sunflower Flat '
+             '\nSee Also: https://www.dfw.state.or.us/maps/wildlife_areas/whiteriver.pdf',
+     'lat': '45.086833', 'lon': '-121.400501', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 135, 'windDirUpper': 225,  # SE to SW TODO: Get real wind dirs
+     'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/BkoYdzQ4P8sptQeC6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
+    {'Name': 'Graveyard Butte', 'Region': 'North Central OR',
+     'Info': 'Test Site! Launch from Graveyard Butte Camp on BLM land'
+             '\nSee Also: https://www.dfw.state.or.us/maps/wildlife_areas/whiteriver.pdf',
+     'lat': '45.153447', 'lon': '-121.302184', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 135, 'windDirUpper': 225,  # SE to SW TODO: Get real wind dirs
+     'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/8Gj3uD2RoRkjLq6n6',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 
 ]
