@@ -1,7 +1,8 @@
 # exclude everything
 forecasts/*
 credentials.py
-user_data.py
+email_addresses.py
+#user_data.py
 __pycache__
 .idea
 

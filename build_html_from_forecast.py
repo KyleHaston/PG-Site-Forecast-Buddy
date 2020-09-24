@@ -51,7 +51,7 @@ def build_summary(in_forecast, in_user):
     # First we will trim down the incoming forecast so it only includes the sites that the user is interested in.
     slim_forecast: List[SiteForecast] = []  # container to hold only the sites that the user is interested in.
     for site_forecast in in_forecast:
-        if in_user['addr'] == 'server' or site_forecast.name in in_user['sites']:  # user is interested in this site...
+        if in_user['addr_hash'] == 'server' or site_forecast.name in in_user['sites']:  # user is interested in this site...
             slim_forecast.append(site_forecast)  # append this site to the "slim" forecast
 
     number_of_sites = 0  # init to zero
@@ -226,7 +226,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     # Next, carry on with detailed, individual forecasts.
     for this_site in in_forecast:
-        if in_user['addr'] != 'server' and this_site.name not in in_user['sites']:  # if not interested in this site...
+        if in_user['addr_hash'] != 'server' and this_site.name not in in_user['sites']:  # if not interested in this site...
             continue  # skip this site.
 
         # else... add this site's info to the HTML string
@@ -290,7 +290,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Dewpoint -----------------------------------------------------------------------------------------------------
-        if this_site.show_dewpoint or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_dewpoint or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Dewpoint (°F): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -298,7 +298,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Relative Humidity --------------------------------------------------------------------------------------------
-        if this_site.show_rh or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_rh or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Relative Humidity (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -306,7 +306,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Sky Cover ----------------------------------------------------------------------------------------------------
-        if this_site.show_skyCover or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_skyCover or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Sky Cover (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -314,7 +314,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Chance of Precipitation --------------------------------------------------------------------------------------
-        if this_site.show_pop or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_pop or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -325,7 +325,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Precipitation ------------------------------------------------------------------------------------------------
-        if this_site.show_qpf or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_qpf or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Precipitation ("): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -412,7 +412,7 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '</tr>'
 
         # Snow Amount --------------------------------------------------------------------------------------------------
-        if this_site.show_snowAmt or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_snowAmt or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Snow Amount ("): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -420,7 +420,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Snow Level ---------------------------------------------------------------------------------------------------
-        if this_site.show_snowLevel or in_user['addr'] == 'server':  # If we typically list this info for this site...
+        if this_site.show_snowLevel or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
             html_forecast += '<tr><th align="right" nowrap>Snow Level (ft): </th>'
             for d in this_site.forecast_days:
                 for p in d.periods:
@@ -447,7 +447,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     html_forecast += '</body></html>'  # Close the HTML.
 
-    if in_user['addr'] == 'server':  # Also save a full copy of the forecast to the server.
+    if in_user['addr_hash'] == 'server':  # Also save a full copy of the forecast to the server.
         print('        Saving the full forecast to an HTML file on the server...')
         with open('forecasts/forecast ' + time.asctime().replace(':', '-') + '.html', 'w') as file:
             file.write(html_forecast)
