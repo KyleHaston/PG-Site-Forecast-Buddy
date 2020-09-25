@@ -198,6 +198,27 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    # Willamette Valley ------------------------------------------------------------------------------------------------
+    {'Name': 'Chehalem', 'Region': 'Willamette Valley',
+     'Info': 'https://docs.google.com/document/d/14ADM70d7_LbPjhoHzy7uJ0ypx7N4Y0iunP6vZv9qfAQ/edit',
+     'lat': '45.355250', 'lon': '-122.997500', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 180, 'windDirUpper': 270,  # Per site guide: S to W
+     'windLower': 5, 'windUpper': 15,  # Per site guide: 5 to 15 mph
+     'link': 'https://goo.gl/maps/xMtKWewDfH94H5cN8',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
+    {'Name': 'Peterson Butte', 'Region': 'Willamette Valley',
+     'Info': 'SITE IS OPEN FROM 11/1 THROUGH 5/31. Other times closed for fire hazard.'
+             '\nThere is a keypad at the gate now. HANG'
+             '\nhttps://docs.google.com/document/d/10W3LlTJkqw5qny2qMKzAvJ3czyTgFshEECJ1ZyZ4fVY/edit',
+     'lat': '44.509692', 'lon': '-122.969670', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 135, 'windDirUpper': 225,  # Per site guide: SE to SW
+     'windLower': 5, 'windUpper': 12,  # Per site guide: 5 to 12 mph
+     'link': 'https://goo.gl/maps/ZWZPtzt9jeym6taM9',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
     # Mnt Hood ---------------------------------------------------------------------------------------------------------
     # TODO: Add Mnt Hood.
 
