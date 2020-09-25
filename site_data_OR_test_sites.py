@@ -124,4 +124,13 @@ OR_test_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 
+    {'Name': 'Hehe Butte', 'Region': 'North Central OR',
+     'Info': 'Test Site! Launch from Hehe Butte on BIF land. Land by road.'
+             '\nSee Also: https://www.topozone.com/oregon/malheur-or/valley/warm-springs-valley-4/',
+     'lat': '44.960301', 'lon': '-121.474684', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 112, 'windDirUpper': 270,  # ESE to W TODO: Get real wind dirs
+     'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/KX2UpHTQkLsrbMuP7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
 ]
