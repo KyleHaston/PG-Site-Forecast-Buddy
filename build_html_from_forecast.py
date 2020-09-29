@@ -128,9 +128,12 @@ def build_summary(in_forecast, in_user):
                 #     if in_bounds(p.windDirection, site_forecast.windDirLower, site_forecast.windDirUpper, 0):
                 #         print(' -     wind dir ok')
 
-        # Next, sort the summary based on what's working (best at the top).
-        sorted_summary = [summary[0]]  # First row needs to stay put.
-        sorted_summary.extend(sorted(summary[1:], key=lambda x: x.count(True), reverse=True))  # This's a powerful line.
+    # Remove any rows (sites) that are entirely "no-fly"
+    summary[1:] = [row for row in summary[1:] if (True in row)]  # notice we keep the top row (containing date-times)
+
+    # Next, sort the summary based on what's working (best at the top).
+    sorted_summary = [summary[0]]  # First row needs to stay put.
+    sorted_summary.extend(sorted(summary[1:], key=lambda x: x.count(True), reverse=True))  # This's a powerful line.
     return sorted_summary
 
 
