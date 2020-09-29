@@ -187,7 +187,8 @@ def print_html_summary(in_summary, in_palette):
                 if col:  # True means it's go time bebe.
                     html_summary += '<td bgcolor="' + in_palette.good + '">&#128077;</td>'
                 else:
-                    html_summary += '<td bgcolor="' + in_palette.warn + '">&#128078;</td>'
+                    # html_summary += '<td bgcolor="' + in_palette.warn + '">&#128078;</td>'
+                    html_summary += '<td bgcolor="' + in_palette.warn + '"></td>'
             html_summary += '</tr>'  # Close the row.
 
     # Close the table and add a blank line.
