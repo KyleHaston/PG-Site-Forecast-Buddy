@@ -198,6 +198,22 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
+    {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
+     'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 225, 'windDirUpper': 315,  # SW to NW per Kyle
+     'windLower': 5, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/zS1Fmr4DzzW54M8fA',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+
+    {'Name': 'Cliffside', 'Region': 'Columbia River Gorge',
+     'lat': '45.724844', 'lon': '-120.726470', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 45, 'windDirUpper': 135,
+     'windLower': 7, 'windUpper': 15,
+     'link': 'https://goo.gl/maps/zgzczeHDBNyuRFhP7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+
     # Willamette Valley ------------------------------------------------------------------------------------------------
     {'Name': 'Chehalem', 'Region': 'Willamette Valley',
      'Info': 'https://docs.google.com/document/d/14ADM70d7_LbPjhoHzy7uJ0ypx7N4Y0iunP6vZv9qfAQ/edit',
