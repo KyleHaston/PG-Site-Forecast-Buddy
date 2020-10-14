@@ -99,8 +99,8 @@ sites_AZ = [
     {'Name': 'Mount Elden', 'Region': 'Northern AZ',
      'Info': '',
      'lat': '35.240906', 'lon': '-111.607948', 'timezone_str': 'America/Phoenix',
-     'windDirLower': 180, 'windDirUpper': 225,  # S to SW per Kurt
-     'windLower': 0, 'windUpper': 5,  # per Kurt
+     'windDirLower': 90, 'windDirUpper': 270,  # E to W (any southern direction is flyable) per Kurt
+     'windLower': 0, 'windUpper': 12,  # per Kurt
      'link': 'https://goo.gl/maps/JEkG6TEe7g9rcdT77',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
