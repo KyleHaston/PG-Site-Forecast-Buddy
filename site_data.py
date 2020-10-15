@@ -122,6 +122,15 @@ sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
+    {'Name': 'Moolack Beach', 'Region': 'Oregon Coastal Range',
+     'Info': 'https://vimeo.com/398695994 \nGuessing it\'s about 1/2 mi hike back up from the beach if you sink out.',
+     'lat': '44.710541', 'lon': '-124.060010', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 225, 'windDirUpper': 315,  # Guessing SW to NW
+     'windLower': 0, 'windUpper': 18,
+     'link': 'https://goo.gl/maps/Z6mRXeNXxA4gnDN66',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+
     {'Name': 'Yaquina Head (North)', 'Region': 'Oregon Coastal Range',
      'Info': '',
      'lat': '44.67640', 'lon': '-124.07810', 'timezone_str': 'America/Los_Angeles',
