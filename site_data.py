@@ -199,6 +199,7 @@ sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
 
     {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
+     'Info': '',
      'lat': '45.7255', 'lon': '-121.446', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 225, 'windDirUpper': 315,  # SW to NW per Kyle
      'windLower': 5, 'windUpper': 15,
@@ -207,6 +208,7 @@ sites = [
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
 
     {'Name': 'Cliffside', 'Region': 'Columbia River Gorge',
+     'Info': '',
      'lat': '45.724844', 'lon': '-120.726470', 'timezone_str': 'America/Los_Angeles',
      'windDirLower': 45, 'windDirUpper': 135,
      'windLower': 7, 'windUpper': 15,
