@@ -186,4 +186,14 @@ OR_kiting_sites = [
      'link': 'https://goo.gl/maps/qTuVmtesnesadrr3A',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
+    {'Name': 'Altamont Park', 'Region': 'Portland, OR',
+     'Info': "Description: Alan Flemming's kiting site. \n The steep hill to the SW might also be worth checking out.",
+     'lat': '45.457916', 'lon': '-122.560319', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 135, 'windDirUpper': 22.5,  # "NNE through W to SE"
+     'windLower': 3, 'windUpper': 20,  # TODO: OSR (on-site report)
+     'link': 'https://goo.gl/maps/hLT1dft1MF2ess1q7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
 ]
