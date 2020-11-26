@@ -7,5 +7,5 @@ from email_the_users import *
 
 
 if __name__ == "__main__":
-    forecast_data = build_forecast(True)  # True for debug mode (less sites, no email)
-    email_the_users(forecast_data, True)  # True for debug mode (less sites, no email)
+    forecast_data = build_forecast(False)  # True for debug mode (less sites, no email)
+    email_the_users(forecast_data, False)  # True for debug mode (less sites, no email)
