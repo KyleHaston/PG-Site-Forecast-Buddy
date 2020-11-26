@@ -44,7 +44,9 @@ def build_forecast(in_debug):
 
         # Sometimes the server returns and empty forecast, so let's check for that.
         # If we get an empty one, let's wait some time and request the forecast again.
-        while True:
+        num_tries = 5  # try to fetch forecast his many times, then bail
+        while num_tries > 0:
+            num_tries -= 1
             # Fetch XML data
             #print('        Link to XML: https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
             r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
@@ -55,6 +57,9 @@ def build_forecast(in_debug):
                 time.sleep(60)
             else:
                 break
+        if num_tries == 0:
+            print('        Skipping this site since forecast service seems disrupted.')
+            continue  # Just skip this site.
 
         # Create a new instance of site_forecast (custom class) for this site.
         site4cast = site_forecast.SiteForecast(site['Name'])
