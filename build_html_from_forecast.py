@@ -436,6 +436,10 @@ def build_html_from_forecast(in_forecast, in_user):
         html_forecast += '<div class="dropdown">'
         html_forecast += '  <button class="dropbtn">Site Info.</button>'
         html_forecast += '  <div class="dropdown-content">'
+
+        # Link to the NOAA 7 day forecast
+        html_forecast += '<a style="color:blue" href="https://forecast.weather.gov/MapClick.php?lon=' + str(this_site.longitude) + '&lat=' + str(this_site.latitude) + '"><u> NOAA 7 Day Forecast</u></a>'
+
         html_forecast += 'Desired Conditions: '
         html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
         html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
