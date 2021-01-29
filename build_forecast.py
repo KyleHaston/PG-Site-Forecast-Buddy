@@ -79,13 +79,21 @@ def build_forecast(in_site):
     # If we get an empty one, let's tack the site to the end of the list and carry on.
 
     # Fetch XML data
-    #print('        Link to XML: https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=4&' + 'lat=' + site['lat'] + '&lon=' + site['lon'])
-    r = requests.get('https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + in_site['lat'] + '&lon=' + in_site['lon'])
+    link = 'https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + in_site['lat'] + '&lon=' + in_site['lon']
+    r = requests.get(link)
     soup = BeautifulSoup(r.text, 'lxml')
     numDays = len(soup.find_all('forecastday'))
     if numDays != 5:
         print('        Got an empty forecast.')
-        return -1
+        link = 'https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + in_site['lat'] + '&lon=' + in_site['lon'].strip('-')  # sometimes this does the trick.
+        r = requests.get(link)
+        soup = BeautifulSoup(r.text, 'lxml')
+        numDays = len(soup.find_all('forecastday'))
+        if numDays != 5:
+            print('        Got an empty forecast using modified longitude: ' + link)  # for manual debugging
+            return -1
+        # else:
+        #     print('        Success with link: ' + link)  # for manual debugging
 
     # Create a new instance of site_forecast (custom class) for this site.
     site4cast = site_forecast.SiteForecast(in_site['Name'])
