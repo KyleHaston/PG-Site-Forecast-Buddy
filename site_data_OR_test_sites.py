@@ -133,4 +133,15 @@ OR_test_sites = [
      'link': 'https://goo.gl/maps/KX2UpHTQkLsrbMuP7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+
+    {'Name': 'Gunsight Butte', 'Region': 'Near Mt Hood OR',
+     'Info': 'Test Site! Launch from Gunsight Butte. Land in the meadow to the NW (other side of hwy 35).'
+             '\nPotential LZ: https://goo.gl/maps/AAunn9rW8iYLAcUL8'
+             '\nTrail Map: https://www.alltrails.com/explore/trail/us/oregon/gumjuwac-to-badger-creek-to-gunsight-loop-trail?mobileMap=false&ref=sidebar-static-map&ref=sidebar-view-full-map',
+     'lat': '45.326829', 'lon': '-121.558064', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 225, 'windDirUpper': 0,  # SW to N TODO: Get real wind dirs
+     'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
+     'link': 'https://goo.gl/maps/hWM5hCdbPhBNJ65i7',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
 ]
