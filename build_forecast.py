@@ -78,14 +78,51 @@ def build_forecast(in_site):
     # Sometimes the server returns and empty forecast, so let's check for that.
     # If we get an empty one, let's tack the site to the end of the list and carry on.
 
-    # Fetch XML data
-    link = 'https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + in_site['lat'] + '&lon=' + in_site['lon']
+    # Fetch the weather data
+
+    # Get the date and time now. Rounded 'back' 'to nearest hour.
+    begin = datetime.datetime.today().isoformat().split('.')[0].split(':')[0] + ':00:00'
+    delta = datetime.timedelta(hours=96)
+    end = (datetime.datetime.today() + delta).isoformat().split('.')[0].split(':')[0] + ':00:00'
+
+    # https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=38.99&lon=-77.01&product=time-series&begin=2021-02-14T10:11:46&end=2021-02-17T10:11:46
+    link = 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?' \
+           'lat=' + in_site['lat'] + '&lon=' + in_site['lon'] + \
+           '&product=time-series&begin=' + begin + '&end=' + end + \
+           '&Unit=e&appt=appt&dew=dew&pop12=pop12&qpf=qpf&snow=snow&sky=sky&rh=rh&wspd=wspd&wdir=wdir&wx=wx' \
+           '&wgust=wgust&precipa_r=precipa_r&sky_r=sky_r&td_r=td_r&temp_r=temp_r&wdir_r=wdir_r&wspd_r=wspd_r&wwa=wwa' \
+           '&iceaccum=iceaccum&Submit=Submit'
+
+            # https://graphical.weather.gov/xml/docs/elementInputNames.php
+                # NDFD Parameter                                                Input Name
+                # Apparent Temperature                                          appt
+                # Dewpoint Temperature                                          dew
+                # 12 Hour Probability of Precipitation                          pop12
+                # Liquid Precipitation Amount                                   qpf
+                # Snowfall Amount                                               snow
+                # Cloud Cover Amount                                            sky
+                # Relative Humidity                                             rh
+                # Wind Speed                                                    wspd
+                # Wind Direction                                                wdir
+                # Weather                                                       wx
+                # Wind Gust                                                     wgust
+                # Real-time Mesoscale Analysis Precipitation                    precipa_r
+                # Real-time Mesoscale Analysis GOES Effective Cloud Amount      sky_r
+                # Real-time Mesoscale Analysis Dewpoint Temperature             td_r
+                # Real-time Mesoscale Analysis Temperature                      temp_r
+                # Real-time Mesoscale Analysis Wind Direction                   wdir_r
+                # Real-time Mesoscale Analysis Wind Speed                       wspd_r
+                # Watches, Warnings, and Advisories                             wwa
+                # Ice Accumulation                                              iceaccum
+
     r = requests.get(link)
+    print(r.text)
     soup = BeautifulSoup(r.text, 'lxml')
+    forecast_creation_time = soup.find('creation-date').text
     numDays = len(soup.find_all('forecastday'))
     if numDays != 5:
         print('        Got an empty forecast.')
-        link = 'https://www.wrh.noaa.gov/forecast/xml/xml.php?duration=96&interval=1&' + 'lat=' + in_site['lat'] + '&lon=' + in_site['lon'].strip('-')  # sometimes this does the trick.
+
         r = requests.get(link)
         soup = BeautifulSoup(r.text, 'lxml')
         numDays = len(soup.find_all('forecastday'))
@@ -103,7 +140,7 @@ def build_forecast(in_site):
     site4cast.info = in_site['Info']
 
     # Put the XML info. into our custom format.
-    site4cast.forecast_creation_time = soup.find('forecastcreationtime').text
+    site4cast.forecast_creation_time = soup.find('creation-date').text
     site4cast.location = soup.find('location').text
     site4cast.duration = soup.find('duration').text
     site4cast.interval = soup.find('interval').text
