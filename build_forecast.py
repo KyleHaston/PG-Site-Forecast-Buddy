@@ -117,20 +117,35 @@ def build_forecast(in_site):
 
     r = requests.get(link)
     print(r.text)
-    soup = BeautifulSoup(r.text, 'lxml')
-    forecast_creation_time = soup.find('creation-date').text
-    numDays = len(soup.find_all('forecastday'))
-    if numDays != 5:
-        print('        Got an empty forecast.')
+    soup = BeautifulSoup(r.text, 'xml')
 
-        r = requests.get(link)
-        soup = BeautifulSoup(r.text, 'lxml')
-        numDays = len(soup.find_all('forecastday'))
-        if numDays != 5:
-            print('        Got an empty forecast using modified longitude: ' + link)  # for manual debugging
-            return -1
-        # else:
-        #     print('        Success with link: ' + link)  # for manual debugging
+    # Find the time-layout for the windDirection data and add all the timestamps to an array.
+    dirs = soup.direction
+    tl_windDir = dirs['time-layout']
+    tls = soup.findAll('time-layout')  # collect all the time-layouts
+    svts = []  # they're called 'start-valid-time's hence svts
+    for tl in tls:
+        if tl.find('layout-key').text == tl_windDir:
+            for svt in tl.find_all('start-valid-time'):
+                svts.append(svt.text)
+    if len(svts) == 0:  # some rudimentary error checking
+        print('        Got an empty forecast.')
+        return -1
+
+    # Collect all the data we're interested in.
+    spds = soup.find('wind-speed')
+    dewPts = []
+    temps = []
+    for temp in soup.find_all('temperature'):
+        if 'Dew Point Temperature' in temp.text:
+            dewPts = temp[:]  # make a shallow copy
+        elif 'Apparent Temperature' in temp.text:
+            temps = temp[:]  # make a shallow copy
+
+    # Make sure they all have the same time-layout as the wind direction data.
+    if spds['time-layout'] != tl_windDir or dewPts['time-layout'] != tl_windDir or temps['time-layout'] != tl_windDir:
+        print('        Time layout ifo. not synched between metrics. Aborting.')
+        return -1
 
     # Create a new instance of site_forecast (custom class) for this site.
     site4cast = site_forecast.SiteForecast(in_site['Name'])
@@ -140,10 +155,7 @@ def build_forecast(in_site):
     site4cast.info = in_site['Info']
 
     # Put the XML info. into our custom format.
-    site4cast.forecast_creation_time = soup.find('creation-date').text
-    site4cast.location = soup.find('location').text
-    site4cast.duration = soup.find('duration').text
-    site4cast.interval = soup.find('interval').text
+    site4cast.forecast_creation_time = soup.head.product.find('creation-date').text
 
     site4cast.windLower = str(in_site['windLower'])
     site4cast.windUpper = str(in_site['windUpper'])
@@ -162,58 +174,43 @@ def build_forecast(in_site):
     site4cast.longitude = float(in_site['lon'])
     site4cast.link = in_site['link']
 
-    site4cast.timezone_str = in_site['timezone_str']
-    if site4cast.timezone_str == '':  # If we don't have the timezone string in the site data...
-        print('        ERROR: Timezone string for this site not in site data. Will try to resolve it.')
-        site4cast.timezone_str = tzwhere.tzwhere().tzNameAt(site4cast.latitude, site4cast.longitude)
+    this_day = site_forecast.ForecastDay(this_date)  # initialize a forecastday with this date
+    for p in day.find_all('period'):  # for each period during this day...
+        if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
+            this_p = site_forecast.Period()  # initialize an empty period (custom class)
+            # fill in the period data
+            this_p.validTime = p.find('validtime').text
+            this_p.temperature = p.find('temperature').text
+            this_p.dewpoint = p.find('dewpoint').text
+            this_p.rh = p.find('rh').text
+            this_p.skyCover = p.find('skycover').text
+            this_p.windSpeed = p.find('windspeed').text
+            this_p.windDirection = p.find('winddirection').text
+            this_p.windGust = p.find('windgust').text
+            this_p.pop = p.find('pop').text
+            this_p.qpf = p.find('qpf').text
+            this_p.snowAmt = p.find('snowamt').text
+            try:
+                this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+            except:
+                try:  # This fixed a random bug that appeared while programming. TODO: Need better error handling b/c it's weather data.
+                    this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
+                except:
+                    this_p.snowLevel = '0.00'
 
-    for day in soup.find_all('forecastday'):  # for each day...s
-        this_date = day.find('validdate').text  # get the validdate
+            # To ease time conversion (based on timezone) later, create a datetime from this period's info.
+            yr = datetime.datetime.now().year  # TODO: might fart out around new year
+            m = list(calendar.month_abbr).index(this_date.split()[0])
+            d = int(this_date.split()[1])
+            hr = int(this_p.validTime)
+            this_p.datetime = datetime.datetime(yr, m, d, hr)  # UTC datetime
 
-        # Bug fix: Only add this day to the forecast if it has at least one period with valid data in it.
-        add_me = False
-        for p in day.find_all('period'):  # for each period during this day...
-            if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
-                add_me = True
+            local_tz = pytz.timezone(site4cast.timezone_str)
+            this_p.local_dt = this_p.datetime + local_tz.utcoffset(this_p.datetime)  # local datetime
 
-        if add_me:
-            this_day = site_forecast.ForecastDay(this_date)  # initialize a forecastday with this date
-            for p in day.find_all('period'):  # for each period during this day...
-                if p.find('wx').text != ' -999 ':  # Only if there is valid data for this period...
-                    this_p = site_forecast.Period()  # initialize an empty period (custom class)
-                    # fill in the period data
-                    this_p.validTime = p.find('validtime').text
-                    this_p.temperature = p.find('temperature').text
-                    this_p.dewpoint = p.find('dewpoint').text
-                    this_p.rh = p.find('rh').text
-                    this_p.skyCover = p.find('skycover').text
-                    this_p.windSpeed = p.find('windspeed').text
-                    this_p.windDirection = p.find('winddirection').text
-                    this_p.windGust = p.find('windgust').text
-                    this_p.pop = p.find('pop').text
-                    this_p.qpf = p.find('qpf').text
-                    this_p.snowAmt = p.find('snowamt').text
-                    try:
-                        this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
-                    except:
-                        try:  # This fixed a random bug that appeared while programming. TODO: Need better error handling b/c it's weather data.
-                            this_p.snowLevel = str(round(float(p.find('snowlevel').text)))  # Silly casting to get rid of silly data.
-                        except:
-                            this_p.snowLevel = '0.00'
+            this_day.periods.append(this_p)  # Append this period to the day we created one level above.
 
-                    # To ease time conversion (based on timezone) later, create a datetime from this period's info.
-                    yr = datetime.datetime.now().year  # TODO: might fart out around new year
-                    m = list(calendar.month_abbr).index(this_date.split()[0])
-                    d = int(this_date.split()[1])
-                    hr = int(this_p.validTime)
-                    this_p.datetime = datetime.datetime(yr, m, d, hr)  # UTC datetime
-
-                    local_tz = pytz.timezone(site4cast.timezone_str)
-                    this_p.local_dt = this_p.datetime + local_tz.utcoffset(this_p.datetime)  # local datetime
-
-                    this_day.periods.append(this_p)  # Append this period to the day we created one level above.
-
-            site4cast.forecast_days.append(this_day)
+        site4cast.forecast_days.append(this_day)
     if len(site4cast.forecast_days) < 3:
         print('Found a bad one.')
         return -1

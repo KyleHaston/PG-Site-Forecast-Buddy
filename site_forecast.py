@@ -80,9 +80,9 @@ class SiteForecast:
         self.longitude = ''
         self.link = ''
         self.elevation = ''
-        self.location = ''
-        self.duration = ''
-        self.interval = ''
+        # self.location = ''  # TODO: Delete this if not needed.
+        # self.duration = ''  # TODO: Delete this if not needed.
+        # self.interval = ''  # TODO: Delete this if not needed.
         self.forecast_days = []  # List of custom class defined above.
 
         # This stuff we copy from our site knowledge data for ease of creating the HTML later.
