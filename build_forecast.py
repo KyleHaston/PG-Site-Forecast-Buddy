@@ -119,6 +119,9 @@ def build_forecast(in_site):
     print(r.text)
     soup = BeautifulSoup(r.text, 'xml')
 
+    if 'Error' in soup.text:  # When the service is down, 'Error' is in the returned data.
+        return -1
+
     # Find the time-layout for the windDirection data and add all the timestamps to an array.
     dirs = soup.direction
     tl_windDir = dirs['time-layout']
