@@ -84,10 +84,9 @@ def fetch_forecast(in_site):
     link = 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?' \
            'lat=' + in_site['lat'] + '&lon=' + in_site['lon'] + \
            '&product=time-series&begin=' + begin + '&end=' + end + \
-           '&Unit=e&wspd=wspd&wdir=wdir&wgust=wgust&Submit=Submit'
-           # '&Unit=e&appt=appt&dew=dew&pop12=pop12&qpf=qpf&snow=snow&sky=sky&rh=rh&wspd=wspd&wdir=wdir&wx=wx' \
-           # '&wgust=wgust&precipa_r=precipa_r&sky_r=sky_r&td_r=td_r&temp_r=temp_r&wdir_r=wdir_r&wspd_r=wspd_r&wwa=wwa' \
-           # '&iceaccum=iceaccum&Submit=Submit'
+           '&Unit=e&appt=appt&dew=dew&pop12=pop12&qpf=qpf&snow=snow&sky=sky&rh=rh&wspd=wspd&wdir=wdir&wx=wx' \
+           '&wgust=wgust&precipa_r=precipa_r&sky_r=sky_r&td_r=td_r&temp_r=temp_r&wdir_r=wdir_r&wspd_r=wspd_r&wwa=wwa' \
+           '&iceaccum=iceaccum&Submit=Submit'
 
             # https://graphical.weather.gov/xml/docs/elementInputNames.php
                 # NDFD Parameter                                                Input Name

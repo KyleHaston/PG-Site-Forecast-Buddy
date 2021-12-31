@@ -292,32 +292,83 @@ def build_html_from_forecast(in_forecast, in_user):
         # html_forecast += '</tr>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
-        spds = this_site[1].find_all('wind-speed')
-        for spd in spds:  #
-            # temp = spd.find('name').text
-            # print(temp)
-            if spd.find('name').text == 'Wind Speed':
-                html_forecast += '<tr><th align="right" nowrap>Wind Speed (mph): </th>'
-            elif spd.find('name').text == 'Wind Speed Gust':
-                html_forecast += '<tr><th align="right" nowrap>Wind Speed Gust (mph): </th>'
+        dataset = this_site[1].find_all('wind-speed')
+        for spd in dataset:  #
+            if spd['type'] == 'sustained':
+                html_forecast += '<tr><th align="right" nowrap>Wind Speed (' + spd['units'] + '): </th>'
+            elif spd['type'] == 'gust':
+                html_forecast += '<tr><th align="right" nowrap>Wind Speed Gust (' + spd['units'] + '): </th>'
             else:
                 break
 
-            # TODO: Get the wind speeds paired with a time
-            # TL =
+            thisTLkey = spd['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
 
-            # for val in spd.text.split('\n')[2:]:
-            for val in spd.find_all('value'):
-                html_forecast += '<td align="center" bgcolor ='
-                val = val.text
-                if int(val) < int(this_site[0]['windLower']):
-                    html_forecast += my_palette.lame  # too slow
-                elif int(val) > int(this_site[0]['windUpper']):
-                    html_forecast += my_palette.warn  # too fast
+            vals = spd.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" bgcolor ='
+                    val = vals[i].text
+                    if int(val) < int(this_site[0]['windLower']):
+                        html_forecast += my_palette.lame  # too slow
+                    elif int(val) > int(this_site[0]['windUpper']):
+                        html_forecast += my_palette.warn  # too fast
+                    else:
+                        html_forecast += my_palette.good  # juuuust right
+                    html_forecast += '>' + val + '</td>'
                 else:
-                    html_forecast += my_palette.good  # juuuust right
-                html_forecast += '>' + val + '</td>'
+                    html_forecast += '<td/>'
             html_forecast += '</tr>'
+
+        # Temperature --------------------------------------------------------------------------------------------------
+        temps = this_site[1].find_all('temperature')
+        for t in temps:
+            # print(t['type'])
+            if t['type'] == 'apparent':
+                html_forecast += '<tr><th align="right" nowrap>Apparent Temp. (°' + t['units'] + '): </th>'
+            elif t['type'] == 'dew point':
+                html_forecast += '<tr><th align="right" nowrap>Dew Point (°' + t['units'] + '): </th>'
+            else:
+                break
+
+            thisTLkey = t['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = t.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    val = vals[i].text
+                    if int(val) < 36:  # threshold slightly above freezing
+                        html_forecast += '<td bgcolor =' + my_palette.rain  # near freezing.
+                    else:
+                        html_forecast += '<td'  # warm enough
+                    html_forecast += '>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        html_forecast += '<br/>'
 
     html_forecast += '</body></html>'  # Close the HTML.
 
@@ -333,56 +384,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     # TODO: Everything below here deprecated?
 
-    #     # Determine the number of columns from the number of periods with valid data.
-    #     cols = 0  # initialize
-    #     for d in this_site.forecast_days:
-    #         cols += len(d.periods)
-    #
 
-    #
-
-    #
-    #     # Dates --------------------------------------------------------------------------------------------------------
-    #     # First, let's figure out how many columns to reserve for each date
-    #     cols = {}
-    #     table_cols = 1  # init to 1 for the left-hand row labels. then += 1 for each col of the report.
-    #     for d in this_site.forecast_days:
-    #         cols[d.valid_date] = 0  # initialize number of columns for this day to 0
-    #         for p in d.periods:
-    #             table_cols += 1
-    #             temp_date = p.local_dt.strftime('%a %b %d')
-    #             if temp_date in cols:
-    #                 cols[temp_date] = cols[temp_date] + 1
-    #             else:
-    #                 cols[temp_date] = 1
-    #
-    #     # Print the dates to the HTML
-    #     html_forecast += '<tr>'
-    #     for k, v in cols.items():
-    #         if v > 0:
-    #             html_forecast += '<th colspan="' + str(v) + '">' + k + '</th>'
-    #     html_forecast += '</tr>'
-    #
-
-    #
-    #     # Temperature --------------------------------------------------------------------------------------------------
-    #     html_forecast += '<tr><th align="right" nowrap>Temp (°F): </th>'
-    #     for d in this_site.forecast_days:
-    #         for p in d.periods:
-    #             if int(p.temperature) < 33:
-    #                 html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.temperature + '</td>'  # near freezing.
-    #             else:
-    #                 html_forecast += '<td>' + p.temperature + '</td>'  # warm enough
-    #     html_forecast += '</tr>'
-    #
-    #     # Dewpoint -----------------------------------------------------------------------------------------------------
-    #     if this_site.show_dewpoint or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Dewpoint (°F): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 html_forecast += '<td>' + p.dewpoint + '</td>'
-    #         html_forecast += '</tr>'
-    #
     #     # Relative Humidity --------------------------------------------------------------------------------------------
     #     if this_site.show_rh or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
     #         html_forecast += '<tr><th align="right" nowrap>Relative Humidity (%): </th>'
