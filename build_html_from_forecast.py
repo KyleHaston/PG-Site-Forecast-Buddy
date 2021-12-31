@@ -272,7 +272,7 @@ def build_html_from_forecast(in_forecast, in_user):
         for uD in uniqueDays:
             uD[1] = days.count(uD[0])  # add count of entries for each day
 
-        # # List forecast creation info. and site info.  # TODO: Change this from UTC to PST.
+        # # List forecast creation info. and site info.
         html_forecast += '<th colspan="' + str(len(DTs)) + '", rowspan="1"><span style="color:' + my_palette.desc + ';font-size:75%">'
         html_forecast += 'Forecast created: ' + this_site[1].find('creation-date').text
         html_forecast += '</span></th></tr></tr></tr>'
@@ -280,7 +280,7 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '<td align="center" colspan="' + str(uD[1]) + '">' + uD[0] + '</td>'
         html_forecast += '<tr/>'
 
-        html_forecast += '<tr align="right"><th nowrap>Time (local???): </th>'  # TODO: convert to local times
+        html_forecast += '<tr align="right"><th nowrap>Time (local): </th>'
         for DT in DTs:
             html_forecast += '<td>' + str(DT.hour) + '</td>'
         html_forecast += '</tr>'
@@ -401,7 +401,7 @@ def build_html_from_forecast(in_forecast, in_user):
             if d['type'] == 'total' and (this_site[0]['show_skyCover'] or in_user['addr_hash'] == 'server'):
                 html_forecast += '<tr><th align="right" nowrap>Cloud Cover (' + d['units'] + '): </th>'
             else:
-                break
+                continue
 
             thisTLkey = d['time-layout']
             thisDTs = []
@@ -426,23 +426,14 @@ def build_html_from_forecast(in_forecast, in_user):
                     html_forecast += '<td/>'
             html_forecast += '</tr>'
 
-        #     # Chance of Precipitation --------------------------------------------------------------------------------------
-        #     if this_site.show_pop or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-        #         html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
-        #         for d in this_site.forecast_days:
-        #             for p in d.periods:
-        #                 if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-        #                     html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.pop + '</td>'  # wet bad.
-        #                 else:
-        #                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.pop + '</td>'  # dry good.
-        #         html_forecast += '</tr>'
+        # Chance of Precipitation --------------------------------------------------------------------------------------
         dataset = this_site[1].find_all('probability-of-precipitation')
         for d in dataset:
             # print(t['type'])
             if this_site[0]['show_pop'] or in_user['addr_hash'] == 'server':
                 html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
             else:
-                break
+                continue
 
             thisTLkey = d['time-layout']
             thisDTs = []
@@ -461,11 +452,11 @@ def build_html_from_forecast(in_forecast, in_user):
                 if DT in thisDTs:
                     i = thisDTs.index(DT)
                     html_forecast += '<td align="center" '
-                    if int(val) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                    if int(vals[i].text) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
                         html_forecast += '<td bgcolor =' + my_palette.rain  # wet bad.
                     else:
                         html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
-                    html_forecast += '>' + val + '</td>'
+                    html_forecast += '>' + vals[i].text + '</td>'
                 else:
                     html_forecast += '<td/>'
             html_forecast += '</tr>'
@@ -477,7 +468,7 @@ def build_html_from_forecast(in_forecast, in_user):
             if d['type'] == 'liquid' and (this_site[0]['show_qpf'] or in_user['addr_hash'] == 'server'):
                 html_forecast += '<tr><th align="right" nowrap>Precipitation (' + d['units'] + '): </th>'
             else:
-                break
+                continue
 
             thisTLkey = d['time-layout']
             thisDTs = []
@@ -496,15 +487,161 @@ def build_html_from_forecast(in_forecast, in_user):
                 if DT in thisDTs:
                     i = thisDTs.index(DT)
                     html_forecast += '<td align="center" '
-                    if float(val) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                    if float(vals[i].text) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
                         html_forecast += '<td bgcolor =' + my_palette.rain  # wet bad.
                     else:
                         html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
-                    html_forecast += '>' + val + '</td>'
+                    html_forecast += '>' + vals[i].text + '</td>'
                 else:
                     html_forecast += '<td/>'
             html_forecast += '</tr>'
 
+        # Snow Amount --------------------------------------------------------------------------------------------------
+        dataset = []
+        dataset = this_site[1].find_all('precipitation')
+        for d in dataset:  # TODO: This one isn't working for some reason
+            # print(d['type'])
+            if d['type'] == 'snow' and (this_site[0]['show_snowAmt'] or in_user['addr_hash'] == 'server'):
+                html_forecast += '<tr><th align="right" nowrap>Snow Amount (' + d['units'] + '): </th>'
+            else:
+                continue
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    val = vals[i].text
+                    html_forecast += '<td>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        # Snow Level ---------------------------------------------------------------------------------------------------
+        # No longer supported?
+
+        # Weather Icons ------------------------------------------------------------------------------------------------
+        dataset = this_site[1].find_all('conditions-icon')
+        for d in dataset:
+            # print(t['type'])
+            html_forecast += '<tr><th align="right" nowrap>WX Icons: </th>'
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('icon-link')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    html_forecast += '<td> <img src=' + vals[i].text + '></td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        # Wind Direction -----------------------------------------------------------------------------------------------
+        #     html_forecast += '<tr><th align="right" nowrap>Wind Direction (°): </th>'
+        #     for d in this_site.forecast_days:
+        #         for p in d.periods:
+        #
+        #             # # Wind direction numerically, in degrees.
+        #             # if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
+        #             #     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windDirection + '</td>'  # good wind direction
+        #             # elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
+        #             #     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windDirection + '</td>'  # close to optimal wind direction
+        #             # else:
+        #             #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
+
+        dataset = this_site[1].find_all('direction')
+        for d in dataset:
+            # print(t['type'])
+            html_forecast += '<tr><th align="right" nowrap>Wind Dir. (°true): </th>'
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+
+                    # Uncomment these line for ° instead of arrow
+                    # html_forecast += '<td align="center" '
+                    # html_forecast += '<td>' + vals[i].text + '</td>'
+
+                    # Change wind direction in degrees to the appropriate arrow.
+                    # ← = &#x2190; &larr;
+                    # ↑ = &#x2191; &uarr;
+                    # → = &#x2192; &rarr;
+                    # ↓ = &#x2193; &darr;
+                    # ↖ = &#x2196; &nwarr;
+                    # ↗ = &#x2197; &nearr;
+                    # ↙ = &#x2199; &swarr;
+                    # ↘ = &#x2198; &searr;
+
+                    # Also, here's an example of embedding an image:
+                    # html_forecast += '<img alt="Embedded Image" width="8" height="8" src="http://icons.primail.ch/arrows/tl43.gif" />'
+
+                    deg = int(vals[i].text)
+                    if 22.5 < int(deg) < 67.5:  # Wind from NE
+                        wdir = '&#x2199;'
+                    elif 67.5 < int(deg) < 112.5:  # Wind from E
+                        wdir = '&larr;'
+                    elif 112.5 < int(deg) < 157.5:  # Wind from SE
+                        wdir = '&#x2196;'
+                    elif 157.5 < int(deg) < 202.5:  # Wind from S
+                        wdir = '&uarr;'
+                    elif 202.5 < int(deg) < 247.5:  # Wind from SW
+                        wdir = '&#x2197;'
+                    elif 247.5 < int(deg) < 292.5:  # Wind from W
+                        wdir = '&rarr;'
+                    elif 292.5 < int(deg) < 337.5:  # Wind from NW
+                        wdir = '&#x2198;'
+                    else:  # Wind from N
+                        wdir = '&darr;'
+
+                    html_forecast += '<td bgcolor ='
+                    if in_bounds(deg, this_site[0]['windDirLower'], this_site[0]['windDirUpper'], 0):
+                        html_forecast += my_palette.good  # good wind direction
+                    elif in_bounds(deg, this_site[0]['windDirLower'], this_site[0]['windDirUpper'], 30):
+                        html_forecast += my_palette.lame  # close to optimal wind direction
+                    else:
+                        html_forecast += my_palette.warn  # far from optimal wind direction
+                    html_forecast += '>' + wdir + '</td>'
+
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
 
         html_forecast += '<br/>'
 
@@ -518,81 +655,8 @@ def build_html_from_forecast(in_forecast, in_user):
     return html_forecast
 
 
-
-
     # TODO: Everything below here deprecated?
 
-
-    #
-    #     # Wind Direction -----------------------------------------------------------------------------------------------
-    #     html_forecast += '<tr><th align="right" nowrap>Wind Direction (°): </th>'
-    #     for d in this_site.forecast_days:
-    #         for p in d.periods:
-    #
-    #             # # Wind direction numerically, in degrees.
-    #             # if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
-    #             #     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windDirection + '</td>'  # good wind direction
-    #             # elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
-    #             #     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windDirection + '</td>'  # close to optimal wind direction
-    #             # else:
-    #             #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
-    #
-    #             # Change wind direction in degrees to the appropriate arrow.
-    #             # ← = &#x2190; &larr;
-    #             # ↑ = &#x2191; &uarr;
-    #             # → = &#x2192; &rarr;
-    #             # ↓ = &#x2193; &darr;
-    #             # ↖ = &#x2196; &nwarr;
-    #             # ↗ = &#x2197; &nearr;
-    #             # ↙ = &#x2199; &swarr;
-    #             # ↘ = &#x2198; &searr;
-    #
-    #             # Also, here's an example of embedding an image:
-    #             # html_forecast += '<img alt="Embedded Image" width="8" height="8" src="http://icons.primail.ch/arrows/tl43.gif" />'
-    #
-    #             if 22.5 < int(p.windDirection) < 67.5:  # Wind from NE
-    #                 wdir = '&#x2199;'
-    #             elif 67.5 < int(p.windDirection) < 112.5:  # Wind from E
-    #                 wdir = '&larr;'
-    #             elif 112.5 < int(p.windDirection) < 157.5:  # Wind from SE
-    #                 wdir = '&#x2196;'
-    #             elif 157.5 < int(p.windDirection) < 202.5:  # Wind from S
-    #                 wdir = '&uarr;'
-    #             elif 202.5 < int(p.windDirection) < 247.5:  # Wind from SW
-    #                 wdir = '&#x2197;'
-    #             elif 247.5 < int(p.windDirection) < 292.5:  # Wind from W
-    #                 wdir = '&rarr;'
-    #             elif 292.5 < int(p.windDirection) < 337.5:  # Wind from NW
-    #                 wdir = '&#x2198;'
-    #             else:  # Wind from N
-    #                 wdir = '&darr;'
-    #
-    #             if in_bounds(p.windDirection, this_site.windDirLower, this_site.windDirUpper, 0):
-    #                 html_forecast += '<td bgcolor =' + my_palette.good + '>' + wdir + '</td>'  # good wind direction
-    #             elif in_bounds(p.windDirection, this_site.windDirLower, this_site.windDirUpper, 30):
-    #                 html_forecast += '<td bgcolor =' + my_palette.lame + '>' + wdir + '</td>'  # close to optimal wind direction
-    #             else:
-    #                 html_forecast += '<td bgcolor =' + my_palette.warn + '>' + wdir + '</td>'  # far from optimal wind direction
-    #
-    #     html_forecast += '</tr>'
-    #
-
-    #     # Snow Amount --------------------------------------------------------------------------------------------------
-    #     if this_site.show_snowAmt or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Snow Amount ("): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 html_forecast += '<td>' + p.snowAmt + '</td>'
-    #         html_forecast += '</tr>'
-    #
-    #     # Snow Level ---------------------------------------------------------------------------------------------------
-    #     if this_site.show_snowLevel or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Snow Level (ft): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 html_forecast += '<td>' + p.snowLevel + '</td>'
-    #         html_forecast += '</tr>'
-    #
     #     # Site Description/ Site Guide Information in Collapsible Box Format!
     #     html_forecast += '<tr><th colspan="' + str(table_cols) + '">'
     #     html_forecast += '<div class="dropdown">'
@@ -601,7 +665,8 @@ def build_html_from_forecast(in_forecast, in_user):
     #
     #     # Link to the NOAA 7 day forecast
     #     html_forecast += '<a style="color:blue" href="https://forecast.weather.gov/MapClick.php?lon=' + str(this_site.longitude) + '&lat=' + str(this_site.latitude) + '"><u> NOAA 7 Day Forecast</u></a>'
-    #
+
+
     #     html_forecast += '<br/>Desired Conditions: '
     #     html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
     #     html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
@@ -610,6 +675,7 @@ def build_html_from_forecast(in_forecast, in_user):
     #     html_forecast += '</div>'
     #     html_forecast += '</div></th></tr>'  # end row
     #
+
     #     # Close the table.
     #     html_forecast += '</table><p>'
     #     html_forecast += '<br>'  # Add a blank row between site forecasts.
