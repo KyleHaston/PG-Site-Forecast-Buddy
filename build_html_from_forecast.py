@@ -280,16 +280,10 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '<td align="center" colspan="' + str(uD[1]) + '">' + uD[0] + '</td>'
         html_forecast += '<tr/>'
 
-        html_forecast += '<tr align="center"><th nowrap>Time (local???): </th>'  # TODO: convert to local times
+        html_forecast += '<tr align="right"><th nowrap>Time (local???): </th>'  # TODO: convert to local times
         for DT in DTs:
             html_forecast += '<td>' + str(DT.hour) + '</td>'
         html_forecast += '</tr>'
-
-        # (Redundant)
-        # html_forecast += '<tr><th align="right" nowrap>Day: </th>'
-        # for uD in uniqueDays:
-        #     html_forecast += '<td align="center" colspan="' + str(uD[1]) + '">' + str(uD[0]) + '</td>'
-        # html_forecast += '</tr>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
         dataset = this_site[1].find_all('wind-speed')
@@ -331,12 +325,12 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
-        temps = this_site[1].find_all('temperature')
-        for t in temps:
+        dataset = this_site[1].find_all('temperature')
+        for t in dataset:
             # print(t['type'])
             if t['type'] == 'apparent':
                 html_forecast += '<tr><th align="right" nowrap>Apparent Temp. (°' + t['units'] + '): </th>'
-            elif t['type'] == 'dew point':
+            elif t['type'] == 'dew point' and (this_site[0]['show_dewpoint'] or in_user['addr_hash'] == 'server'):
                 html_forecast += '<tr><th align="right" nowrap>Dew Point (°' + t['units'] + '): </th>'
             else:
                 break
@@ -368,6 +362,150 @@ def build_html_from_forecast(in_forecast, in_user):
                     html_forecast += '<td/>'
             html_forecast += '</tr>'
 
+        # Relative Humidity --------------------------------------------------------------------------------------------
+        dataset = this_site[1].find_all('humidity')
+        for d in dataset:
+            # print(t['type'])
+            if d['type'] == 'relative' and (this_site[0]['show_rh'] or in_user['addr_hash'] == 'server'):
+                html_forecast += '<tr><th align="right" nowrap>Relative Humidity (%): </th>'
+            else:
+                break
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    val = vals[i].text
+                    html_forecast += '<td>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        # Sky Cover ----------------------------------------------------------------------------------------------------
+        dataset = this_site[1].find_all('cloud-amount')
+        for d in dataset:
+            # print(t['type'])
+            if d['type'] == 'total' and (this_site[0]['show_skyCover'] or in_user['addr_hash'] == 'server'):
+                html_forecast += '<tr><th align="right" nowrap>Cloud Cover (' + d['units'] + '): </th>'
+            else:
+                break
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    val = vals[i].text
+                    html_forecast += '<td>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        #     # Chance of Precipitation --------------------------------------------------------------------------------------
+        #     if this_site.show_pop or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
+        #         html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
+        #         for d in this_site.forecast_days:
+        #             for p in d.periods:
+        #                 if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+        #                     html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.pop + '</td>'  # wet bad.
+        #                 else:
+        #                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.pop + '</td>'  # dry good.
+        #         html_forecast += '</tr>'
+        dataset = this_site[1].find_all('probability-of-precipitation')
+        for d in dataset:
+            # print(t['type'])
+            if this_site[0]['show_pop'] or in_user['addr_hash'] == 'server':
+                html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
+            else:
+                break
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    if int(val) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        html_forecast += '<td bgcolor =' + my_palette.rain  # wet bad.
+                    else:
+                        html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
+                    html_forecast += '>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+        # Precipitation ------------------------------------------------------------------------------------------------
+        dataset = this_site[1].find_all('precipitation')
+        for d in dataset:
+            # print(t['type'])
+            if d['type'] == 'liquid' and (this_site[0]['show_qpf'] or in_user['addr_hash'] == 'server'):
+                html_forecast += '<tr><th align="right" nowrap>Precipitation (' + d['units'] + '): </th>'
+            else:
+                break
+
+            thisTLkey = d['time-layout']
+            thisDTs = []
+            for tl in TLs:
+                if tl.find('layout-key').text == thisTLkey:
+                    # print(str(tl.contents))
+                    SVTs = tl.findAll('start-valid-time')
+                    for SVT in SVTs:
+                        # print(SVT.get_text())
+                        DT = datetime.datetime.fromisoformat(SVT.get_text())
+                        # print(DT)
+                        thisDTs.append(DT)
+
+            vals = d.find_all('value')
+            for DT in DTs:
+                if DT in thisDTs:
+                    i = thisDTs.index(DT)
+                    html_forecast += '<td align="center" '
+                    if float(val) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
+                        html_forecast += '<td bgcolor =' + my_palette.rain  # wet bad.
+                    else:
+                        html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
+                    html_forecast += '>' + val + '</td>'
+                else:
+                    html_forecast += '<td/>'
+            html_forecast += '</tr>'
+
+
         html_forecast += '<br/>'
 
     html_forecast += '</body></html>'  # Close the HTML.
@@ -383,46 +521,6 @@ def build_html_from_forecast(in_forecast, in_user):
 
 
     # TODO: Everything below here deprecated?
-
-
-    #     # Relative Humidity --------------------------------------------------------------------------------------------
-    #     if this_site.show_rh or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Relative Humidity (%): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 html_forecast += '<td>' + p.rh + '</td>'
-    #         html_forecast += '</tr>'
-    #
-    #     # Sky Cover ----------------------------------------------------------------------------------------------------
-    #     if this_site.show_skyCover or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Sky Cover (%): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 html_forecast += '<td>' + p.skyCover + '</td>'
-    #         html_forecast += '</tr>'
-    #
-    #     # Chance of Precipitation --------------------------------------------------------------------------------------
-    #     if this_site.show_pop or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Chance of Precip. (%): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 if int(p.pop) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-    #                     html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.pop + '</td>'  # wet bad.
-    #                 else:
-    #                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.pop + '</td>'  # dry good.
-    #         html_forecast += '</tr>'
-    #
-    #     # Precipitation ------------------------------------------------------------------------------------------------
-    #     if this_site.show_qpf or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
-    #         html_forecast += '<tr><th align="right" nowrap>Precipitation ("): </th>'
-    #         for d in this_site.forecast_days:
-    #             for p in d.periods:
-    #                 if float(p.qpf) > 0.02:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
-    #                     html_forecast += '<td bgcolor =' + my_palette.rain + '>' + p.qpf + '</td>'  # wet bad.
-    #                 else:
-    #                     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.qpf + '</td>'  # dry good.
-    #         html_forecast += '</tr>'
-    #
 
 
     #
@@ -478,18 +576,7 @@ def build_html_from_forecast(in_forecast, in_user):
     #
     #     html_forecast += '</tr>'
     #
-    #     # Wind Gust ----------------------------------------------------------------------------------------------------
-    #     html_forecast += '<tr><th align="right" nowrap>Wind Gust (mph): </th>'
-    #     for d in this_site.forecast_days:
-    #         for p in d.periods:
-    #             if int(p.windGust) < int(this_site.windLower):
-    #                 html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windGust + '</td>'  # too slow
-    #             elif int(p.windGust) > int(this_site.windUpper):
-    #                 html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windGust + '</td>'  # too fast
-    #             else:
-    #                 html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windGust + '</td>'  # juuuust right
-    #     html_forecast += '</tr>'
-    #
+
     #     # Snow Amount --------------------------------------------------------------------------------------------------
     #     if this_site.show_snowAmt or in_user['addr_hash'] == 'server':  # If we typically list this info for this site...
     #         html_forecast += '<tr><th align="right" nowrap>Snow Amount ("): </th>'
