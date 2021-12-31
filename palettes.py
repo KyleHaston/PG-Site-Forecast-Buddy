@@ -15,6 +15,7 @@ class Palette:
             self.text = '#aaaaaa'
             self.title = '#cccccc'
             self.desc = '#aaaaaa'
+            self.empty = '#5c5353'
 
         else:  # default
             # Default, white background, dark text, red/green/grey color scheme
@@ -23,7 +24,8 @@ class Palette:
             self.warn = '#ffcccc'
             self.rain = '#b3d9ff'
             self.good = '#ccffcc'
-            self.lame = '#cccccc'
+            self.lame = '#dfe8df'
             self.text = '#000000'
             self.title = '#0000ff'
             self.desc = '#555555'
+            self.empty = '#bdbdbd'

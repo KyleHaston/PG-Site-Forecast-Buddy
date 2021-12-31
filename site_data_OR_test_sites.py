@@ -27,7 +27,7 @@ OR_test_sites = [
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
     #  'link': '',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Hagg Lake Section D Kiting Site?', 'Region': 'Portland, OR',
      'Info': '',
@@ -36,7 +36,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/99EhKfsW8RnPVLb26',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Hagg Lake Section C Kiting Site?', 'Region': 'Portland, OR',
      'Info': '',
@@ -45,7 +45,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/cyow81VTEg2Grq8c9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Scoggins Creek Hill Kiting Site?', 'Region': 'Portland, OR',
      'Info': '',
@@ -54,7 +54,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/ek7UAKWPFsvj5o7B6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Summit Ave Hilltop Kiting Site?', 'Region': 'Portland, OR',
      'Info': '',
@@ -63,7 +63,7 @@ OR_test_sites = [
      'windLower': 4, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/XvR1ZwFQSSnZcRvHA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Tygh?', 'Region': 'Tygh Ridge, OR',
      'Info': 'Launch @ 3330\' LZ @ 2860\'',
@@ -73,7 +73,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/geH72q5sw6JKMSYM9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Tygh West', 'Region': 'Tygh Ridge, OR',
      'Info': 'Launch @ 3180\' LZ @ 2780\'',
@@ -83,7 +83,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/baA7rEYLL1y63QPG8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Tygh South', 'Region': 'Tygh Ridge, OR',
      'Info': 'Launch @ 3500\' LZ @ 2700\' Seems like wind straight from South would provide sustained ridge lift.',
@@ -93,7 +93,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/VB9RRvayz9YZTUwYA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'St Helens Hill', 'Region': 'St Helens, OR',
      'Info': 'Launch @ 530\' LZ is soccer field @ 90\' 45.898552, -122.815175',
@@ -102,7 +102,7 @@ OR_test_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/K6jBn7cLMKUBYv188',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Laughlin Hills', 'Region': 'North Central OR',
      'Info': 'Test Site! Launch from Foreman Point and land on Sunflower Flat '
@@ -112,7 +112,7 @@ OR_test_sites = [
      'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/BkoYdzQ4P8sptQeC6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Graveyard Butte', 'Region': 'North Central OR',
      'Info': 'Test Site! Launch from Graveyard Butte Camp on BLM land'
@@ -122,7 +122,7 @@ OR_test_sites = [
      'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/8Gj3uD2RoRkjLq6n6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Hehe Butte', 'Region': 'North Central OR',
      'Info': 'Test Site! Launch from Hehe Butte on BIA land. Land by the road.'
@@ -132,7 +132,7 @@ OR_test_sites = [
      'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/KX2UpHTQkLsrbMuP7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Gunsight Butte', 'Region': 'Near Mt Hood OR',
      'Info': 'Test Site! Launch from Gunsight Butte. Land in the meadow to the NW (other side of hwy 35).'
@@ -143,5 +143,5 @@ OR_test_sites = [
      'windLower': 0, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/hWM5hCdbPhBNJ65i7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 ]

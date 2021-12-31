@@ -27,7 +27,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 16,
      'link': 'https://goo.gl/maps/u57arnppGL4LW3zh9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
-     'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': False, 'show_qpf': False, 'show_snowAmt': False},
 
     {'Name': 'Creedence', 'Region': 'AZ',
      'Info': '',
@@ -36,7 +36,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/7gHv7R8Y26WUCweW8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': False,
-     'show_pop': False, 'show_qpf': False, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': False, 'show_qpf': False, 'show_snowAmt': False},
 
     {'Name': 'Sentinel Pk (A-Mnt) L1 SE Asphalt Ramp', 'Region': 'AZ',
      'Info': '',
@@ -45,7 +45,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 16,
      'link': 'https://goo.gl/maps/hsHTMhLtv1NstTpeA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Sentinel Pk (A-Mnt) L2, Top', 'Region': 'AZ',
      'Info': '',
@@ -54,7 +54,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 16,
      'link': 'https://goo.gl/maps/24XgbGPMCBVwNCw28',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Box Canyon', 'Region': 'AZ',
      'Info': 'Box Canyon Top Launch 31.817232, -110.78691\n' +
@@ -66,7 +66,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/q32W85EgG7X3qifH7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Naranja Park Kiting Site', 'Region': 'AZ',
      'Info': '',
@@ -75,7 +75,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 20,
      'link': 'https://goo.gl/maps/xcAwRUZLiu7c1abu7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # Near Flagstaff, AZ
     {'Name': 'Merriam Crater', 'Region': 'Northern AZ',
@@ -85,7 +85,7 @@ sites_AZ = [
      'windLower': 0, 'windUpper': 12,  # per Kurt
      'link': 'https://goo.gl/maps/Sgwga7erGowTjjhE6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Apache Maid', 'Region': 'Northern AZ',
      'Info': '',
@@ -94,7 +94,7 @@ sites_AZ = [
      'windLower': 5, 'windUpper': 10,  # per Kurt
      'link': 'https://goo.gl/maps/uswUhjMe394Qjs699',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Mount Elden', 'Region': 'Northern AZ',
      'Info': '',
@@ -103,7 +103,7 @@ sites_AZ = [
      'windLower': 0, 'windUpper': 12,  # per Kurt
      'link': 'https://goo.gl/maps/JEkG6TEe7g9rcdT77',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # {'Name': '', 'Region': '',
     #  'Info': '',
@@ -112,6 +112,6 @@ sites_AZ = [
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
     #  'link': '',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
 ]

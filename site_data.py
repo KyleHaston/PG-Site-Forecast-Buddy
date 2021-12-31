@@ -93,7 +93,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/p6PcJTwimKdG4hZL6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Area B', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -102,7 +102,7 @@ sites = [
      'windLower': 8, 'windUpper': 15,
      'link': 'https://goo.gl/maps/Bpuv5dnaroBKFQCq9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Oceanside', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -111,7 +111,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/UtU2svqZ9vVuQSqG8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Cape Kiwanda', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -120,7 +120,7 @@ sites = [
      'windLower': 0, 'windUpper': 16,
      'link': 'https://goo.gl/maps/sVw9j7cgveAjgzu78',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},  # TODO: Fix wind data
 
     {'Name': 'Moolack Beach', 'Region': 'Oregon Coastal Range',
      'Info': 'https://vimeo.com/398695994 \nGuessing it\'s about 1/2 mi hike back up from the beach if you sink out.',
@@ -129,7 +129,7 @@ sites = [
      'windLower': 0, 'windUpper': 18,
      'link': 'https://goo.gl/maps/Z6mRXeNXxA4gnDN66',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Yaquina Head (North)', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -138,7 +138,7 @@ sites = [
      'windLower': 10, 'windUpper': 16,
      'link': 'https://goo.gl/maps/ymRCog5w39KDjwnK7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Yaquina Head (South)', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -147,7 +147,7 @@ sites = [
      'windLower': 10, 'windUpper': 15,
      'link': 'https://www.google.com/maps/dir/44.6738817,-124.0621217/44.6749517,-124.0669741/@44.6671123,-124.0672885,987a,35y,3.37h,39.37t/data=!3m1!1e3!4m2!4m1!3e2',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Rock Creek', 'Region': 'Oregon Coastal Range',
      'Info': '',
@@ -156,7 +156,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/Eo4vvoNXwBh8GPK78',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # The Gorge --------------------------------------------------------------------------------------------------------
     # {'Name': 'Dog Mnt.',  # LZ @ 45.700861, -121.723264, 'Region': 'Columbia River Gorge',
@@ -166,7 +166,7 @@ sites = [
     #                             'windLower': 3, 'windUpper': 12,
     #                             'link': 'https://goo.gl/maps/Wa2n4ygKNYXQsxuy9',
     #                             'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #                             'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    #                             'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Eagle Caves',  'Region': 'Columbia River Gorge',  # LZ in the school fields. See info. online.
      'Info': '',
@@ -175,7 +175,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/5W7vhzUqXYXQ14vF9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     #  "I used to fly Bald Butte much more frequently than I have in the last year or two but I'd be down to go give it
     #  a whirl some time if the forecast looks promising. In my opinion it's probably the most fickle and unpredictable
@@ -195,7 +195,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/ppcUwkmvWw6so2id7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Bald Butte North', 'Region': 'Columbia River Gorge',  # LZ @: 45.5503, -121.5570
      'Info': '',
@@ -205,7 +205,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/C24ZWBsCJ8cMwvJK7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # ----- Bingen is in Washington! -----
     # {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
@@ -215,7 +215,7 @@ sites = [
     #  'windLower': 5, 'windUpper': 15,
     #  'link': 'https://goo.gl/maps/zS1Fmr4DzzW54M8fA',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},  # TODO: Fix wind data
 
     {'Name': 'Cliffside', 'Region': 'Columbia River Gorge',
      'Info': '',
@@ -224,7 +224,7 @@ sites = [
      'windLower': 7, 'windUpper': 15,
      'link': 'https://goo.gl/maps/zgzczeHDBNyuRFhP7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},  # TODO: Fix wind data
 
     # Willamette Valley ------------------------------------------------------------------------------------------------
     {'Name': 'Chehalem', 'Region': 'Willamette Valley',
@@ -234,7 +234,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,  # Per site guide: 5 to 15 mph
      'link': 'https://goo.gl/maps/xMtKWewDfH94H5cN8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Peterson Butte', 'Region': 'Willamette Valley',
      'Info': 'SITE IS OPEN FROM 11/1 THROUGH 5/31. Other times closed for fire hazard.'
@@ -245,7 +245,7 @@ sites = [
      'windLower': 5, 'windUpper': 12,  # Per site guide: 5 to 12 mph
      'link': 'https://goo.gl/maps/ZWZPtzt9jeym6taM9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # Mnt Hood ---------------------------------------------------------------------------------------------------------
     # TODO: Add Mnt Hood.
@@ -260,7 +260,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/TeDWcKQ8k5gMN2UM6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     # https://docs.google.com/document/d/17eNwgcEzoAyrTJLESKELOqp9eNICrVljCQ-aHkrY4Gg/edit
     # https://www.google.com/maps/d/u/0/viewer?mid=1YpxFboEQkS78zbKCXbfX_uhn4Vo&ll=43.84679298310765%2C-120.96279087463729&z=12
@@ -271,7 +271,7 @@ sites = [
      'windLower': 2, 'windUpper': 15,
      'link': 'https://goo.gl/maps/1esfGRRhDW395dS1A',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Pine Mnt: West PG Launch', 'Region': 'Central Oregon',  # "Rock L" Parking LZ @ 43.83716, -120.93033 (yes, same LZ as training hill)
      'Info': '',
@@ -280,7 +280,7 @@ sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/ukb7WYabzFop7ZGH8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Coburg Ridge', 'Region': 'Central Oregon',
      #
@@ -290,5 +290,5 @@ sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real info.
      'link': 'https://goo.gl/maps/K16MdoFYWiK3ZzKr5',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 ]

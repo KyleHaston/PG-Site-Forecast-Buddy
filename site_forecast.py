@@ -80,9 +80,6 @@ class SiteForecast:
         self.longitude = ''
         self.link = ''
         self.elevation = ''
-        # self.location = ''  # TODO: Delete this if not needed.
-        # self.duration = ''  # TODO: Delete this if not needed.
-        # self.interval = ''  # TODO: Delete this if not needed.
         self.forecast_days = []  # List of custom class defined above.
 
         # This stuff we copy from our site knowledge data for ease of creating the HTML later.
@@ -98,7 +95,6 @@ class SiteForecast:
         self.show_pop = True
         self.show_qpf = True
         self.show_snowAmt = True
-        self.show_snow = True
 
         self.datetime = ''  # datetime object in UTC timezone
         self.local_dt = ''  # datetime object in site's local timezone

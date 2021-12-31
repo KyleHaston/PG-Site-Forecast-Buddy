@@ -27,7 +27,7 @@ WA_sites = [
     #  'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
     #  'link': '',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Bingen', 'Region': 'Columbia River Gorge',
      'Info': '',
@@ -36,7 +36,7 @@ WA_sites = [
      'windLower': 5, 'windUpper': 15,
      'link': 'https://goo.gl/maps/zS1Fmr4DzzW54M8fA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},  # TODO: Fix wind data
 
     {'Name': 'Cliffside', 'Region': 'Columbia River Gorge',
      'Info': '',
@@ -45,7 +45,7 @@ WA_sites = [
      'windLower': 7, 'windUpper': 15,
      'link': 'https://goo.gl/maps/zgzczeHDBNyuRFhP7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},  # TODO: Fix wind data
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},  # TODO: Fix wind data
 
     {'Name': 'Mt St Helens', 'Region': 'WA',
      'Info': '',
@@ -54,7 +54,7 @@ WA_sites = [
      'windLower': 0, 'windUpper': 12,
      'link': 'https://goo.gl/maps/nH5HZUzb2SzUJhsw6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': True},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Fort Flagler-Harmon', 'Region': '',
      'Info': 'takeoff	Cliff launch with deep rotor boundary. Landing: Campground at the west end of bluff, beach '
@@ -68,6 +68,6 @@ WA_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/PsPf9xHZgUsB6e4e8',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
 ]

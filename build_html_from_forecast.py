@@ -236,7 +236,7 @@ def build_html_from_forecast(in_forecast, in_user):
 
     # Next, carry on with detailed, individual forecasts.
     for this_site in in_forecast:
-        if in_user['addr_hash'] != 'server' and this_site.name not in in_user['sites']:  # if not interested in this site...
+        if in_user['addr_hash'] != 'server' and (this_site[0]['Name'] not in in_user['sites']):  # if not interested in this site...
             continue  # skip this site.
         # else... add this site's info to the HTML string
 
@@ -265,10 +265,10 @@ def build_html_from_forecast(in_forecast, in_user):
 
         days = []
         for DT in DTs:
-            days.append(str(DT.strftime('%d %b<br>%a')))
+            days.append(str(DT.strftime('%a %d %b')))
 
         uniqueDays = []
-        [uniqueDays.append([str(x.strftime('%d %b<br>%a')), 0]) for x in DTs if [str(x.strftime('%d %b<br>%a')), 0] not in uniqueDays]  # remove duplicate entries
+        [uniqueDays.append([str(x.strftime('%a %d %b')), 0]) for x in DTs if [str(x.strftime('%a %d %b')), 0] not in uniqueDays]  # remove duplicate entries
         for uD in uniqueDays:
             uD[1] = days.count(uD[0])  # add count of entries for each day
 
@@ -280,9 +280,9 @@ def build_html_from_forecast(in_forecast, in_user):
             html_forecast += '<td align="center" colspan="' + str(uD[1]) + '">' + uD[0] + '</td>'
         html_forecast += '<tr/>'
 
-        html_forecast += '<tr align="right"><th nowrap>Time (local): </th>'
+        html_forecast += '<tr><th align="right" nowrap>Time (local): </th>'
         for DT in DTs:
-            html_forecast += '<td>' + str(DT.hour) + '</td>'
+            html_forecast += '<td align="center">' + str(DT.hour) + '</td>'
         html_forecast += '</tr>'
 
         # Wind Speed ---------------------------------------------------------------------------------------------------
@@ -321,7 +321,7 @@ def build_html_from_forecast(in_forecast, in_user):
                         html_forecast += my_palette.good  # juuuust right
                     html_forecast += '>' + val + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Temperature --------------------------------------------------------------------------------------------------
@@ -359,7 +359,7 @@ def build_html_from_forecast(in_forecast, in_user):
                         html_forecast += '<td'  # warm enough
                     html_forecast += '>' + val + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Relative Humidity --------------------------------------------------------------------------------------------
@@ -391,7 +391,7 @@ def build_html_from_forecast(in_forecast, in_user):
                     val = vals[i].text
                     html_forecast += '<td>' + val + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Sky Cover ----------------------------------------------------------------------------------------------------
@@ -399,7 +399,7 @@ def build_html_from_forecast(in_forecast, in_user):
         for d in dataset:
             # print(t['type'])
             if d['type'] == 'total' and (this_site[0]['show_skyCover'] or in_user['addr_hash'] == 'server'):
-                html_forecast += '<tr><th align="right" nowrap>Cloud Cover (' + d['units'] + '): </th>'
+                html_forecast += '<tr><th align="right" nowrap>Cloud Cover (%): </th>'
             else:
                 continue
 
@@ -423,7 +423,7 @@ def build_html_from_forecast(in_forecast, in_user):
                     val = vals[i].text
                     html_forecast += '<td>' + val + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Chance of Precipitation --------------------------------------------------------------------------------------
@@ -448,17 +448,33 @@ def build_html_from_forecast(in_forecast, in_user):
                         thisDTs.append(DT)
 
             vals = d.find_all('value')
+
+            # this worked, but I decided a sparse dataset was more accurate
+            # # this data set is a bit sparse compared to others
+            # # let's try to avoid blank cells
+            # # we want the colspans, so find the indices of each entry
+            # idxs = []
+            # for DT in thisDTs:
+            #     idxs.append(DTs.index(DT))
+            #
+            # deltas = []
+            # for i in range(len(idxs)-1):
+            #     deltas.append(idxs[i+1]-idxs[i])
+            # deltas.append(len(DTs)-idxs[len(idxs)-1])  # figure out the final colspan and append it
+
             for DT in DTs:
                 if DT in thisDTs:
                     i = thisDTs.index(DT)
                     html_forecast += '<td align="center" '
+                    # html_forecast += 'colspan = "' + str(deltas[i]) + '"'
                     if int(vals[i].text) > 30:  # TODO: Arbitrarily chose this threshold. Make a case for a better number.
                         html_forecast += '<td bgcolor =' + my_palette.rain  # wet bad.
                     else:
                         html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
                     html_forecast += '>' + vals[i].text + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
+                    # pass  # no empty cells. fixed that with colspan.
             html_forecast += '</tr>'
 
         # Precipitation ------------------------------------------------------------------------------------------------
@@ -493,7 +509,7 @@ def build_html_from_forecast(in_forecast, in_user):
                         html_forecast += '<td bgcolor =' + my_palette.good  # dry good.
                     html_forecast += '>' + vals[i].text + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Snow Amount --------------------------------------------------------------------------------------------------
@@ -526,7 +542,7 @@ def build_html_from_forecast(in_forecast, in_user):
                     val = vals[i].text
                     html_forecast += '<td>' + val + '</td>'
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Snow Level ---------------------------------------------------------------------------------------------------
@@ -555,24 +571,12 @@ def build_html_from_forecast(in_forecast, in_user):
                 if DT in thisDTs:
                     i = thisDTs.index(DT)
                     html_forecast += '<td align="center" '
-                    html_forecast += '<td> <img src=' + vals[i].text + '></td>'
+                    html_forecast += '<td> <img src=' + vals[i].text + ' width=40></td>'  # adjust width as desired
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
         # Wind Direction -----------------------------------------------------------------------------------------------
-        #     html_forecast += '<tr><th align="right" nowrap>Wind Direction (°): </th>'
-        #     for d in this_site.forecast_days:
-        #         for p in d.periods:
-        #
-        #             # # Wind direction numerically, in degrees.
-        #             # if int(this_site.windDirLower) < int(p.windDirection) < int(this_site.windDirUpper):
-        #             #     html_forecast += '<td bgcolor =' + my_palette.good + '>' + p.windDirection + '</td>'  # good wind direction
-        #             # elif (int(this_site.windDirLower) - 15) < int(p.windDirection) < (int(this_site.windDirUpper) + 15):
-        #             #     html_forecast += '<td bgcolor =' + my_palette.lame + '>' + p.windDirection + '</td>'  # close to optimal wind direction
-        #             # else:
-        #             #     html_forecast += '<td bgcolor =' + my_palette.warn + '>' + p.windDirection + '</td>'  # far from optimal wind direction
-
         dataset = this_site[1].find_all('direction')
         for d in dataset:
             # print(t['type'])
@@ -640,10 +644,30 @@ def build_html_from_forecast(in_forecast, in_user):
                     html_forecast += '>' + wdir + '</td>'
 
                 else:
-                    html_forecast += '<td/>'
+                    html_forecast += '<td bgcolor =' + my_palette.empty + '>'
             html_forecast += '</tr>'
 
-        html_forecast += '<br/>'
+        # Site Description/ Site Guide Information in Collapsible Box Format!  # TODO: Clean this up a bit. It works, but could be more handsomer.
+        html_forecast += '<tr><th colspan="' + str(len(DTs)+1) + '">'
+        html_forecast += '<div class="dropdown">'
+        html_forecast += '  <button class="dropbtn">Site Info.</button>'
+        html_forecast += '  <div class="dropdown-content">'
+
+        # Link to the NOAA 7 day forecast
+        html_forecast += '<a style="color:blue" href="https://forecast.weather.gov/MapClick.php?lon=' + str(this_site[0]['lon']) + '&lat=' + str(this_site[0]['lat']) + '"><u> NOAA 7 Day Forecast</u></a>'
+
+        html_forecast += '<br/>Desired Conditions: '
+        html_forecast += str(this_site[0]['windLower']) + ' to ' + str(this_site[0]['windUpper']) + ' mph from '
+        html_forecast += str(this_site[0]['windDirLower']) + '° to ' + str(this_site[0]['windDirUpper']) + '°'
+        html_forecast += '<br/>' + this_site[0]['Info']  # TODO: Get site guide/info. for all sites.
+        html_forecast += '  </div>'
+        html_forecast += '</div>'
+        html_forecast += '</div></th></tr>'  # end row
+
+        # Close the table.
+        html_forecast += '</table><p>'
+        html_forecast += '<br>'  # Add a blank row between site forecasts.
+        html_forecast += '</p>'
 
     html_forecast += '</body></html>'  # Close the HTML.
 
@@ -653,39 +677,3 @@ def build_html_from_forecast(in_forecast, in_user):
             file.write(html_forecast)
 
     return html_forecast
-
-
-    # TODO: Everything below here deprecated?
-
-    #     # Site Description/ Site Guide Information in Collapsible Box Format!
-    #     html_forecast += '<tr><th colspan="' + str(table_cols) + '">'
-    #     html_forecast += '<div class="dropdown">'
-    #     html_forecast += '  <button class="dropbtn">Site Info.</button>'
-    #     html_forecast += '  <div class="dropdown-content">'
-    #
-    #     # Link to the NOAA 7 day forecast
-    #     html_forecast += '<a style="color:blue" href="https://forecast.weather.gov/MapClick.php?lon=' + str(this_site.longitude) + '&lat=' + str(this_site.latitude) + '"><u> NOAA 7 Day Forecast</u></a>'
-
-
-    #     html_forecast += '<br/>Desired Conditions: '
-    #     html_forecast += this_site.windLower + ' to ' + this_site.windUpper + ' mph from '
-    #     html_forecast += this_site.windDirLower + '° to ' + this_site.windDirUpper + '°'
-    #     html_forecast += '<br/>' + this_site.info  # TODO: Get site guide/info. for sites.
-    #     html_forecast += '  </div>'
-    #     html_forecast += '</div>'
-    #     html_forecast += '</div></th></tr>'  # end row
-    #
-
-    #     # Close the table.
-    #     html_forecast += '</table><p>'
-    #     html_forecast += '<br>'  # Add a blank row between site forecasts.
-    #     html_forecast += '</p>'
-    #
-    # html_forecast += '</body></html>'  # Close the HTML.
-    #
-    # if in_user['addr_hash'] == 'server':  # Also save a full copy of the forecast to the server.
-    #     print('        Saving the full forecast to an HTML file on the server...')
-    #     with open('forecasts/forecast ' + time.asctime().replace(':', '-') + '.html', 'w') as file:
-    #         file.write(html_forecast)
-    #
-    # return html_forecast

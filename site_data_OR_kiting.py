@@ -33,7 +33,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/hiwsdrXuD79p6k6BA',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Harbor View Park', 'Region': 'Portland, OR',
      'Info': 'A large flat open field adjacent to the Lower Willamette River below the University of Portland. This ' +
@@ -47,7 +47,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/YEfN9a5GWHDMczhr7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Stuart Caruk\'s Hay Field in Vancouver', 'Region': 'Vancouver, WA',
      'Info': 'Description: A hay field by the weigh scales in Vancouver Washington, about 15 miles north of the ' +
@@ -67,7 +67,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/emWeBwugGufmVyko6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     # {'Name': 'G\'s Paramotor Spot (Permission problems here, do not use for now.)', 'Region': 'Columbia River',
     #  'Info': 'Description: An empty industrial lot near the confluence of the Willamette and Columbia rivers. ' +
@@ -87,7 +87,7 @@ OR_kiting_sites = [
     #  'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
     #  'link': '',
     #  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+    #  'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Kelley Point Park', 'Region': 'Portland, OR',
      'Info': 'Description: A Portland Parks and Rec park at the confluence of the Willamette and Columbia Rivers ' +
@@ -103,7 +103,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/yA9474UJKQRs8gcZ7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Dickinson Park / Crestwood', 'Region': 'Portland, OR',
      'Info': 'Description: (Thanks Sarge.) Dickinson City Park is near the Tigard Fred Meyer off SW 55th. ' +
@@ -122,7 +122,7 @@ OR_kiting_sites = [
      'windLower': 7, 'windUpper': 12,
      'link': 'https://goo.gl/maps/hsTDxmqjBMubPDFh7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Franklin High School', 'Region': 'Portland, OR',
      'Info': 'Description: A high school in SE Portland at Division and 52nd with a large north-facing field.\n' +
@@ -136,7 +136,7 @@ OR_kiting_sites = [
      'windLower': 7, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/CxqgkqgRFky9N1zv9',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'West Delta Park/Portland International Raceway', 'Region': 'Portland, OR',
      'Info': 'Description: A large open grassy field between a wetland and the Portland International Raceway.' +
@@ -150,7 +150,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/Xf5Gup3HQzSkfXGr7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Spring Garden Park', 'Region': 'Portland, OR',
      'Info': 'Description: A north-facing city park in SW Portland with a slight drop between Dolph Ct. and ' +
@@ -164,7 +164,7 @@ OR_kiting_sites = [
      'windLower': 5, 'windUpper': 15,  # TODO: Get real wind speeds
      'link': 'https://goo.gl/maps/HWR8LUg2gGuQ4yES7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Hosford Middle School', 'Region': 'Portland, OR',
      'Info': 'Description: A west-facing school field near SE Sherman and 27th with a slight hill facing SW and NW, ' +
@@ -176,7 +176,7 @@ OR_kiting_sites = [
      'windLower': 5, 'windUpper': 8,  # 5 to 8 mph
      'link': 'https://goo.gl/maps/LrDMCrdxniSt6S2L6',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': False},
 
     {'Name': 'Gradin Community Park', 'Region': 'Portland, OR',
      'Info': "Description: Kelly Kallar's kiting site.",
@@ -185,7 +185,7 @@ OR_kiting_sites = [
      'windLower': 6, 'windUpper': 16,  # TODO: No info on this.
      'link': 'https://goo.gl/maps/qTuVmtesnesadrr3A',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
     {'Name': 'Altamont Park', 'Region': 'Portland, OR',
      'Info': "Description: Alan Flemming's kiting site. \n The steep hill to the SW might also be worth checking out.",
@@ -194,6 +194,15 @@ OR_kiting_sites = [
      'windLower': 3, 'windUpper': 20,  # TODO: OSR (on-site report)
      'link': 'https://goo.gl/maps/hLT1dft1MF2ess1q7',
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True, 'show_snowLevel': False},
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
+
+ {'Name': 'Broughton Beach Park', 'Region': 'Portland, OR',
+  'Info': "Description: Park between Columbia river and PDX airport. $5 parking. Porta-potties on-site.",
+  'lat': '45.60166199149685', 'lon': '-122.6157228145134', 'timezone_str': 'America/Los_Angeles',
+  'windDirLower': 0, 'windDirUpper': 360,  # (any direction)
+  'windLower': 3, 'windUpper': 22,  # TODO: OSR (on-site report)
+  'link': 'https://goo.gl/maps/3hEC82GhG4ySXfR79',
+  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+  'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
 ]

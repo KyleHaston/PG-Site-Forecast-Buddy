@@ -25,16 +25,14 @@ def fetch_all_forecasts(in_debug):
     # Stitch all sites into a big list ---------------------------------------------------------------------------------
     if not in_debug:
         sites = site_data.sites
-        for s in site_data_OR_kiting.OR_kiting_sites:
-            sites.append(s)
-        for s in site_data_WA.WA_sites:
-            sites.append(s)
-        for s in site_data_Willamette_Valley.OR_Willamette_Valley_sites:
-            sites.append(s)
-        for s in site_data_OR_test_sites.OR_test_sites:
-            sites.append(s)
-        for s in site_data_AZ.sites_AZ:
-            sites.append(s)
+        # for s in site_data_OR_kiting.OR_kiting_sites:
+        #     sites.append(s)
+        # for s in site_data_WA.WA_sites:
+        #     sites.append(s)
+        # for s in site_data_OR_test_sites.OR_test_sites:
+        #     sites.append(s)
+        # for s in site_data_AZ.sites_AZ:
+        #     sites.append(s)
     else:
         sites = site_data.sites[2:4]  # use a short list of sites for debugging
         # sites = [site_data.sites[4]]  # use a short list of sites for debugging
@@ -85,7 +83,7 @@ def fetch_forecast(in_site):
            'lat=' + in_site['lat'] + '&lon=' + in_site['lon'] + \
            '&product=time-series&begin=' + begin + '&end=' + end + \
            '&Unit=e&appt=appt&dew=dew&pop12=pop12&qpf=qpf&snow=snow&sky=sky&rh=rh&wspd=wspd&wdir=wdir&wx=wx' \
-           '&wgust=wgust&sky_r=sky_r&td_r=td_r&wdir_r=wdir_r&wspd_r=wspd_r&wwa=wwa' \
+           '&wgust=wgust&sky_r=sky_r&td_r=td_r&wdir_r=wdir_r&wspd_r=wspd_r' \
            '&iceaccum=iceaccum&icons=icons&Submit=Submit'
 
             # https://graphical.weather.gov/xml/docs/elementInputNames.php
