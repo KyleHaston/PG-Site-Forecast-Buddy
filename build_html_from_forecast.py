@@ -293,7 +293,7 @@ def build_html_from_forecast(in_forecast, in_user):
             elif spd['type'] == 'gust':
                 html_forecast += '<tr><th align="right" nowrap>Wind Speed Gust (' + spd['units'] + '): </th>'
             else:
-                break
+                continue
 
             thisTLkey = spd['time-layout']
             thisDTs = []
@@ -333,7 +333,7 @@ def build_html_from_forecast(in_forecast, in_user):
             elif t['type'] == 'dew point' and (this_site[0]['show_dewpoint'] or in_user['addr_hash'] == 'server'):
                 html_forecast += '<tr><th align="right" nowrap>Dew Point (°' + t['units'] + '): </th>'
             else:
-                break
+                continue
 
             thisTLkey = t['time-layout']
             thisDTs = []
