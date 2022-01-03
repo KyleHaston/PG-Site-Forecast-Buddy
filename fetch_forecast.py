@@ -43,10 +43,11 @@ def fetch_all_forecasts(in_debug):
             full_forecast.append(this_forecast)
         else:
             skipped_sites.append(site)  # Save for later.
+            print('\t\tSkipping ' + site['Name'])
 
-    print('\n    Looping back to get forecasts for skipped sites:')
+    print('\n\tLooping back to get forecasts for skipped sites:')
     for site in skipped_sites:
-        print('        ' + site['Name'])
+        print('\t\t' + site['Name'])
     print('\n')
 
     for site in skipped_sites:
@@ -54,8 +55,9 @@ def fetch_all_forecasts(in_debug):
         num_tries = 5  # try to fetch forecast his many times, then bail
         while num_tries > 0:
             num_tries -= 1
-            print('    Sleeping a bit before requesting: ' + site['Name'])
-            time.sleep(120)
+            wait = 120
+            print('\tSleeping for ' + str(wait) + ' socnds before requesting: ' + site['Name'])
+            time.sleep(wait)
 
             this_forecast = fetch_forecast(site)
             if this_forecast != -1:
@@ -63,14 +65,14 @@ def fetch_all_forecasts(in_debug):
                 break
 
             if num_tries == 0:
-                print('        Skipping site: ' + site['Name'] + ' since forecast service seems disrupted.')
+                print('\t\tSkipping site: ' + site['Name'] + ' since forecast service seems disrupted.')
                 continue  # Just skip this site.
 
     return full_forecast
 
 
 def fetch_forecast(in_site):
-    print('    Fetching forecast for site: ' + in_site['Name'] + '...')
+    print('\tFetching forecast for site: ' + in_site['Name'] + '...')
 
     # Get the date and time right meow. Rounded 'back' 'to nearest hour.
     begin = datetime.datetime.today().isoformat().split('.')[0].split(':')[0] + ':00:00'
@@ -107,11 +109,12 @@ def fetch_forecast(in_site):
                 # Watches, Warnings, and Advisories                             wwa
                 # Ice Accumulation                                              iceaccum
 
-    r = requests.get(link)
-    # print(r.text)
-    soup = BeautifulSoup(r.text, 'xml')
+    r = -1
+    try:
+        r = requests.get(link, timeout=2)
+        # print(r.text)
+    except:
+        return -1  # tell the level above that we should skip this one for now.
 
-    if 'Error' in soup.text:  # When the service is down, 'Error' is in the returned data.
-        return -1
-    else:
-        return [in_site, soup]
+    soup = BeautifulSoup(r.text, 'xml')
+    return [in_site, soup]
