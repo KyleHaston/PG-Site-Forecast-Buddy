@@ -56,7 +56,7 @@ def fetch_all_forecasts(in_debug):
         while num_tries > 0:
             num_tries -= 1
             wait = 120
-            print('\tSleeping for ' + str(wait) + ' socnds before requesting: ' + site['Name'])
+            print('\tSleeping for ' + str(wait) + ' seconds before requesting: ' + site['Name'])
             time.sleep(wait)
 
             this_forecast = fetch_forecast(site)
