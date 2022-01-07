@@ -196,13 +196,13 @@ OR_kiting_sites = [
      'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
      'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
- {'Name': 'Broughton Beach Park', 'Region': 'Portland, OR',
-  'Info': "Description: Park between Columbia river and PDX airport. $5 parking. Porta-potties on-site.",
-  'lat': '45.60166199149685', 'lon': '-122.6157228145134', 'timezone_str': 'America/Los_Angeles',
-  'windDirLower': 0, 'windDirUpper': 360,  # (any direction)
-  'windLower': 3, 'windUpper': 22,  # TODO: OSR (on-site report)
-  'link': 'https://goo.gl/maps/3hEC82GhG4ySXfR79',
-  'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
-  'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
+    {'Name': 'Broughton Beach Park', 'Region': 'Portland, OR',
+     'Info': "Description: Park between Columbia river and PDX airport. $5 parking. Porta-potties on-site.",
+     'lat': '45.60166199149685', 'lon': '-122.6157228145134', 'timezone_str': 'America/Los_Angeles',
+     'windDirLower': 0, 'windDirUpper': 360,  # (any direction)
+     'windLower': 3, 'windUpper': 22,  # TODO: OSR (on-site report)
+     'link': 'https://goo.gl/maps/3hEC82GhG4ySXfR79',
+     'show_dewpoint': False, 'show_rh': False, 'show_skyCover': True,
+     'show_pop': True, 'show_qpf': True, 'show_snowAmt': True},
 
 ]
