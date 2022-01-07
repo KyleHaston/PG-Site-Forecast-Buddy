@@ -353,7 +353,7 @@ def build_html_from_forecast(in_forecast, in_user):
                     i = thisDTs.index(DT)
                     html_forecast += '<td align="center" '
                     val = vals[i].text
-                    if int(val) < 36:  # threshold slightly above freezing
+                    if int(val) < 40:  # warn to dress warm
                         html_forecast += '<td bgcolor =' + my_palette.rain  # near freezing.
                     else:
                         html_forecast += '<td'  # warm enough
